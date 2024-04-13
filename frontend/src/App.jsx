@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import '@mantine/core/styles.css';
+import {AppShell, Burger, Button, MantineProvider, Paper, Text, Title} from '@mantine/core';
 import './App.css'
+import {useDisclosure} from '@mantine/hooks';
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [opened, {toggle}] = useDisclosure();
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <MantineProvider>
+            <AppShell
+                header={{height: 60}}
+                navbar={{
+                    width: 300,
+                    breakpoint: 'sm',
+                    collapsed: {mobile: !opened}
+                }}
+                padding="md"
+            >
+                <AppShell.Header>
+                    <Burger
+                        opened={opened}
+                        onClick={toggle}
+                        hiddenFrom="sm"
+                        size="sm"
+                    />
+                    <div>Logo</div>
+                </AppShell.Header>
+
+                <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
+                <AppShell.Main>
+                    <Button>Botão</Button>
+                    <Paper m='md' shadow="xl" radius="md" withBorder p="xl" size='100%'>
+                        <Title>Título</Title>
+                        <Text>text</Text>
+                    </Paper>
+                </AppShell.Main>
+            </AppShell>
+
+        </MantineProvider>
+    );
 }
 
 export default App
