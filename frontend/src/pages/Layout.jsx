@@ -8,36 +8,32 @@ function Layout() {
     const links = [
         {label: "Blog", link: "/blog"},
         {label: "test", link: "/test"}
-    ]
+    ];
+
+    const linkButtons = links.map(l =>
+        <Anchor href={l.link}>{l.label}</Anchor>
+    );
 
     return (
         <AppShell
-            header={{height: 60}}
-            navbar={{
-                width: { base: 50, md: 100, lg: 200 },
-                breakpoint: 'sm',
-                collapsed: { mobile: !opened },
-            }}
+            header={{ height: 60 }}
+            navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }}
             padding="md"
         >
             <AppShell.Header>
-                <Burger
-                    opened={opened}
-                    onClick={toggle}
-                    hiddenFrom="sm"
-                    size="sm"
-                />
-                <div>Logo</div>
-                <Group gap={5} visibleFrom="xs">
-                    {links.map(l =>
-                        <Anchor href={l.link} underline="never">
-                            {l.label}
-                        </Anchor>
-                    )}
+                <Group h="100%" px="md">
+                    <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+                    <div>Logo</div>
+                    <Group ml="xl" visibleFrom="sm">
+                        {linkButtons}
+                    </Group>
                 </Group>
             </AppShell.Header>
 
-            <AppShell.Navbar p="md">Navbar</AppShell.Navbar>
+            <AppShell.Navbar py="md" px={4}>
+                {linkButtons}
+            </AppShell.Navbar>
+
             <AppShell.Main>
                 <Outlet/>
             </AppShell.Main>
