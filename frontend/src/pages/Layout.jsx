@@ -1,5 +1,5 @@
 import {useDisclosure} from "@mantine/hooks";
-import {AppShell, Burger, Group, Anchor} from "@mantine/core";
+import {AppShell, Burger, Group, Anchor, Center, Stack} from "@mantine/core";
 import {Outlet} from "react-router-dom";
 
 function Layout() {
@@ -10,29 +10,30 @@ function Layout() {
         {label: "test", link: "/test"}
     ];
 
-    const linkButtons = links.map(l =>
-        <Anchor href={l.link}>{l.label}</Anchor>
-    );
+    const linkButtons =
+        links.map(l => <Anchor href={l.link}>{l.label}</Anchor>);
+
+    let headerHeight = 60;
+    if (opened) headerHeight += 30 * links.length;
 
     return (
         <AppShell
-            header={{ height: 60 }}
-            navbar={{ width: 300, breakpoint: 'sm', collapsed: { desktop: true, mobile: !opened } }}
+            header={{ height: headerHeight }}
             padding="md"
         >
             <AppShell.Header>
-                <Group h="100%" px="md">
-                    <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-                    <div>Logo</div>
+                <Center h="100%" px="md">
+                    <Stack hiddenFrom="sm">
+                        {opened && linkButtons}
+                        <Burger opened={opened} onClick={toggle} size="sm" />
+                    </Stack>
                     <Group ml="xl" visibleFrom="sm">
                         {linkButtons}
                     </Group>
-                </Group>
+                </Center>
             </AppShell.Header>
 
-            <AppShell.Navbar py="md" px={4}>
-                {linkButtons}
-            </AppShell.Navbar>
+
 
             <AppShell.Main>
                 <Outlet/>
