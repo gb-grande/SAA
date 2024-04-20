@@ -1,9 +1,9 @@
 import {Card, Image, Text, Title} from "@mantine/core";
 
-export function PostCard({post}) {
+export function PostCard({post, ...others}) {
     const {title, content, image} = post;
     return (
-        <Card withBorder radius="md" p="md">
+        <Card withBorder radius="md" p="md" {...others}>
             {image &&
                 <Card.Section>
                     <Image src={image} alt={title} height={180}/>
@@ -11,8 +11,8 @@ export function PostCard({post}) {
             }
 
             <Card.Section>
-                <Title>{title}</Title>
-                <Text lineClamp={3}>{content}</Text>
+                <Title lineClamp={1}>{title}</Title>
+                <Text>{content}</Text>
             </Card.Section>
         </Card>
     )
