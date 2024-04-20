@@ -5,7 +5,12 @@ export function PostCard({post, h= 300, w= 400, imageHeight = 180, ...others}) {
     if (!image) imageHeight = 0;
 
     return (
-        <Card withBorder radius="md" p="md" h={h} w={w} {...others} bg="#392F88">
+        <Card
+            withBorder radius="md" p="md" h={h} w={w}
+            bg="#392F88"
+            {...others}
+            component="a" href={`/blog/${post.id}`}
+        >
             {image &&
                 <Card.Section>
                     <Image src={image} alt={title} height={imageHeight}/>
