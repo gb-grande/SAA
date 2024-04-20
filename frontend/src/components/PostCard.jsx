@@ -1,12 +1,13 @@
 import {Card, Image, Text, Title} from "@mantine/core";
 
-export function PostCard({post, h= 300, w= 400, imageHeight = 180, ...others}) {
+export function PostCard({post, h= 300, w= 300, imageHeight = 180, ...others}) {
     const {title, content, image} = post;
     if (!image) imageHeight = 0;
 
     return (
         <Card
-            withBorder radius="md" p="md" h={h} w={w}
+            radius={0} shadow="sm"
+            p="md" h={h} w={w}
             bg="#392F88"
             {...others}
             component="a" href={`/blog/${post.id}`}

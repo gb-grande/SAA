@@ -35,7 +35,7 @@ const mockData = [
     }
 ]
 
-function PostCarousel({slideGap = "md", cardProps = {w: 400,h: 300}}){
+function PostCarousel({slideGap = "md"}){
     const theme = useMantineTheme();
     const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
@@ -43,7 +43,7 @@ function PostCarousel({slideGap = "md", cardProps = {w: 400,h: 300}}){
         return (
             <CarouselSlide key={i}>
                 <Center>
-                    <PostCard post={data} {...cardProps}/>
+                    <PostCard post={data}/>
                 </Center>
             </CarouselSlide>)
     })
