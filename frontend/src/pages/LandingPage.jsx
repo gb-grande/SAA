@@ -1,6 +1,6 @@
 import {
-    Paper, Title, Text, MantineProvider,
-    Image, Space, Center, SimpleGrid, Stack, Flex
+    Paper, Title, Text,
+    Image, Space, Center, SimpleGrid, Flex
 } from "@mantine/core"
 import FlipCard from "../components/FlipCard.jsx";
 import PostCarousel from "../components/PostCarousel.jsx";
@@ -63,11 +63,9 @@ function LandingPage(){
                 </SimpleGrid>
             </Paper>
 
-            <Paper h="500" bg="aprai-purple.3" mt="md" mb="md" p="md" pb="xl" radius="xl">
-                {/*<Stack h="100%" gap="md">*/}
-                    <Title ta="center">Últimas Notícias</Title>
-                    <PostCarousel m="xl" cardData={{h: 300, w: 350}}/>
-                {/*</Stack>*/}
+            <Paper h={{base: 400, sm: 500}} bg="aprai-purple.3" mt="md" mb="md" p="md" pb="xl" radius="xl">
+                <Title ta="center">Últimas Notícias</Title>
+                <PostCarousel horPadding={{base: 0, sm: "100"}} m={{base: 0, sm: "xl"}} cardData={{h: 300, w: {base: 250, xs: 350}}}/>
             </Paper>
             
             <Paper m="lg" shadow="xl" radius="md" withBorder p="xl" size="100%">

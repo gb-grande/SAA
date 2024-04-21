@@ -35,14 +35,14 @@ const mockData = [
     }
 ]
 
-function PostCarousel({slideGap = "md", horPadding = "100", cardData = {h: 100, w: 100}, ...others}){
+function PostCarousel({slideGap = {base: "xs", sm: "md"}, horPadding, cardData = {h: 100, w: 100}, ...others}){
     const theme = useMantineTheme();
     const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
     const cards = mockData.map((data, i) => {
         return (
             //The slide is slightly bigger than the card to ensure it doesn't crop shadows
-            <CarouselSlide key={i} h={1.1 * cardData.h}>
+            <CarouselSlide key={i} h={1.05 * cardData.h}>
                 <Center>
                     <PostCard post={data} {...cardData}/>
                 </Center>
@@ -53,10 +53,9 @@ function PostCarousel({slideGap = "md", horPadding = "100", cardData = {h: 100, 
         <Carousel
             pl={horPadding}
             pr={horPadding}
-            slideSize={isMobile ? '100%' : '33.33333333%'}
+            slideSize={{base: "100%", sm: "33.3333333%"}}
             slideGap={slideGap}
             align={isMobile ? 'center' : 'start'}
-            h={"100%"}
             {...others}
         >
             {cards}
