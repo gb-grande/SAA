@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
-import {Card, Image, Text, Button, Group, Stack} from "@mantine/core"
+import {Card, Image, Text, Button, Group, Stack, Center} from "@mantine/core"
+import {useDisclosure} from "@mantine/hooks";
 
 // Exemplo:
 //
@@ -15,13 +16,8 @@ import {Card, Image, Text, Button, Group, Stack} from "@mantine/core"
 //
 
 function FlipCard({image, imageAlt, textFront, textBack, buttonText, w= 400, h= 200, imgW = 200}) {
-    const [isFlipped, setIsFliped] = useState(false);
+    const [isFlipped, {toggle}] = useDisclosure();
 
-    const handleClick = (e) => {
-        e.preventDefault();
-        setIsFliped(state => !state);
-    };
-    
     return (
         <ReactCardFlip isFlipped={isFlipped}>
             <Card w={w} h={h} radius="md" withBorder bg="aprai-purple.3">
@@ -36,16 +32,15 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText, w= 400, h= 
                     </Card.Section>
                     <Stack align='center' justify='flex-center' gap='lg'>
                         <Text ta='center' c='black' fz="xl" fw="600">{textFront}</Text>
-                        <Button bg='aprai-purple.5' onClick={handleClick} radius="lg" fz="xl">{buttonText}</Button>
+                        <Button bg='aprai-purple.5' onClick={toggle} radius="lg" fz="xl">{buttonText}</Button>
                     </Stack>
                 </Group>
             </Card>
 
             <Card w={w} h={h} radius="md" withBorder bg="aprai-purple.3">
-                <Stack h={h} align='center' justify='space-around'>
-                    <Text fz="xl" fw="600">{textBack}</Text>
-                    <Button bg='aprai-purple.5' onClick={handleClick} radius="lg" fz="xl" lg="md">Voltar</Button>
-                </Stack>
+                <Center h={"100%"}>
+                    <Text ta="center" fz="xl" fw="600">{textBack}</Text>
+                </Center>
             </Card>
         </ReactCardFlip>
     )
