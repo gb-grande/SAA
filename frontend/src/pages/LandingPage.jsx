@@ -1,6 +1,6 @@
 import {
     Paper, Title, Text, MantineProvider,
-    Image, Space, Center, SimpleGrid, Group
+    Image, Space, Center, SimpleGrid, Group, Flex
 } from "@mantine/core"
 import FlipCard from "../components/FlipCard.jsx";
 
@@ -21,7 +21,7 @@ function LandingPage(){
             </Text>
 
             <Center m="sm">
-                <Group justify="flex-center" align="center">
+                <Flex direction={{base: "column", sm: 'row'}} gap={{base: "sm", sm: "lg"}} justify="flex-center" align="center">
                     <FlipCard
                         w="500" h="300"
                         textFront="Nos ajude com a sua doação."
@@ -37,7 +37,7 @@ function LandingPage(){
                         buttonText="DENUNCIE AQUI"
                         image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
                         imageAlt="Gato Triste"/>
-                </Group>
+                </Flex>
             </Center>
 
             <Paper m="md" shadow="xl" radius="md" withBorder p="xl" size="100%">
