@@ -23,32 +23,30 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText, w=400, h=20
     };
     
     return (
-        <div style={{maxWidth: 400}}>
-            <ReactCardFlip isFlipped={isFlipped}>
-                <Card w={w} h={h} radius="md" withBorder>
-                    <Group gap="xl" wrap="nowrap" justify="space-around">
-                        <Card.Section>
-                            <Image
-                                src={image}
-                                alt={imageAlt}
-                                h={h}
-                            />
-                        </Card.Section>
-                        <Stack align='center' gap='lg'>
-                            <Text>{textFront}</Text>
-                            <Button onClick={handleClick} radius="lg">{buttonText}</Button>
-                        </Stack>
-                    </Group>
-                </Card>
-                
-                <Card w={w} h={h} radius="md" withBorder>
-                    <Stack h={h} align='center' justify='space-around'>
-                        <Text>{textBack}</Text>
-                        <Button onClick={handleClick} radius="lg">Voltar</Button>
+        <ReactCardFlip isFlipped={isFlipped}>
+            <Card w={w} h={h} radius="md" withBorder>
+                <Group gap="xl" wrap="nowrap" justify="space-around">
+                    <Card.Section>
+                        <Image
+                            src={image}
+                            alt={imageAlt}
+                            h={h}
+                        />
+                    </Card.Section>
+                    <Stack align='center' justify='flex-center' gap='lg'>
+                        <Text ta='center'>{textFront}</Text>
+                        <Button onClick={handleClick} radius="lg">{buttonText}</Button>
                     </Stack>
-                </Card>
-            </ReactCardFlip>
-        </div>
+                </Group>
+            </Card>
+
+            <Card w={w} h={h} radius="md" withBorder>
+                <Stack h={h} align='center' justify='space-around'>
+                    <Text>{textBack}</Text>
+                    <Button onClick={handleClick} radius="lg">Voltar</Button>
+                </Stack>
+            </Card>
+        </ReactCardFlip>
     )
 }
 

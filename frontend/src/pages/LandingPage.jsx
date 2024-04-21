@@ -1,5 +1,8 @@
-import {Paper, Title, Text, MantineProvider, 
-        Image, Space, Center, SimpleGrid} from "@mantine/core"
+import {
+    Paper, Title, Text, MantineProvider,
+    Image, Space, Center, SimpleGrid, Group
+} from "@mantine/core"
+import FlipCard from "../components/FlipCard.jsx";
 
 function LandingPage(){
     return (
@@ -16,6 +19,26 @@ function LandingPage(){
                 "Se você não gosta de animais, o problema é seu.
                 Se você maltrata animais, o problema é nosso."
             </Text>
+
+            <Center m="sm">
+                <Group justify="flex-center" align="center">
+                    <FlipCard
+                        w="500" h="300"
+                        textFront="Nos ajude com a sua doação."
+                        textBack="Informações da Doação"
+                        buttonText="DOE AGORA"
+                        image="https://media-gru2-1.cdn.whatsapp.net/v/t61.24694-24/424425093_286940224099553_19848131652106230_n.jpg?ccb=11-4&oh=01_Q5AaIHiORn1CH8ly8YGXOC7U2tbG67Z7gX4oYR6vMyvuIwHW&oe=6630039C&_nc_sid=e6ed6c&_nc_cat=103"
+                        imageAlt="Gato (Siri)"/>
+
+                    <FlipCard
+                        w="500" h="300"
+                        textFront="Maus tratos? DENUNCIE!"
+                        textBack="Informações da Denúncia"
+                        buttonText="DENUNCIE AQUI"
+                        image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
+                        imageAlt="Gato Triste"/>
+                </Group>
+            </Center>
 
             <Paper m="md" shadow="xl" radius="md" withBorder p="xl" size="100%">
                 <SimpleGrid /*Seção quem somos - TO-DO: add image*/
