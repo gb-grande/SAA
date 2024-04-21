@@ -16,8 +16,8 @@ function LandingPage(){
             <Center m="sm">
                 <Flex direction={{base: "column", md: 'row'}} gap={{base: "sm", md: "xl"}} justify="flex-center" align="center">
                     <FlipCard
-                        w={{xs: 500, base: 400}} h="300"
-                        imgW={{xs: 250, base: 200}}
+                        w={{md: 600, xs: 500, base: 400}} h={{md:350, base: 300}}
+                        imgW={{md: 325, xs: 250, base: 200}}
                         textFront="Nos ajude com a sua doação."
                         textBack="Informações da Doação"
                         buttonText="DOE AGORA"
@@ -25,8 +25,8 @@ function LandingPage(){
                         imageAlt="Gato (Siri)"/>
 
                     <FlipCard
-                        w={{xs: 500, base: 400}} h="300"
-                        imgW={{xs: 250, base: 200}}
+                        w={{md: 600, xs: 500, base: 400}} h={{md:350, base: 300}}
+                        imgW={{md: 325, xs: 250, base: 200}}
                         textFront="Maus tratos? DENUNCIE!"
                         textBack="Informações da Denúncia"
                         buttonText="DENUNCIE AQUI"
@@ -35,11 +35,11 @@ function LandingPage(){
                 </Flex>
             </Center>
 
+            <Title>Quem Somos</Title>
             <SimpleGrid /*Seção quem somos - TO-DO: add image*/
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
             >
-            <div>
-                    <Title>Quem Somos</Title>
+                <div>
                     <Space h="md" />
                     <Text ta="justify" fz="lg">
                         A Associação de Proteção aos Animais de Indaiatuba foi fundada em 1988,
@@ -63,22 +63,12 @@ function LandingPage(){
                 <Title ta="center">Últimas Notícias</Title>
                 <PostCarousel horPadding={{base: 0, sm: "100"}} m={{base: 0, sm: "xl"}} cardData={{h: 300, w: {base: 250, xs: 350}}}/>
             </Paper>
-            
-            <Paper m="lg" shadow="xl" radius="md" withBorder p="xl" size="100%">
-                <Center>
+
+            <Center mt="xl" mb="xl">
                 <SimpleGrid /*Círculos informativos - TO-DO: add images*/
                     cols={{ base: 1, sm: 2, lg: 3 }}
                     spacing={{ base:'100px', sm: '100px', md: '125px', lg: '150px'}}
-                >
-
-                </SimpleGrid>
-                </Center>
-            </Paper>
-
-            <Center>
-                <SimpleGrid /*Círculos informativos - TO-DO: add images*/
-                    cols={{ base: 1, sm: 2, lg: 3 }}
-                    spacing={{ base:'100px', sm: '100px', md: '125px', lg: '150px'}}
+                    verticalSpacing='xs'
                 >
                     <div
                         style={{
