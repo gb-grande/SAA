@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
-import {Card, Image, Text, Button, Group, Center, Stack} from "@mantine/core"
+import {Card, Image, Text, Button, Group, Stack} from "@mantine/core"
 
 // Exemplo:
 //
@@ -14,7 +14,7 @@ import {Card, Image, Text, Button, Group, Center, Stack} from "@mantine/core"
 //
 //
 
-function FlipCard({image, imageAlt, textFront, textBack, buttonText}) {
+function FlipCard({image, imageAlt, textFront, textBack, buttonText, w=400, h=200}) {
     const [isFlipped, setIsFliped] = useState(false);
 
     const handleClick = (e) => {
@@ -25,17 +25,15 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText}) {
     return (
         <div style={{maxWidth: 400}}>
             <ReactCardFlip isFlipped={isFlipped}>
-                <Card h={200} radius="md" withBorder>
+                <Card w={w} h={h} radius="md" withBorder>
                     <Group gap="xl" wrap="nowrap" justify="space-around">
-                        <div>
-                            <Card.Section>
-                                <Image
-                                    src={image}
-                                    alt={imageAlt}
-                                    h={200}
-                                    />
-                            </Card.Section>
-                        </div>
+                        <Card.Section>
+                            <Image
+                                src={image}
+                                alt={imageAlt}
+                                h={h}
+                            />
+                        </Card.Section>
                         <Stack align='center' gap='lg'>
                             <Text>{textFront}</Text>
                             <Button onClick={handleClick} radius="lg">{buttonText}</Button>
@@ -43,8 +41,8 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText}) {
                     </Group>
                 </Card>
                 
-                <Card h={200} radius="md" withBorder>
-                    <Stack h={200} align='center' justify='space-around'>
+                <Card w={w} h={h} radius="md" withBorder>
+                    <Stack h={h} align='center' justify='space-around'>
                         <Text>{textBack}</Text>
                         <Button onClick={handleClick} radius="lg">Voltar</Button>
                     </Stack>
