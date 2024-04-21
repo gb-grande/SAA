@@ -1,8 +1,7 @@
 import {Card, Image, Text, Title} from "@mantine/core";
 
-export function PostCard({post, h= 300, w= 300, imageHeight = 180, ...others}) {
+export function PostCard({post, h, w, ...others}) {
     const {title, content, image} = post;
-    if (!image) imageHeight = 0;
 
     return (
         <Card
@@ -14,7 +13,7 @@ export function PostCard({post, h= 300, w= 300, imageHeight = 180, ...others}) {
         >
             {image &&
                 <Card.Section>
-                    <Image src={image} alt={title} height={imageHeight}/>
+                    <Image src={image} alt={title} height={h ? 0.6*h : 180}/>
                 </Card.Section>
             }
 
