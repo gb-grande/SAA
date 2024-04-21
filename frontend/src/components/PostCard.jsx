@@ -5,8 +5,8 @@ export function PostCard({post, h, w, ...others}) {
 
     return (
         <Card
-            radius={0} shadow="sm"
-            p="md" h={h} w={w}
+            radius={0} shadow={"md"}
+            h={h} w={w}
             bg="#392F88"
             {...others}
             component="a" href={`/blog/${post.id}`}
@@ -18,7 +18,7 @@ export function PostCard({post, h, w, ...others}) {
             }
 
             <Card.Section p="sm">
-                <Title fz="md" lineClamp={2} c="white">{title}</Title>
+                <Title order={4} lineClamp={2} c="white">{title}</Title>
                 <Text c="white">{content}</Text>
             </Card.Section>
         </Card>

@@ -69,10 +69,10 @@ function LandingPage(){
                 </SimpleGrid>
             </Paper>
 
-            <Paper h="500" bg="#A9ABC9" p="md" pb="xl" radius="xl">
+            <Paper h="500" bg="#A9ABC9" mt="md" mb="md" p="md" pb="xl" radius="xl">
                 <Stack h="100%">
                     <Title ta="center" c="#392F88">Últimas Notícias</Title>
-                    <PostCarousel m="xl" cardData={{h: 300, w:400}}/>
+                    <PostCarousel m="xl" cardData={{h: 300, w:350}}/>
                 </Stack>
             </Paper>
             
