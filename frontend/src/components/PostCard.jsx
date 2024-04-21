@@ -7,7 +7,7 @@ export function PostCard({post, h, w, ...others}) {
         <Card
             radius={0} shadow={"md"}
             h={h} w={w}
-            bg="#392F88"
+            bg="aprai-purple.9"
             {...others}
             component="a" href={`/blog/${post.id}`}
         >

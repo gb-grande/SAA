@@ -8,15 +8,7 @@ import PostCarousel from "../components/PostCarousel.jsx";
 function LandingPage(){
     return (
         <>
-            <MantineProvider /*Se necessário para configs futuras
-                               TO-DO: add text fonts/colors*/
-                theme={{
-                    fontFamily: 'Karla, sans-serif',
-                }}
-            >
-            </MantineProvider>
-
-            <Text c="blue" ta="center" fz="xl" fw={600}>
+            <Text c="aprai-purple.9" ta="center" fz="2em" ff={"Just Me Again Down Here"}>
                 "Se você não gosta de animais, o problema é seu.
                 Se você maltrata animais, o problema é nosso."
             </Text>
@@ -46,7 +38,7 @@ function LandingPage(){
                     cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
                 > 
                     <div>
-                        <Title c="blue">Quem Somos</Title>
+                        <Title>Quem Somos</Title>
                         <Space h="md" />
                         <Text ta="justify" fz="lg">
                             A Associação de Proteção aos Animais de Indaiatuba foi fundada em 1988, 
@@ -69,11 +61,11 @@ function LandingPage(){
                 </SimpleGrid>
             </Paper>
 
-            <Paper h="500" bg="#A9ABC9" mt="md" mb="md" p="md" pb="xl" radius="xl">
-                <Stack h="100%">
-                    <Title ta="center" c="#392F88">Últimas Notícias</Title>
+            <Paper h="500" bg="aprai-purple.3" mt="md" mb="md" p="md" pb="xl" radius="xl">
+                {/*<Stack h="100%" gap="md">*/}
+                    <Title ta="center">Últimas Notícias</Title>
                     <PostCarousel m="xl" cardData={{h: 300, w:350}}/>
-                </Stack>
+                {/*</Stack>*/}
             </Paper>
             
             <Paper m="lg" shadow="xl" radius="md" withBorder p="xl" size="100%">
@@ -166,7 +158,7 @@ function LandingPage(){
                     cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
                 >
                     <div>
-                        <Title c="blue">Contato</Title>
+                        <Title>Contato</Title>
                         <Space h="md" />
                         <Text ta="center" size="xl" fw={500}>
                             Endereço

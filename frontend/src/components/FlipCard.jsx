@@ -24,7 +24,7 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText, w=400, h=20
     
     return (
         <ReactCardFlip isFlipped={isFlipped}>
-            <Card w={w} h={h} radius="md" withBorder>
+            <Card w={w} h={h} radius="md" withBorder bg="aprai-purple.3">
                 <Group gap="xl" wrap="nowrap" justify="space-around">
                     <Card.Section>
                         <Image
@@ -34,16 +34,16 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText, w=400, h=20
                         />
                     </Card.Section>
                     <Stack align='center' justify='flex-center' gap='lg'>
-                        <Text ta='center'>{textFront}</Text>
-                        <Button onClick={handleClick} radius="lg">{buttonText}</Button>
+                        <Text ta='center' c='black' fz="xl" fw="600">{textFront}</Text>
+                        <Button bg='aprai-purple.5' onClick={handleClick} radius="lg" fz="xl">{buttonText}</Button>
                     </Stack>
                 </Group>
             </Card>
 
-            <Card w={w} h={h} radius="md" withBorder>
+            <Card w={w} h={h} radius="md" withBorder bg="aprai-purple.3">
                 <Stack h={h} align='center' justify='space-around'>
                     <Text>{textBack}</Text>
-                    <Button onClick={handleClick} radius="lg">Voltar</Button>
+                    <Button bg='aprai-purple.5' onClick={handleClick} radius="lg" fz="xl" lg="md">Voltar</Button>
                 </Stack>
             </Card>
         </ReactCardFlip>
