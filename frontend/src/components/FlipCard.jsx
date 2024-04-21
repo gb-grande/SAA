@@ -14,7 +14,7 @@ import {Card, Image, Text, Button, Group, Stack} from "@mantine/core"
 //
 //
 
-function FlipCard({image, imageAlt, textFront, textBack, buttonText, w= 400, h= 200, imgWPct = 0.5}) {
+function FlipCard({image, imageAlt, textFront, textBack, buttonText, w= 400, h= 200, imgW = 200}) {
     const [isFlipped, setIsFliped] = useState(false);
 
     const handleClick = (e) => {
@@ -31,7 +31,7 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText, w= 400, h= 
                             src={image}
                             alt={imageAlt}
                             h={h}
-                            w={w * imgWPct}
+                            w={imgW}
                         />
                     </Card.Section>
                     <Stack align='center' justify='flex-center' gap='lg'>

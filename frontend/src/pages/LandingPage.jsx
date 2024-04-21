@@ -14,9 +14,10 @@ function LandingPage(){
             </Text>
 
             <Center m="sm">
-                <Flex direction={{base: "column", sm: 'row'}} gap={{base: "sm", sm: "lg"}} justify="flex-center" align="center">
+                <Flex direction={{base: "column", md: 'row'}} gap={{base: "sm", md: "xl"}} justify="flex-center" align="center">
                     <FlipCard
-                        w="500" h="300"
+                        w={{xs: 500, base: 400}} h="300"
+                        imgW={{xs: 250, base: 200}}
                         textFront="Nos ajude com a sua doação."
                         textBack="Informações da Doação"
                         buttonText="DOE AGORA"
@@ -24,7 +25,8 @@ function LandingPage(){
                         imageAlt="Gato (Siri)"/>
 
                     <FlipCard
-                        w="500" h="300"
+                        w={{xs: 500, base: 400}} h="300"
+                        imgW={{xs: 250, base: 200}}
                         textFront="Maus tratos? DENUNCIE!"
                         textBack="Informações da Denúncia"
                         buttonText="DENUNCIE AQUI"
@@ -64,7 +66,7 @@ function LandingPage(){
             <Paper h="500" bg="aprai-purple.3" mt="md" mb="md" p="md" pb="xl" radius="xl">
                 {/*<Stack h="100%" gap="md">*/}
                     <Title ta="center">Últimas Notícias</Title>
-                    <PostCarousel m="xl" cardData={{h: 300, w:350}}/>
+                    <PostCarousel m="xl" cardData={{h: 300, w: 350}}/>
                 {/*</Stack>*/}
             </Paper>
             
