@@ -34,7 +34,7 @@ const theme = createTheme({
         'aprai-green': [
             "#e8fdf1",
             "#d7f6e4",
-            "#b0eac9",
+            "#b4f3cf",
             "#87dfad",
             "#63d593",
             "#4dcf83",

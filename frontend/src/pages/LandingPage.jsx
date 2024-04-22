@@ -2,8 +2,10 @@ import {
     Paper, Title, Text,
     Image, Space, Center, SimpleGrid, Flex, Group
 } from "@mantine/core"
+import { Link } from 'react-router-dom';
 import FlipCard from "../components/FlipCard.jsx";
 import PostCarousel from "../components/PostCarousel.jsx";
+import Circle from "../components/Circle.jsx";
 
 function LandingPage(){
     return (
@@ -24,7 +26,7 @@ function LandingPage(){
                         image="https://media-gru2-1.cdn.whatsapp.net/v/t61.24694-24/424425093_286940224099553_19848131652106230_n.jpg?ccb=11-4&oh=01_Q5AaIHiORn1CH8ly8YGXOC7U2tbG67Z7gX4oYR6vMyvuIwHW&oe=6630039C&_nc_sid=e6ed6c&_nc_cat=103"
                         imageAlt="Gato (Siri)"/>
 
-                    <FlipCard
+                    <FlipCard /*TO-DO: check responsiveness*/
                         w={{md: 600, xs: 500, base: 400}} h={{md:350, base: 300}}
                         imgW={{md: 325, xs: 250, base: 200}}
                         textFront="Maus tratos? DENUNCIE!"
@@ -65,90 +67,30 @@ function LandingPage(){
             </Paper>
 
             <Center mt="xl" mb="xl">
-                <SimpleGrid /*Círculos informativos - TO-DO: add images*/
+                <SimpleGrid /*Círculos informativos - All fine*/
                     cols={{ base: 1, sm: 2, lg: 3 }}
                     spacing={{ base:'100px', sm: '100px', md: '125px', lg: '150px'}}
                     verticalSpacing='xs'
                 >
-                    <div
-                        style={{
-                            width: '300px',
-                            height: '300px',
-                            backgroundColor: 'blue',
-                            borderRadius: '50%',
-                            border: '5px solid black',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Text>
-                            <Image
-                                radius="xl"
-                                src=""
-                            />
-                            <Text ta="center" size="50px" c="green" fw={700}>
-                                + 300
-                            </Text>
-                            <Text ta="center" size="35px" c="White">
-                                Animais resgatados
-                            </Text>
-                        </Text>
-                    </div>
-                    <div
-                        style={{
-                            width: '300px',
-                            height: '300px',
-                            backgroundColor: 'blue',
-                            borderRadius: '50%',
-                            border: '5px solid black',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Text>
-                            <Image
-                                radius="xl"
-                                src=""
-                            />
-                            <Text ta="center" size="50px" c="green" fw={700}>
-                                + 100
-                            </Text>
-                            <Text ta="center" size="35px" c="White">
-                                Denúncias registradas
-                            </Text>
-                        </Text>
-                    </div>
-                    <div
-                        style={{
-                            width: '300px',
-                            height: '300px',
-                            backgroundColor: 'blue',
-                            borderRadius: '50%',
-                            border: '5px solid black',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Text>
-                            <Image
-                                radius="xl"
-                                src=""
-                            />
-                            <Text ta="center" size="50px" c="green" fw={700}>
-                                + 800
-                            </Text>
-                            <Text ta="center" size="35px" c="White">
-                                Quilos de ração doados
-                            </Text>
-                        </Text>
-                    </div>
+                    <Circle 
+                        icon="dog"
+                        number="300"
+                        description="Animais resgatados"
+                    />
+                    <Circle 
+                        icon="alert"
+                        number="100"
+                        description="Denúncias registradas"
+                    />
+                    <Circle 
+                        icon="food"
+                        number="800"
+                        description="Quilos de ração doados"
+                    />
                 </SimpleGrid>
             </Center>
 
-            <SimpleGrid /*Seção Contato - TO-DO: add links and map*/
+            <SimpleGrid /*Seção Contato - TO-DO: add map*/
                 m="md"
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
             >
@@ -167,15 +109,22 @@ function LandingPage(){
                         Telefone
                     </Text>
                     <Text ta="center" size="lg" fw={500}>
-                        (19) 3835-7134
+                        <Link to='tel:+55193835-7134'>
+                            (19) 3835-7134
+                        </Link>
                     </Text>
                     <Space h="xl" />
                     <Text ta="center" size="xl" fw={500}>
                         Redes Sociais
                     </Text>
                     <Text ta="center" size="lg" fw={500}>
-                        Facebook: Aprai Indaiatuba <br />
-                        Instagram: @aprai.indaiatuba
+                        <Link to='https://www.facebook.com/indaiatuba.aprai/'>
+                            Facebook: Aprai Indaiatuba
+                        </Link>
+                        <br />
+                        <Link to='https://www.instagram.com/aprai.indaiatuba/'>
+                            Instagram: @aprai.indaiatuba
+                        </Link>
                     </Text>
                 </div>
                 <div>
