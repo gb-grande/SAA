@@ -1,6 +1,6 @@
 import {
     Paper, Title, Text,
-    Image, Space, Center, SimpleGrid, Flex, Group
+    Image, Space, Center, SimpleGrid, Flex
 } from "@mantine/core"
 import { Link } from 'react-router-dom';
 import FlipCard from "../components/FlipCard.jsx";
@@ -10,12 +10,12 @@ import Circle from "../components/Circle.jsx";
 function LandingPage(){
     return (
         <>
-            <Text c="aprai-purple.9" ta="center" fz="2em" ff={"Just Me Again Down Here"}>
+            <Text c="aprai-purple.9" ta="center" fz={{base: "30px", md: "3vw"}}  ff={"Just Me Again Down Here"}>
                 "Se você não gosta de animais, o problema é seu.
                 Se você maltrata animais, o problema é nosso."
             </Text>
 
-            <Center m="sm">
+            <Center mt="lg" mb="xl">
                 <Flex direction={{base: "column", md: 'row'}} gap={{base: "sm", md: "xl"}} justify="flex-center" align="center">
                     <FlipCard
                         w={{md: 600, xs: 500, base: 400}} h={{md:350, base: 300}}
@@ -43,7 +43,7 @@ function LandingPage(){
             >
                 <div>
                     <Space h="md" />
-                    <Text ta="justify" fz="lg">
+                    <Text ta="justify" fz="20px">
                         A Associação de Proteção aos Animais de Indaiatuba foi fundada em 1988,
                         com o objetivo de fiscalizar e coibir maus tratos contra animais, bem
                         como atuar no controle populacional  de cães e gatos conscientizando a
