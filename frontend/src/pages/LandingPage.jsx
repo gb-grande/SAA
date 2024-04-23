@@ -16,19 +16,25 @@ function LandingPage(){
             </Text>
 
             <Center mt="lg" mb="xl">
-                <Flex direction={{base: "column", md: 'row'}} gap={{base: "sm", md: "xl"}} justify="flex-center" align="center">
+                <Flex style={{alignSelf:"auto"}} direction={{base: "column", sm: 'row'}} rowGap="xs" columnGap="lg" justify="stretch" align="center">
                     <FlipCard
-                        w={{md: 600, xs: 500, base: 400}} h={{md:350, base: 300}}
-                        imgW={{md: 325, xs: 250, base: 200}}
+                        maw={{base: 600, lg: 900}}
+                        mah={{sm:350, base: 200}}
+                        mih={200}
+                        h={{lg: 350, md:300, sm: 250, base: 200}}
+                        style={{flex: 1, flexBasis: "50%"}}
                         textFront="Nos ajude com a sua doação."
                         textBack="Informações da Doação"
                         buttonText="DOE AGORA"
                         image="https://media-gru2-1.cdn.whatsapp.net/v/t61.24694-24/424425093_286940224099553_19848131652106230_n.jpg?ccb=11-4&oh=01_Q5AaIHiORn1CH8ly8YGXOC7U2tbG67Z7gX4oYR6vMyvuIwHW&oe=6630039C&_nc_sid=e6ed6c&_nc_cat=103"
                         imageAlt="Gato (Siri)"/>
 
-                    <FlipCard /*TO-DO: check responsiveness*/
-                        w={{md: 600, xs: 500, base: 400}} h={{md:350, base: 300}}
-                        imgW={{md: 325, xs: 250, base: 200}}
+                    <FlipCard
+                        maw={{base: 600, lg: 900}}
+                        mah={{sm:350, base: 200}}
+                        mih={200}
+                        h={{lg: 350, md:300, sm: 250, base: 200}}
+                        style={{flex: 1, flexBasis: "50%"}}
                         textFront="Maus tratos? DENUNCIE!"
                         textBack="Informações da Denúncia"
                         buttonText="DENUNCIE AQUI"
