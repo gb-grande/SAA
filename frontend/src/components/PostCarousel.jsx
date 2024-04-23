@@ -2,6 +2,8 @@ import {Carousel, CarouselSlide} from "@mantine/carousel";
 import {PostCard} from "./PostCard.jsx";
 import {useMediaQuery} from "@mantine/hooks";
 import {Center, useMantineTheme} from "@mantine/core";
+import {IconCaretRightFilled, IconCaretLeftFilled} from "@tabler/icons-react";
+import classes from './PostCarousel.module.css'
 
 const mockData = [
     {
@@ -35,7 +37,7 @@ const mockData = [
     }
 ]
 
-function PostCarousel({slideGap = {base: "xs", sm: "md"}, horPadding, cardData = {h: 100, w: 100}, ...others}){
+function PostCarousel({slideGap = {base: "xs", sm: "md"}, cardData = {h: 100, w: 100}, ...others}){
     const theme = useMantineTheme();
     const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
@@ -49,13 +51,20 @@ function PostCarousel({slideGap = {base: "xs", sm: "md"}, horPadding, cardData =
             </CarouselSlide>)
     })
 
+    const caretProps = {
+        color: theme.colors['aprai-purple'][9],
+        size: isMobile ? 60 : 90,
+        // style:{stroke: "white"}
+    };
     return (
         <Carousel
-            pl={horPadding}
-            pr={horPadding}
+            classNames={classes}
+            styles={{control: {backgroundColor: 'transparent', border: 0, boxShadow: 'none'}}}
             slideSize={{base: "100%", sm: "33.3333333%"}}
             slideGap={slideGap}
             align={isMobile ? 'center' : 'start'}
+            nextControlIcon={<IconCaretRightFilled  {...caretProps}/>}
+            previousControlIcon={<IconCaretLeftFilled {...caretProps}/>}
             {...others}
         >
             {cards}

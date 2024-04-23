@@ -57,9 +57,9 @@ function LandingPage(){
                 />
             </SimpleGrid>
 
-            <Paper h={{base: 400, sm: 500}} bg="aprai-purple.3" my="xl" p="md" pb="xl" radius="xl">
+            <Paper h={{base: 400, sm: 500}} w="100%" bg="aprai-purple.3" my="xl" p="md" radius="xl">
                 <Title ta="center">Últimas Notícias</Title>
-                <PostCarousel horPadding={{base: 0, sm: "100"}} m={{base: 0, sm: "xl"}} cardData={{h: 300, w: {base: 250, xs: 350}}}/>
+                <PostCarousel px={{base: 0, sm: "100"}} cardData={{h: 300, w: {base: 200, xs: 350}}}/>
             </Paper>
 
             <Center my="xl">
