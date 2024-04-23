@@ -15,7 +15,7 @@ function LandingPage(){
                 Se você maltrata animais, o problema é nosso."
             </Text>
 
-            <SimpleGrid w="100%" cols={{base: 1, sm: 2}} spacing={{base: 'xs', sm: 'lg'}}>
+            <SimpleGrid w="100%" cols={{base: 1, sm: 2}} spacing={{base: 'xs', sm: 'lg'}} mt="md" mb="xl">
                 <FlipCard
                     h={{lg: 350, md:300, sm: 250, base: 200}}
                     textFront="Nos ajude com a sua doação."
@@ -57,12 +57,12 @@ function LandingPage(){
                 />
             </SimpleGrid>
 
-            <Paper h={{base: 400, sm: 500}} bg="aprai-purple.3" mt="md" mb="md" p="md" pb="xl" radius="xl">
+            <Paper h={{base: 400, sm: 500}} bg="aprai-purple.3" my="xl" p="md" pb="xl" radius="xl">
                 <Title ta="center">Últimas Notícias</Title>
                 <PostCarousel horPadding={{base: 0, sm: "100"}} m={{base: 0, sm: "xl"}} cardData={{h: 300, w: {base: 250, xs: 350}}}/>
             </Paper>
 
-            <Center mt="xl" mb="xl">
+            <Center my="xl">
                 <SimpleGrid /*Círculos informativos - All fine*/
                     cols={{ base: 1, sm: 2, lg: 3 }}
                     spacing={{ base:'100px', sm: '100px', md: '125px', lg: '150px'}}
@@ -87,7 +87,7 @@ function LandingPage(){
             </Center>
 
             <SimpleGrid /*Seção Contato - TO-DO: add map*/
-                m="md"
+                my="xl"
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
             >
                 <div>
