@@ -6,6 +6,7 @@ import {MantineProvider} from "@mantine/core";
 import theme from "./theme.js";
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
+import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

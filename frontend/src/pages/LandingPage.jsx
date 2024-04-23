@@ -1,6 +1,6 @@
 import {
     Paper, Title, Text,
-    Image, Space, Center, SimpleGrid, Flex
+    Image, Space, Center, SimpleGrid
 } from "@mantine/core"
 import { Link } from 'react-router-dom';
 import FlipCard from "../components/FlipCard.jsx";
@@ -15,33 +15,23 @@ function LandingPage(){
                 Se você maltrata animais, o problema é nosso."
             </Text>
 
-            <Center mt="lg" mb="xl">
-                <Flex style={{alignSelf:"auto"}} direction={{base: "column", sm: 'row'}} rowGap="xs" columnGap="lg" justify="stretch" align="center">
-                    <FlipCard
-                        maw={{base: 600, lg: 900}}
-                        mah={{sm:350, base: 200}}
-                        mih={200}
-                        h={{lg: 350, md:300, sm: 250, base: 200}}
-                        style={{flex: 1, flexBasis: "50%"}}
-                        textFront="Nos ajude com a sua doação."
-                        textBack="Informações da Doação"
-                        buttonText="DOE AGORA"
-                        image="https://media-gru2-1.cdn.whatsapp.net/v/t61.24694-24/424425093_286940224099553_19848131652106230_n.jpg?ccb=11-4&oh=01_Q5AaIHiORn1CH8ly8YGXOC7U2tbG67Z7gX4oYR6vMyvuIwHW&oe=6630039C&_nc_sid=e6ed6c&_nc_cat=103"
-                        imageAlt="Gato (Siri)"/>
+            <SimpleGrid w="100%" cols={{base: 1, sm: 2}} spacing={{base: 'xs', sm: 'lg'}}>
+                <FlipCard
+                    h={{lg: 350, md:300, sm: 250, base: 200}}
+                    textFront="Nos ajude com a sua doação."
+                    textBack="Informações da Doação"
+                    buttonText="DOE AGORA"
+                    image="https://media-gru2-1.cdn.whatsapp.net/v/t61.24694-24/424425093_286940224099553_19848131652106230_n.jpg?ccb=11-4&oh=01_Q5AaIHiORn1CH8ly8YGXOC7U2tbG67Z7gX4oYR6vMyvuIwHW&oe=6630039C&_nc_sid=e6ed6c&_nc_cat=103"
+                    imageAlt="Gato (Siri)"/>
 
-                    <FlipCard
-                        maw={{base: 600, lg: 900}}
-                        mah={{sm:350, base: 200}}
-                        mih={200}
-                        h={{lg: 350, md:300, sm: 250, base: 200}}
-                        style={{flex: 1, flexBasis: "50%"}}
-                        textFront="Maus tratos? DENUNCIE!"
-                        textBack="Informações da Denúncia"
-                        buttonText="DENUNCIE AQUI"
-                        image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
-                        imageAlt="Gato Triste"/>
-                </Flex>
-            </Center>
+                <FlipCard
+                    h={{lg: 350, md:300, sm: 250, base: 200}}
+                    textFront="Maus tratos? DENUNCIE!"
+                    textBack="Informações da Denúncia"
+                    buttonText="DENUNCIE AQUI"
+                    image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
+                    imageAlt="Gato Triste"/>
+            </SimpleGrid>
 
             <Title>Quem Somos</Title>
             <SimpleGrid /*Seção quem somos - TO-DO: add image*/

@@ -1,7 +1,6 @@
 import ReactCardFlip from 'react-card-flip';
 import {Image, Text, Button, Stack, Center, Paper, SimpleGrid, Space} from "@mantine/core"
 import {useDisclosure} from "@mantine/hooks";
-import classes from './FlipCard.module.css'
 
 // Exemplo:
 //
@@ -30,7 +29,7 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText, normalizedI
                     <Stack justify='flex-center'>
                         <Space style={{flex: 1}}/>
                         <Text ta='center' c='black' fz="xl" fw="600">{textFront}</Text>
-                        <Button h={50} classNames={{label: classes.buttonLabel}} bg='aprai-purple.5' onClick={toggle} radius="lg" fz="xl">{buttonText}</Button>
+                        <Button w={"100%"} h={40} bg='aprai-purple.5' onClick={toggle} radius="lg" fz="xl">{buttonText}</Button>
                         <Space style={{flex: 1}}/>
                     </Stack>
                 </SimpleGrid>
