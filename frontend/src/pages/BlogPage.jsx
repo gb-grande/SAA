@@ -1,7 +1,7 @@
-import {PostCard} from "../components/PostCard.jsx";
-import {Title, SimpleGrid, useMantineTheme, Center} from "@mantine/core";
-import {useMediaQuery} from "@mantine/hooks";
+import {Title} from "@mantine/core";
 import {useEffect, useState} from "react";
+import PostGrid from "../components/PostGrid.jsx";
+import {useViewportSize} from "@mantine/hooks";
 
 const mockData = [
     {
@@ -36,33 +36,12 @@ const mockData = [
 ]
 
 function BlogPage(){
-    //This might be overengineered.
-    //Maybe it would be better to simply use breakpoints to set col count.
-    const theme = useMantineTheme();
-    const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-    const [windowWidth, setWindowWidth] = useState();
+    const {width} = useViewportSize();
 
-    useEffect(() => {
-        const updateWindowWidth = () => setWindowWidth(window.innerWidth);
-        updateWindowWidth();
-        window.addEventListener('resize', updateWindowWidth);
-        return () => window.removeEventListener('resize', updateWindowWidth);
-    })
-
-    const cardWidth = isMobile ? 272 : 352;
-    const cardHeight = isMobile ? 272 : 272;
-    const cards = mockData.map((post, index) => (
-        <PostCard key={index} post={post} h={cardHeight} radius={30}/>
-    ))
-
-    const cardSpacing = 10;
-    const colCount = Math.floor(windowWidth / (cardWidth + cardSpacing));
     return (
       <>
           <Title mb='sm'>Blog</Title>
-          <SimpleGrid cols={colCount} spacing={cardSpacing} verticalSpacing={{base: 'sm', sm: 'md'}}>
-              {cards}
-          </SimpleGrid>
+          <PostGrid data={mockData} containerWidth={width}/>
       </>
     );
 }
