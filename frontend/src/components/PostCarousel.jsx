@@ -54,14 +54,14 @@ function PostCarousel({slideGap = {base: "xs", sm: "md"}, cardData = {h: 100, w:
     const caretProps = {
         color: theme.colors['aprai-purple'][9],
         size: isMobile ? 60 : 90,
-        // style:{stroke: "white"}
+        // style:{stroke: "white"},
     };
     return (
         <Carousel
             classNames={classes}
             styles={{control: {backgroundColor: 'transparent', border: 0, boxShadow: 'none'}}}
-            slideSize={{base: "100%", sm: "33.3333333%"}}
-            slideGap={slideGap}
+            slideSize={isMobile ? '100%' : '33.33333%'}
+            slideGap={isMobile ? 0 : slideGap}
             align={isMobile ? 'center' : 'start'}
             nextControlIcon={<IconCaretRightFilled  {...caretProps}/>}
             previousControlIcon={<IconCaretLeftFilled {...caretProps}/>}
