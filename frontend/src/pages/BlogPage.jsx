@@ -1,5 +1,5 @@
-import {Title} from "@mantine/core";
-import {useEffect, useState} from "react";
+import {Pagination, Title, Center} from "@mantine/core";
+import {useState} from "react";
 import PostGrid from "../components/PostGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
 
@@ -35,13 +35,26 @@ const mockData = [
     }
 ]
 
+function* yieldPages(data, pageSize){
+    for (let i = 0; i < data.length; i += pageSize){
+        yield data.slice(i, i + pageSize);
+    }
+}
+
 function BlogPage(){
+    const [currentPage, setCurrentPage] = useState(1);
     const {width} = useViewportSize();
 
+    const cardsPerPage = 12;
+    const pages = [...yieldPages(mockData, cardsPerPage)];
     return (
       <>
           <Title mb='sm'>Blog</Title>
-          <PostGrid data={mockData} containerWidth={width}/>
+          <PostGrid data={pages[currentPage - 1]} containerWidth={width}/>
+          <Center>
+              <Pagination m='lg' radius='md' withEdges
+                  total={pages.length} value={currentPage} onChange={setCurrentPage}/>
+          </Center>
       </>
     );
 }
