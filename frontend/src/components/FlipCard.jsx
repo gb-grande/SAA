@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
-import {Card, Image, Text, Button, Group, Stack, Center} from "@mantine/core"
+import {Image, Text, Button, Stack, Center, Paper, SimpleGrid, Space} from "@mantine/core"
 import {useDisclosure} from "@mantine/hooks";
 
 // Exemplo:
@@ -15,34 +14,33 @@ import {useDisclosure} from "@mantine/hooks";
 //
 //
 
-function FlipCard({image, imageAlt, textFront, textBack, buttonText, w= 400, h= 200, imgW = 200}) {
+function FlipCard({image, imageAlt, textFront, textBack, buttonText, normalizedImgW = .5, style = {}, ...others}) {
     const [isFlipped, {toggle}] = useDisclosure();
 
     return (
         <ReactCardFlip isFlipped={isFlipped}>
-            <Card w={w} h={h} radius="md" withBorder bg="aprai-purple.3">
-                <Group gap="xl" wrap="nowrap" justify="space-around">
-                    <Card.Section>
-                        <Image
-                            src={image}
-                            alt={imageAlt}
-                            h={h}
-                            w={imgW}
-                        />
-                    </Card.Section>
-                    <Stack align='center' justify='flex-center' gap='lg'>
+            <Paper style={{overflow: "hidden", ...style}} radius="lg" withBorder bg="aprai-purple.3" pl={0} pr="sm" {...others}>
+                <SimpleGrid {...others} cols={2}>
+                    <Image
+                        src={image}
+                        alt={imageAlt}
+                        h="100%"
+                    />
+                    <Stack justify='flex-center'>
+                        <Space style={{flex: 1}}/>
                         <Text ta='center' c='black' fz="xl" fw="600">{textFront}</Text>
-                        <Button bg='aprai-purple.5' onClick={toggle} radius="lg" fz="xl">{buttonText}</Button>
+                        <Button w={"100%"} h={40} bg='aprai-purple.5' onClick={toggle} radius="lg" fz="xl">{buttonText}</Button>
+                        <Space style={{flex: 1}}/>
                     </Stack>
-                </Group>
-            </Card>
+                </SimpleGrid>
+            </Paper>
 
-            <Card w={w} h={h} radius="md" withBorder bg="aprai-purple.3">
-                <Center h={"100%"}>
-                    <Text ta="center" fz="xl" fw="600">{textBack}</Text>
-                </Center>
-            </Card>
-        </ReactCardFlip>
+            <Paper style={{overflow: "hidden", ...style}} radius="lg" withBorder bg="aprai-purple.3" pl={0} pr="sm" {...others}>
+                 <Center h={"100%"}>
+                     <Text ta="center" fz="xl" fw="600">{textBack}</Text>
+                 </Center>
+            </Paper>
+         </ReactCardFlip>
     )
 }
 

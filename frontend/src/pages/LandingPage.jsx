@@ -1,6 +1,6 @@
 import {
     Paper, Title, Text,
-    Image, Space, Center, SimpleGrid, Flex, Group
+    Image, Space, Center, SimpleGrid
 } from "@mantine/core"
 import { Link } from 'react-router-dom';
 import FlipCard from "../components/FlipCard.jsx";
@@ -10,32 +10,28 @@ import Circle from "../components/Circle.jsx";
 function LandingPage(){
     return (
         <>
-            <Text c="aprai-purple.9" ta="center" fz="2em" ff={"Just Me Again Down Here"}>
+            <Text c="aprai-purple.9" ta="center" fz={{base: "30px", md: "3vw"}}  ff={"Just Me Again Down Here"}>
                 "Se você não gosta de animais, o problema é seu.
                 Se você maltrata animais, o problema é nosso."
             </Text>
 
-            <Center m="sm">
-                <Flex direction={{base: "column", md: 'row'}} gap={{base: "sm", md: "xl"}} justify="flex-center" align="center">
-                    <FlipCard
-                        w={{md: 600, xs: 500, base: 400}} h={{md:350, base: 300}}
-                        imgW={{md: 325, xs: 250, base: 200}}
-                        textFront="Nos ajude com a sua doação."
-                        textBack="Informações da Doação"
-                        buttonText="DOE AGORA"
-                        image="https://media-gru2-1.cdn.whatsapp.net/v/t61.24694-24/424425093_286940224099553_19848131652106230_n.jpg?ccb=11-4&oh=01_Q5AaIHiORn1CH8ly8YGXOC7U2tbG67Z7gX4oYR6vMyvuIwHW&oe=6630039C&_nc_sid=e6ed6c&_nc_cat=103"
-                        imageAlt="Gato (Siri)"/>
+            <SimpleGrid w="100%" cols={{base: 1, sm: 2}} spacing={{base: 'xs', sm: 'lg'}} mt="md" mb="xl">
+                <FlipCard
+                    h={{lg: 350, md:300, sm: 250, base: 200}}
+                    textFront="Nos ajude com a sua doação."
+                    textBack="Informações da Doação"
+                    buttonText="DOE AGORA"
+                    image="https://media-gru2-1.cdn.whatsapp.net/v/t61.24694-24/424425093_286940224099553_19848131652106230_n.jpg?ccb=11-4&oh=01_Q5AaIHiORn1CH8ly8YGXOC7U2tbG67Z7gX4oYR6vMyvuIwHW&oe=6630039C&_nc_sid=e6ed6c&_nc_cat=103"
+                    imageAlt="Gato (Siri)"/>
 
-                    <FlipCard /*TO-DO: check responsiveness*/
-                        w={{md: 600, xs: 500, base: 400}} h={{md:350, base: 300}}
-                        imgW={{md: 325, xs: 250, base: 200}}
-                        textFront="Maus tratos? DENUNCIE!"
-                        textBack="Informações da Denúncia"
-                        buttonText="DENUNCIE AQUI"
-                        image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
-                        imageAlt="Gato Triste"/>
-                </Flex>
-            </Center>
+                <FlipCard
+                    h={{lg: 350, md:300, sm: 250, base: 200}}
+                    textFront="Maus tratos? DENUNCIE!"
+                    textBack="Informações da Denúncia"
+                    buttonText="DENUNCIE AQUI"
+                    image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
+                    imageAlt="Gato Triste"/>
+            </SimpleGrid>
 
             <Title>Quem Somos</Title>
             <SimpleGrid /*Seção quem somos - TO-DO: add image*/
@@ -43,7 +39,7 @@ function LandingPage(){
             >
                 <div>
                     <Space h="md" />
-                    <Text ta="justify" fz="lg">
+                    <Text ta="justify" fz="20px">
                         A Associação de Proteção aos Animais de Indaiatuba foi fundada em 1988,
                         com o objetivo de fiscalizar e coibir maus tratos contra animais, bem
                         como atuar no controle populacional  de cães e gatos conscientizando a
@@ -61,12 +57,12 @@ function LandingPage(){
                 />
             </SimpleGrid>
 
-            <Paper h={{base: 400, sm: 500}} bg="aprai-purple.3" mt="md" mb="md" p="md" pb="xl" radius="xl">
-                <Title ta="center">Últimas Notícias</Title>
-                <PostCarousel horPadding={{base: 0, sm: "100"}} m={{base: 0, sm: "xl"}} cardData={{h: 300, w: {base: 250, xs: 350}}}/>
+            <Paper h={{base: 400, sm: 500}} w="100%" bg="aprai-purple.3" my="xl" p={{base: "xs", sm: "md"}} radius="xl">
+                <Title ta="center" mb={'md'}>Últimas Notícias</Title>
+                <PostCarousel px={{base: "md", sm: "100"}} cardData={{h: 300, w: {base: 200, xs: 350}}}/>
             </Paper>
 
-            <Center mt="xl" mb="xl">
+            <Center my="xl">
                 <SimpleGrid /*Círculos informativos - All fine*/
                     cols={{ base: 1, sm: 2, lg: 3 }}
                     spacing={{ base:'100px', sm: '100px', md: '125px', lg: '150px'}}
@@ -91,7 +87,7 @@ function LandingPage(){
             </Center>
 
             <SimpleGrid /*Seção Contato - TO-DO: add map*/
-                m="md"
+                my="xl"
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
             >
                 <div>
