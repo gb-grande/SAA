@@ -1,6 +1,6 @@
 import {Card, Image, Text, Title} from "@mantine/core";
 
-export function PostCard({post, h, w, light=false, showDate=true, ...others}) {
+export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
     const {title, content, image} = post;
 
     const bgColor = light ? "aprai-purple.3" : "aprai-purple.9";
@@ -15,7 +15,7 @@ export function PostCard({post, h, w, light=false, showDate=true, ...others}) {
         >
             {image &&
                 <Card.Section>
-                    <Image src={image} alt={title} height={h ? 0.6*h : 180}/>
+                    <Image src={image} alt={title} height={imgHPct * h}/>
                 </Card.Section>
             }
 

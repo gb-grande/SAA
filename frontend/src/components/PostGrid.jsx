@@ -11,7 +11,7 @@ function PostGrid({data = [], containerWidth}){
     const cardWidth = isMobile ? 272 : 352;
     const cardHeight = isMobile ? 272 : 272;
     const cards = data.map((post, index) => (
-        <PostCard key={index} post={post} h={cardHeight} radius='xl' light={true}/>
+        <PostCard key={index} post={post} h={cardHeight} radius='xl' light={true} imgHPct={0.5}/>
     ));
 
     const cardSpacing = 10;
