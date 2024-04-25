@@ -1,9 +1,5 @@
-import {
-    Paper, Title, Text,
-    Image, Space, Center, SimpleGrid,
-    Group
-} from "@mantine/core"
-import { Link, useParams } from 'react-router-dom';
+import { Title, Text, Image, Center} from "@mantine/core"
+import { useParams } from 'react-router-dom';
 
 
 
