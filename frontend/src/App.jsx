@@ -5,6 +5,7 @@ import NotFound from "./pages/NotFound.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
 import AdmMenu from "./pages/AdmMenu.jsx";
 import EditContact from "./pages/EditContact.jsx";
+import BlogPost from "./pages/BlogPost.jsx";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
             <Route path="/" element={<Layout/>}>
                 <Route index element={<LandingPage/>}/>
                 <Route path="blog" element={<BlogPage/>}/>
+                <Route path="blog/:id" element={<BlogPost/>}/>
             </Route>
 
             <Route path="*" element={<NotFound/>}/>
