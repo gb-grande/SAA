@@ -1,9 +1,7 @@
-import {Carousel, CarouselSlide} from "@mantine/carousel";
-import {PostCard} from "./PostCard.jsx";
-import {useMediaQuery} from "@mantine/hooks";
-import {Center, useMantineTheme} from "@mantine/core";
-import {IconCaretRightFilled, IconCaretLeftFilled} from "@tabler/icons-react";
-import classes from './PostCarousel.module.css'
+import {Pagination, Title, Center} from "@mantine/core";
+import {useState} from "react";
+import PostGrid from "../components/PostGrid.jsx";
+import {useViewportSize} from "@mantine/hooks";
 
 const mockData = [
     {
@@ -42,39 +40,28 @@ const mockData = [
     }
 ]
 
-function PostCarousel({slideGap = {base: "xs", sm: "md"}, cardData = {h: 100, w: 100}, ...others}){
-    const theme = useMantineTheme();
-    const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+function* yieldPages(data, pageSize){
+    for (let i = 0; i < data.length; i += pageSize){
+        yield data.slice(i, i + pageSize);
+    }
+}
 
-    const cards = mockData.map((data, i) => {
-        return (
-            //The slide is slightly bigger than the card to ensure it doesn't crop shadows
-            <CarouselSlide key={i} h={1.05 * cardData.h}>
-                <Center>
-                    <PostCard post={data} showDate={false} {...cardData}/>
-                </Center>
-            </CarouselSlide>)
-    })
+function BlogPage(){
+    const [currentPage, setCurrentPage] = useState(1);
+    const {width} = useViewportSize();
 
-    const caretProps = {
-        color: theme.colors['aprai-purple'][9],
-        size: isMobile ? 60 : 90,
-        // style:{stroke: "white"},
-    };
+    const cardsPerPage = 12;
+    const pages = [...yieldPages(mockData, cardsPerPage)];
     return (
-        <Carousel
-            classNames={classes}
-            styles={{control: {backgroundColor: 'transparent', border: 0, boxShadow: 'none'}}}
-            slideSize={isMobile ? '100%' : '33.33333%'}
-            slideGap={isMobile ? 0 : slideGap}
-            align={isMobile ? 'center' : 'start'}
-            nextControlIcon={<IconCaretRightFilled  {...caretProps}/>}
-            previousControlIcon={<IconCaretLeftFilled {...caretProps}/>}
-            {...others}
-        >
-            {cards}
-        </Carousel>
+      <>
+          <Title mb='sm'>Blog</Title>
+          <PostGrid data={pages[currentPage - 1]} containerWidth={width}/>
+          <Center>
+              <Pagination m='lg' radius='md' withEdges
+                  total={pages.length} value={currentPage} onChange={setCurrentPage}/>
+          </Center>
+      </>
     );
 }
 
-export default PostCarousel;
+export default BlogPage
