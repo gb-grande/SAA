@@ -1,13 +1,15 @@
 import {Card, Image, Text, Title} from "@mantine/core";
 
-export function PostCard({post, h, w, ...others}) {
+export function PostCard({post, h, w, light = false, ...others}) {
     const {title, content, image} = post;
 
+    const bgColor = light ? "aprai-purple.3" : "aprai-purple.9";
+    const textColor = light ? "aprai-purple.9" : "white";
     return (
         <Card
             radius={0} shadow={"md"}
             h={h} w={w}
-            bg="aprai-purple.9"
+            bg={bgColor}
             {...others}
             component="a" href={`/blog/${post.id}`}
         >
@@ -18,8 +20,8 @@ export function PostCard({post, h, w, ...others}) {
             }
 
             <Card.Section p="sm">
-                <Title order={4} lineClamp={2} c="white">{title}</Title>
-                <Text c="white">{content}</Text>
+                <Title order={4} lineClamp={2} c={textColor}>{title}</Title>
+                <Text c={textColor}>{content}</Text>
             </Card.Section>
         </Card>
     )
