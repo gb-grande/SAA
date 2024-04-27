@@ -6,6 +6,7 @@ import BlogPage from "./pages/BlogPage.jsx";
 import AdmMenu from "./pages/AdmMenu.jsx";
 import EditContact from "./pages/EditContact.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
+import EditBlogPost from "./pages/EditBlogPost.jsx";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
 
             <Route path="/admin" element={<Layout/>}>
                 <Route index element={<AdmMenu/>}/>
+                <Route path="blog/:id" element={<EditBlogPost/>}/>
             </Route>
 
             <Route path="/editarcontato" element={<Layout/>}>
