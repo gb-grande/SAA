@@ -1,7 +1,8 @@
-import {Pagination, Title, Center} from "@mantine/core";
+import {Pagination, Title, Center, Group, Button, Anchor} from "@mantine/core";
 import {useState} from "react";
 import PostGrid from "../components/PostGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
+import ProtectedComponent from "../components/ProtectedComponent.jsx";
 
 const mockData = [
     {
@@ -54,7 +55,12 @@ function BlogPage(){
     const pages = [...yieldPages(mockData, cardsPerPage)];
     return (
       <>
-          <Title mb='sm'>Blog</Title>
+          <Group>
+              <Title mb='sm'>Blog</Title>
+              <ProtectedComponent>
+                  <Button component='a' href={'/admin/blog/'}>Criar</Button>
+              </ProtectedComponent>
+          </Group>
           <PostGrid data={pages[currentPage - 1]} containerWidth={width}/>
           <Center>
               <Pagination m='lg' radius='md' withEdges
