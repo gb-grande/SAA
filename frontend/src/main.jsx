@@ -6,6 +6,7 @@ import {MantineProvider} from "@mantine/core";
 import theme from "./theme.js";
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
+import '@mantine/tiptap/styles.css';
 import './index.css'
 import {ModalsProvider} from "@mantine/modals";
 
