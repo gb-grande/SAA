@@ -51,6 +51,8 @@ export default createTheme({
         ]
     },
 
+    primaryColor: 'aprai-purple',
+
     components: {
         Title: {
             defaultProps: {
@@ -61,6 +63,12 @@ export default createTheme({
             defaultProps: {
                 fw: 500,
             }
+        },
+        Button: {
+            //I think we should configure this with primary-color
+            // defaultProps: {
+            //     bg: 'aprai-purple.9'
+            // }
         }
     }
 });

@@ -8,7 +8,6 @@ function MenuButton ({link, text}) {
             <Button 
                 justify='center'
                 variant='filled'
-                bg='aprai-purple.9'
                 h='60px'
                 fz='20px'
                 w={{ base:'300px', sm: '500px', md: '600px', lg: '700px', xl: '700px'}}

@@ -46,7 +46,6 @@ function EditContact () {
                 <Button 
                 justify='center'
                 variant='filled'
-                bg='aprai-purple.9'
                 h='60px'
                 fz='20px'
                 w='300px'
