@@ -42,7 +42,7 @@ function BlogPost() {
             <Group>
                 <Title>{post.title}</Title>
                 <ProtectedComponent>
-                    <Button w={100} variant='filled' component='a' href={`admin/blog/${id}`}>Editar</Button>
+                    <Button w={100} variant='filled' component='a' href={`/admin/blog/${id}`}>Editar</Button>
                     <Button w={100} onClick={handleDeleteClicked} bg='red'>Excluir</Button>
                 </ProtectedComponent>
             </Group>

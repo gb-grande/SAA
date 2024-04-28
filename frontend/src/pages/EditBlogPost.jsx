@@ -1,6 +1,6 @@
-import { TextInput, Group, Button, FileButton, Text, Center } from "@mantine/core"
-import { useParams } from 'react-router-dom';
-
+import { TextInput, Group, Button, FileButton, Text, Center, Anchor, Modal } from "@mantine/core"
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDisclosure } from '@mantine/hooks';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import Highlight from '@tiptap/extension-highlight';
@@ -10,13 +10,15 @@ import TextAlign from '@tiptap/extension-text-align';
 import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
 import { useState } from "react";
-
-const content =
-'<h2 style="text-align: center;">Welcome to Mantine rich text editor</h2><p><code>RichTextEditor</code> component focuses on usability and is designed to be as simple as possible to bring a familiar editing experience to regular users. <code>RichTextEditor</code> is based on <a href="https://tiptap.dev/" rel="noopener noreferrer" target="_blank">Tiptap.dev</a> and supports all of its features:</p><ul><li>General text formatting: <strong>bold</strong>, <em>italic</em>, <u>underline</u>, <s>strike-through</s> </li><li>Headings (h1-h6)</li><li>Sub and super scripts (<sup>&lt;sup /&gt;</sup> and <sub>&lt;sub /&gt;</sub> tags)</li><li>Ordered and bullet lists</li><li>Text align&nbsp;</li><li>And all <a href="https://tiptap.dev/extensions" target="_blank" rel="noopener noreferrer">other extensions</a></li></ul>';
+import { modals } from "@mantine/modals";
 
 function EditBlogPost() {
     const [file, setFile] = useState(null);
+    const [opened, { open, close }] = useDisclosure(false);
     const {id} = useParams();
+
+    let navigate = useNavigate(); 
+
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -27,8 +29,23 @@ function EditBlogPost() {
             Highlight,
             TextAlign.configure({ types: ['heading', 'paragraph'] }),
         ],
-        content
     });
+
+    function handleDeleteClicked() {
+        modals.openConfirmModal({
+            title: 'Cancelar escrita',
+            centered: true,
+            children: (
+                <Text>
+                    Tem certeza que quer cancelar a escrita da postagem? Essa ação é irreversível.
+                </Text>
+            ),
+            labels: {confirm: 'Cancelar', cancel: 'Continuar escrevendo'},
+            confirmProps: {color: 'red'},
+            cancelProps: {variant: 'filled'},
+            onConfirm: () => navigate("/blog")
+        })
+    }
 
     return (
         <>
@@ -39,8 +56,9 @@ function EditBlogPost() {
                     maxLength={128}
                 />
                 <div>
-                    <Button mr="md" bg='aprai-purple.5' radius="lg" fz="xl">Salvar</Button>
-                    <Button bg='red' radius="lg" fz="xl">Deletar</Button>
+                    <Anchor href="/blog/1"><Button mr="md" bg='aprai-purple.5' radius="lg" fz="xl">Salvar</Button></Anchor>
+                    
+                    <Button bg='red' radius="lg" fz="xl" onClick={handleDeleteClicked}>Cancelar</Button>
                 </div>
             </Group>
 
