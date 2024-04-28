@@ -1,4 +1,4 @@
-import {Pagination, Title, Center, Group, Button, Anchor} from "@mantine/core";
+import {Pagination, Title, Center, Group, Button} from "@mantine/core";
 import {useState} from "react";
 import PostGrid from "../components/PostGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";

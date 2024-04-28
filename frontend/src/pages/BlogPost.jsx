@@ -1,6 +1,7 @@
-import { Title, Text, Image, Center} from "@mantine/core"
+import {Title, Text, Image, Center, Group, Button} from "@mantine/core"
 import { useParams } from 'react-router-dom';
-
+import ProtectedComponent from "../components/ProtectedComponent.jsx";
+import { modals } from "@mantine/modals";
 
 
 function BlogPost() {
@@ -19,10 +20,32 @@ function BlogPost() {
         In id vulputate sapien. Quisque vel nisl posuere metus imperdiet venenatis. Morbi gravida, dui sollicitudin finibus hendrerit, eros nisi volutpat nisi, id condimentum diam dui ac massa. Nulla vel urna urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam elementum sit amet dui in sodales. Nullam a elit sed sem euismod maximus.
     `
     };
+
+    function handleDeleteClicked(){
+        modals.openConfirmModal({
+            title: 'Excluir postagem',
+            centered: true,
+            children: (
+                <Text size='sm'>
+                    Tem certeza de que quer excluir a postagem? Essa ação é irreversível.
+                </Text>
+            ),
+            labels: {confirm: 'Deletar', cancel: 'Cancelar'},
+            confirmProps: {color: 'red'},
+            cancelProps: {variant: 'filled'},
+            onConfirm: () => console.log('Deletar post ' + id)
+        });
+    }
     
     return (
         <>
-            <Title>{post.title}</Title>
+            <Group>
+                <Title>{post.title}</Title>
+                <ProtectedComponent>
+                    <Button w={100} variant='filled' component='a' href={`admin/blog/${id}`}>Editar</Button>
+                    <Button w={100} onClick={handleDeleteClicked} bg='red'>Excluir</Button>
+                </ProtectedComponent>
+            </Group>
             <Text c="aprai-purple.9">Postado em {post.time.getDate()}/{post.time.getMonth() + 1}/{post.time.getFullYear()}, as {post.time.getHours()}:{post.time.getMinutes()}</Text>
             <Center>
                 <Image m="md" w={{lg: 350, md:300, sm: 250, base: 200}} radius="xl" src={post.image} />

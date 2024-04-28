@@ -7,12 +7,15 @@ import theme from "./theme.js";
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import './index.css'
+import {ModalsProvider} from "@mantine/modals";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
       <BrowserRouter>
           <MantineProvider theme={theme}>
-              <App/>
+              <ModalsProvider>
+                  <App/>
+              </ModalsProvider>
           </MantineProvider>
       </BrowserRouter>
   </React.StrictMode>,
