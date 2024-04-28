@@ -21,7 +21,7 @@ function App() {
 
             <Route path="/admin" element={<Layout/>}>
                 <Route index element={<AdmMenu/>}/>
-                <Route path="blog/:id" element={<EditBlogPost/>}/>
+                <Route path="blog/:id?" element={<EditBlogPost/>}/>
             </Route>
 
             <Route path="/editarcontato" element={<Layout/>}>

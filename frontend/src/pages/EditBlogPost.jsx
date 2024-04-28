@@ -36,6 +36,7 @@ function EditBlogPost() {
                 <TextInput 
                     placeholder="Título"
                     w={{base: "100%", sm: 460}}
+                    maxLength={128}
                 />
                 <div>
                     <Button mr="md" bg='aprai-purple.5' radius="lg" fz="xl">Salvar</Button>
@@ -43,7 +44,7 @@ function EditBlogPost() {
                 </div>
             </Group>
 
-            <RichTextEditor editor={editor} m="md">
+            <RichTextEditor editor={editor} m="md" mih={600}>
                 <RichTextEditor.Toolbar sticky stickyOffset={60}>
                     <RichTextEditor.ControlsGroup>
                     <RichTextEditor.Bold />
