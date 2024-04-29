@@ -2,21 +2,19 @@ import { useState } from 'react';
 import { Space, Button } from '@mantine/core'
 import ContactInput from '../components/ContactInput';
 
-// To-Do: add update request to button
+// To-Do: add update request to button,
+// check password and make it safe
 
-function EditContact () {
+function RegisterAdm () {
 
-    const [inputTel, setInputTel] = useState('');
-    const changeTel = (newValue) => setInputTel(newValue);
+    const [inputUsr, setInputUsr] = useState('');
+    const changeUsr = (newValue) => setInputUsr(newValue);
 
-    const [inputAdr, setInputAdr] = useState('');
-    const changeAdr = (newValue) => setInputAdr(newValue);
+    const [inputPwd, setInputPwd] = useState('');
+    const changePwd = (newValue) => setInputPwd(newValue);
 
-    const [inputIg, setInputIg] = useState('');
-    const changeIg = (newValue) => setInputIg(newValue);
-
-    const [inputFb, setInputFb] = useState('');
-    const changeFb = (newValue) => setInputFb(newValue);
+    const [inputConf, setInputConf] = useState('');
+    const changeConf = (newValue) => setInputConf(newValue);
 
     return(
         <>  
@@ -31,33 +29,27 @@ function EditContact () {
                 <Space h='md'/>
 
                 <ContactInput 
-                    label='Telefone'
+                    label='Usuário'
                     placeholder=''
-                    onChange={changeTel}
+                    onChange={changeUsr}
                 />
 
                 <Space h='md'/>
 
                 <ContactInput 
-                    label='Endereço'
+                    label='Senha'
                     placeholder=''
-                    onChange={changeAdr}
+                    onChange={changePwd}
+                    type='password'
                 />
 
                 <Space h='md'/>
 
                 <ContactInput 
-                    label='Instagram'
+                    label='Confirmar Senha'
                     placeholder=''
-                    onChange={changeIg}
-                />
-
-                <Space h='md'/>
-
-                <ContactInput 
-                    label='Facebook'
-                    placeholder=''
-                    onChange={changeFb}
+                    onChange={changeConf}
+                    type='password'
                 />
 
                 <Space h='xl'/>
@@ -78,4 +70,4 @@ function EditContact () {
     );
 }
 
-export default EditContact;
+export default RegisterAdm;

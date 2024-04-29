@@ -7,6 +7,7 @@ import AdmMenu from "./pages/AdmMenu.jsx";
 import EditContact from "./pages/EditContact.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
 import EditBlogPost from "./pages/EditBlogPost.jsx";
+import RegisterAdm from "./pages/RegisterAdm.jsx";
 
 function App() {
     return (
@@ -22,11 +23,11 @@ function App() {
             <Route path="/admin" element={<Layout/>}>
                 <Route index element={<AdmMenu/>}/>
                 <Route path="blog/:id?" element={<EditBlogPost/>}/>
+
+                <Route path="editarcontato" element={<EditContact/>}/>
+                <Route path="cadastro" element={<RegisterAdm/>}/>
             </Route>
 
-            <Route path="/editarcontato" element={<Layout/>}>
-                <Route index element={<EditContact/>}/>
-            </Route>
         </Routes>
     );
 }
