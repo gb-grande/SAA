@@ -17,10 +17,10 @@ function Layout() {
     ];
 
     const linkButtons =
-        links.map(l => <Anchor  c={'white'} ff={'Karla'} fz={'20px'} mx={'60px'} href={l.link}>{l.label}</Anchor>);
+        links.map(l => <Anchor  c={'white'} ff={'Karla'} fz={'1.2em'} mx={'60px'} href={l.link}>{l.label}</Anchor>);
 
     let headerHeight = 60;
-    if (opened) headerHeight += 30 * links.length;
+    if (opened) headerHeight += 10 * links.length;
     
     let footerHeight = 90;
 
@@ -70,19 +70,23 @@ function Layout() {
                     <Outlet/>
                 </AppShell.Main>
 
-                <AppShell.Footer bg={'#392F88'} ff={'Karla'} c={'white'} pos="relative" p="md">
+                <AppShell.Footer bg={'#392F88'} ff={'Karla'} c={'white'} pos="relative" w={'100%'}p="md">
                     <Group justify="space-between" >
                         <Stack gap="0">
                             <Text fz="h2">APRAI</Text>
                             <Text fz="h4">Associação de Proteção aos Animais de Indaiatuba</Text>
                         </Stack>
                         <ActionIcon.Group>
-                            <ActionIcon variant="subtle" color="white" size="xl">
-                                <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
-                            </ActionIcon>
-                            <ActionIcon variant="subtle" color="white" size="xl">
-                                <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
-                            </ActionIcon>
+                            <Link to="https://www.instagram.com/aprai.indaiatuba/">
+                                <ActionIcon variant="subtle" color="white" size="xl">
+                                    <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
+                                </ActionIcon>
+                            </Link>
+                            <Link to="https://www.facebook.com/people/Aprai-Indaiatuba/100090048881690/">
+                                <ActionIcon variant="subtle" color="white" size="xl">
+                                    <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
+                                </ActionIcon>
+                            </Link>
                         </ActionIcon.Group>
                     </Group>
                 </AppShell.Footer>
