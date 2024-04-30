@@ -5,19 +5,19 @@ function AdmMenu () {
 
     return(
         <>  
-            <Space h='sm'/>
+            <Space h='xl'/>
             <MenuButton 
-                link='/cadastro'
+                link='/admin/cadastro'
                 text='Cadastro de Administrador'
             />
             <Space h='xl'/>
             <MenuButton 
-                link='/gerenciablog'
+                link='/todo'
                 text='Gerenciar Postagens'
             />
             <Space h='xl'/>
             <MenuButton 
-                link='/editarcontato'
+                link='/admin/editarcontato'
                 text='Editar Informações de Contato'
             />
         </>

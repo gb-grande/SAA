@@ -11,6 +11,7 @@ function MenuButton ({link, text}) {
                 h='60px'
                 fz='20px'
                 w={{ base:'300px', sm: '500px', md: '600px', lg: '700px', xl: '700px'}}
+                radius='md'
                 >
                 {text}
             </Button>
