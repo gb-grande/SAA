@@ -1,12 +1,14 @@
-import {useDisclosure} from "@mantine/hooks";
-import {AppShell, Burger, Group, Anchor, Center, Stack, Image, Text, ActionIcon, Space, Flex} from "@mantine/core";
+import {useDisclosure, useHover} from "@mantine/hooks";
+import {AppShell, Group, Anchor, Center, Stack, Image, Text, ActionIcon, Space, Flex} from "@mantine/core";
 import {Outlet, Link} from "react-router-dom";
-import { IconBrandFacebook, IconBrandInstagram } from "@tabler/icons-react";
+import { IconBrandFacebook, IconBrandInstagram, IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import logo from '../assets/logo.jpeg';
 
 
 function Layout() {
     const [opened, {toggle}] = useDisclosure();
+
+
 
     const links = [
         {label: "Quem Somos", link: "/#quemSomos"},
@@ -21,8 +23,6 @@ function Layout() {
 
     let headerHeight = 60;
     if (opened) headerHeight += 10 * links.length;
-    
-    let footerHeight = 90;
 
     return (
         <Stack gap={"0"} align="center">
@@ -31,7 +31,7 @@ function Layout() {
                 justify="space-between"
                 align="flex-end"
             >   
-                <Space></Space>
+                <Space w="25%"></Space>
                 <Image src={logo} h={"25%"} w={"25%"}></Image>
                 <Group>
                     <Link to="https://www.instagram.com/aprai.indaiatuba/">
@@ -44,20 +44,21 @@ function Layout() {
                                 <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
                         </ActionIcon>
                     </Link>
-                    
                 </Group>
             </Flex>
             <AppShell
-                header={{ height: headerHeight }}
-                padding="md"
-                footer={{height: footerHeight}}
                 maw={"100%"}
             >   
-                <AppShell.Header bg={'#392F88'} pos="relative">
-                    <Center h={'100%'} px="md">
+                <AppShell.Header bg={'#392F88'} pos="relative" w={"100%"} content="fit"display="inline-block">
+                    <Center mih={'5em'} px="md">
                         <Stack hiddenFrom="sm" pos="relative">
-                            {opened && linkButtons}
-                            <Burger opened={opened} onClick={toggle} size="sm" />
+                            {opened ? 
+                                <Stack justify="center" align="center" p="lg">
+                                    {linkButtons} 
+                                    <IconChevronUp color="white" onClick={toggle}/>
+                                </Stack>
+                                :   
+                                <IconChevronDown color="white" onClick={toggle}/>}
                         </Stack>
                         <Group ml="xl" visibleFrom="sm">
                             {linkButtons}
@@ -66,7 +67,7 @@ function Layout() {
                 </AppShell.Header>
 
 
-                <AppShell.Main>
+                <AppShell.Main pl="md" pr="md" pt="0" pb="0">
                     <Outlet/>
                 </AppShell.Main>
 
