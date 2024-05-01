@@ -8,6 +8,7 @@ import EditContact from "./pages/EditContact.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
 import EditBlogPost from "./pages/EditBlogPost.jsx";
 import RegisterAdm from "./pages/RegisterAdm.jsx";
+import Login from "./pages/Login.jsx";
 
 function App() {
     return (
