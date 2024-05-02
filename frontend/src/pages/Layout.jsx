@@ -34,16 +34,13 @@ function Layout() {
                 <Space w="25%"></Space>
                 <Image src={logo} h={"25%"} w={"25%"}></Image>
                 <Group>
-                    <Link to="https://www.instagram.com/aprai.indaiatuba/">
-                        <ActionIcon variant="filled" color="pink" size="xl" radius="xl" href="https://www.instagram.com/aprai.indaiatuba/">
-                            <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
-                        </ActionIcon>
-                    </Link>
-                    <Link to="https://www.facebook.com/people/Aprai-Indaiatuba/100090048881690/">
-                        <ActionIcon variant="filled" color="blue" size="xl" radius="xl">
-                                <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
-                        </ActionIcon>
-                    </Link>
+                    <ActionIcon variant="filled" color="pink" size="xl" radius="xl" component="a" href="https://www.instagram.com/aprai.indaiatuba/">
+                        <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
+                    </ActionIcon>
+            
+                    <ActionIcon variant="filled" color="blue" size="xl" radius="xl" component="a" href="https://www.facebook.com/people/Aprai-Indaiatuba/100090048881690/">
+                            <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
+                    </ActionIcon>
                 </Group>
             </Flex>
             <AppShell
@@ -78,16 +75,12 @@ function Layout() {
                             <Text fz="h4">Associação de Proteção aos Animais de Indaiatuba</Text>
                         </Stack>
                         <ActionIcon.Group>
-                            <Link to="https://www.instagram.com/aprai.indaiatuba/">
-                                <ActionIcon variant="subtle" color="white" size="xl">
-                                    <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
-                                </ActionIcon>
-                            </Link>
-                            <Link to="https://www.facebook.com/people/Aprai-Indaiatuba/100090048881690/">
-                                <ActionIcon variant="subtle" color="white" size="xl">
-                                    <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
-                                </ActionIcon>
-                            </Link>
+                            <ActionIcon variant="subtle" color="white" size="xl" component="a" href="https://www.instagram.com/aprai.indaiatuba/">
+                                <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
+                            </ActionIcon>
+                            <ActionIcon variant="subtle" color="white" size="xl" component="a" href="https://www.facebook.com/people/Aprai-Indaiatuba/100090048881690/">
+                                <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
+                            </ActionIcon>
                         </ActionIcon.Group>
                     </Group>
                 </AppShell.Footer>
