@@ -1,4 +1,4 @@
-import {useDisclosure, useHover} from "@mantine/hooks";
+import {useDisclosure} from "@mantine/hooks";
 import {AppShell, Group, Anchor, Center, Stack, Image, Text, ActionIcon, Space, Flex} from "@mantine/core";
 import {Outlet, Link} from "react-router-dom";
 import { IconBrandFacebook, IconBrandInstagram, IconChevronDown, IconChevronUp } from "@tabler/icons-react";
@@ -35,7 +35,7 @@ function Layout() {
                 <Image src={logo} h={"25%"} w={"25%"}></Image>
                 <Group>
                     <Link to="https://www.instagram.com/aprai.indaiatuba/">
-                        <ActionIcon variant="filled" color="pink" size="xl" radius="xl" link="https://www.instagram.com/">
+                        <ActionIcon variant="filled" color="pink" size="xl" radius="xl" href="https://www.instagram.com/aprai.indaiatuba/">
                             <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
                         </ActionIcon>
                     </Link>
