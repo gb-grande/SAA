@@ -32,8 +32,8 @@ function LandingPage(){
                     image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
                     imageAlt="Gato Triste"/>
             </SimpleGrid>
-
-            <Title>Quem Somos</Title>
+            
+            <Title id='quemSomos'>Quem Somos</Title>
             <SimpleGrid /*Seção quem somos - TO-DO: add image*/
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
             >
@@ -90,7 +90,7 @@ function LandingPage(){
                 my="xl"
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
             >
-                <div>
+                <div id="contato">
                     <Title ta="center">Contato</Title>
                     <Space h="md" />
                     <Text ta="center" size="xl" fw={500}>
