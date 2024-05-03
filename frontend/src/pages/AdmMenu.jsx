@@ -1,27 +1,23 @@
-import { Space } from '@mantine/core'
+import {Stack} from '@mantine/core'
 import MenuButton from "../components/MenuButton";
 
 function AdmMenu () {
 
     return(
-        <>  
-            <Space h='xl'/>
-            <MenuButton 
+        <Stack h='100%' justify='center' gap='xl'>
+            <MenuButton
                 link='/admin/cadastro'
                 text='Cadastro de Administrador'
             />
-            <Space h='xl'/>
-            <MenuButton 
+            <MenuButton
                 link='/todo'
                 text='Gerenciar Postagens'
             />
-            <Space h='xl'/>
-            <MenuButton 
+            <MenuButton
                 link='/admin/editarcontato'
                 text='Editar Informações de Contato'
             />
-        </>
-        
+        </Stack>
     );
 }
 
