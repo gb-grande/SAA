@@ -8,6 +8,7 @@ import EditContact from "./pages/adm/EditContact.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
 import EditBlogPost from "./pages/EditBlogPost.jsx";
 import RegisterAdm from "./pages/adm/RegisterAdm.jsx";
+import BazarPage from "./pages/BazarPage.jsx";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route index element={<LandingPage/>}/>
                 <Route path="blog" element={<BlogPage/>}/>
                 <Route path="blog/:id" element={<BlogPost/>}/>
+                <Route path="bazar" element={<BazarPage/>}/>
             </Route>
 
             <Route path="*" element={<NotFound/>}/>
