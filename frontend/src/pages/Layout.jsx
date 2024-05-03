@@ -17,10 +17,11 @@ function Layout() {
     ];
 
     const linkButtons =
-        links.map(l =>
-            <Anchor c={'white'} ff={'Karla'}
-                    fz={'1.2em'} mx={'60px'}
-                    component={Link} to={l.link}
+        links.map((l, index) =>
+            <Anchor key={index}
+                c={'white'} ff={'Karla'}
+                fz={'1.2em'} mx={'60px'}
+                component={Link} to={l.link}
             >
                 {l.label}
             </Anchor>
