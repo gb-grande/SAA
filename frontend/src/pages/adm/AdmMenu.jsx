@@ -4,13 +4,13 @@ import MenuButton from "../../components/MenuButton.jsx";
 function AdmMenu () {
 
     return(
-        <Stack h='100%' justify='center' gap='xl'>
+        <Stack align='center' h='100%' justify='center' gap='xl'>
             <MenuButton
                 link='/admin/cadastro'
                 text='Cadastro de Administrador'
             />
             <MenuButton
-                link='/todo'
+                link='/blog'
                 text='Gerenciar Postagens'
             />
             <MenuButton

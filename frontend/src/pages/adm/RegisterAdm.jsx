@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Space, Button } from '@mantine/core'
+import { Stack, Button } from '@mantine/core'
 import ContactInput from '../../components/ContactInput.jsx';
 
 // To-Do: add update request to button,
@@ -17,56 +17,38 @@ function RegisterAdm () {
     const changeConf = (newValue) => setInputConf(newValue);
 
     return(
-        <>  
-            <div
-                style = {{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}    
+        <Stack align='center' h='100%' justify='center' gap='md'>
+            <ContactInput
+                label='Usuário'
+                placeholder=''
+                onChange={changeUsr}
+            />
+
+            <ContactInput
+                label='Senha'
+                placeholder=''
+                onChange={changePwd}
+                type='password'
+            />
+
+            <ContactInput
+                label='Confirmar Senha'
+                placeholder=''
+                onChange={changeConf}
+                type='password'
+            />
+
+            <Button
+            justify='center'
+            variant='filled'
+            h='60px'
+            fz='20px'
+            w='300px'
+            radius='lg'
             >
-                <Space h='md'/>
-
-                <ContactInput 
-                    label='Usuário'
-                    placeholder=''
-                    onChange={changeUsr}
-                />
-
-                <Space h='md'/>
-
-                <ContactInput 
-                    label='Senha'
-                    placeholder=''
-                    onChange={changePwd}
-                    type='password'
-                />
-
-                <Space h='md'/>
-
-                <ContactInput 
-                    label='Confirmar Senha'
-                    placeholder=''
-                    onChange={changeConf}
-                    type='password'
-                />
-
-                <Space h='xl'/>
-
-                <Button 
-                justify='center'
-                variant='filled'
-                h='60px'
-                fz='20px'
-                w='300px'
-                radius='lg'
-                >
-                    Salvar
-                </Button>
-
-            </div>
-        </>
+                Salvar
+            </Button>
+        </Stack>
     );
 }
 

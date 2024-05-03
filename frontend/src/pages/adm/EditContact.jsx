@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Space, Button } from '@mantine/core'
+import { Stack, Button } from '@mantine/core'
 import ContactInput from '../../components/ContactInput.jsx';
 
 // To-Do: add update request to button
@@ -19,62 +19,42 @@ function EditContact () {
     const changeFb = (newValue) => setInputFb(newValue);
 
     return(
-        <>  
-            <div
-                style = {{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}    
+        <Stack align='center' h='100%' justify='center' gap='md'>
+            <ContactInput
+                label='Telefone'
+                placeholder=''
+                onChange={changeTel}
+            />
+
+            <ContactInput
+                label='Endereço'
+                placeholder=''
+                onChange={changeAdr}
+            />
+
+            <ContactInput
+                label='Instagram'
+                placeholder=''
+                onChange={changeIg}
+            />
+
+            <ContactInput
+                label='Facebook'
+                placeholder=''
+                onChange={changeFb}
+            />
+
+            <Button
+            justify='center'
+            variant='filled'
+            h='60px'
+            fz='20px'
+            w='300px'
+            radius='lg'
             >
-                <Space h='md'/>
-
-                <ContactInput 
-                    label='Telefone'
-                    placeholder=''
-                    onChange={changeTel}
-                />
-
-                <Space h='md'/>
-
-                <ContactInput 
-                    label='Endereço'
-                    placeholder=''
-                    onChange={changeAdr}
-                />
-
-                <Space h='md'/>
-
-                <ContactInput 
-                    label='Instagram'
-                    placeholder=''
-                    onChange={changeIg}
-                />
-
-                <Space h='md'/>
-
-                <ContactInput 
-                    label='Facebook'
-                    placeholder=''
-                    onChange={changeFb}
-                />
-
-                <Space h='xl'/>
-
-                <Button 
-                justify='center'
-                variant='filled'
-                h='60px'
-                fz='20px'
-                w='300px'
-                radius='lg'
-                >
-                    Salvar
-                </Button>
-
-            </div>
-        </>
+                Salvar
+            </Button>
+        </Stack>
     );
 }
 

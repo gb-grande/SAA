@@ -1,4 +1,4 @@
-import {Flex} from "@mantine/core";
+import {Box, Flex} from "@mantine/core";
 import {Outlet} from "react-router-dom";
 import Banner from "../components/Layout/Banner.jsx";
 import Header from "../components/Layout/Header.jsx";
@@ -11,9 +11,9 @@ function Layout() {
             <Banner/>
             <Header/>
 
-            <div style={{flex: 1}}>
+            <Box p={'md'} style={{flex: 1}}>
                 <Outlet/>
-            </div>
+            </Box>
 
             <Footer/>
         </Flex>
