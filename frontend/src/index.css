@@ -2,3 +2,13 @@
   white-space: normal;
   word-wrap: break-word;
 }
+
+.custom-input::placeholder {
+  color: #392F88;
+  font-size: 15px;
+
+  @media (min-width: 575px){
+    font-size: 25px;
+  }
+}
+

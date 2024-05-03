@@ -9,6 +9,7 @@ import BlogPost from "./pages/BlogPost.jsx";
 import EditBlogPost from "./pages/EditBlogPost.jsx";
 import RegisterAdm from "./pages/adm/RegisterAdm.jsx";
 import BazarPage from "./pages/BazarPage.jsx";
+import Login from "./pages/Login.jsx";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                 <Route path="blog" element={<BlogPage/>}/>
                 <Route path="blog/:id" element={<BlogPost/>}/>
                 <Route path="bazar" element={<BazarPage/>}/>
+                <Route path="login" element={<Login/>}/>
             </Route>
 
             <Route path="*" element={<NotFound/>}/>
