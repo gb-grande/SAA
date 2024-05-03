@@ -5,42 +5,13 @@ import {Center, useMantineTheme} from "@mantine/core";
 import {IconCaretRightFilled, IconCaretLeftFilled} from "@tabler/icons-react";
 import classes from './PostCarousel.module.css'
 
-const mockData = [
-    {
-        id: 0,
-        title: "Saiu os bichos!",
-        content: "E quando saíram os bichos eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram e eles saíram",
-        image: "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        date: new Date()
-    },
-    {
-        id: 1,
-        title: "Saiu os bichos mais curto!",
-        content: "E quando saíram os bichos eles saíram e só saíram mesmo :)",
-        image: "https://images.pexels.com/photos/11596562/pexels-photo-11596562.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        date: new Date()
-    },
-    {
-        id: 2,
-        title: "Saiu os bichos mas esse nem tem imagem então nem tem bicho eita!",
-        content: "E quando saíram os bichos eles saíram e eles saíram mesmo caramba mas na verdade nem tinha bicho :( poxa eu queria os bichos soltos e livres e felizes em seus bichos felizes e os bichos saíam os bichos e os bichos saem os bichos",
-        date: new Date()
-    },
-    {
-        id: 3,
-        title: "e os bichos voltaram se acalmem",
-        content: "",
-        image: "https://images.pexels.com/photos/1170986/pexels-photo-1170986.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        date: new Date()
-    },
-    {
-        id: 4,
-        title: "eita o bicho!",
-        content: "caramba deu ruim!",
-        image: "imagemruim",
-        date: new Date()
-    }
-]
+const mockData = Array(10).fill({
+    id: 0,
+    title: "Título do post",
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel tincidunt purus, vel vulputate augue. Integer ut ex metus. Nulla imperdiet lobortis felis, sed pellentesque magna rutrum aliquet. Maecenas nec tincidunt leo, eu faucibus lectus. Maecenas hendrerit purus et diam rhoncus scelerisque. Cras tempor odio ac mi sodales, non laoreet nibh egestas. Quisque non luctus lacus. \n        Quisque pulvinar faucibus elementum. Ut cursus augue vitae consectetur tincidunt. Pellentesque dignissim, diam in ullamcorper rhoncus, ex tellus pharetra lorem, sed accumsan nisl dui consequat ipsum. Donec mollis vitae tortor faucibus consectetur. Aenean dolor urna, dapibus ut risus ut, aliquet tempor nunc. Suspendisse tempor dignissim nunc id mattis. Nullam at magna lorem.",
+    image: "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    date: new Date()
+});
 
 function PostCarousel({slideGap = {base: "xs", sm: "md"}, cardData = {h: 100, w: 100}, ...others}){
     const theme = useMantineTheme();
