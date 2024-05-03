@@ -19,16 +19,15 @@ function Header(){
         links.map((l, index) =>
             <Anchor key={index}
                     c={'white'} ff={'Karla'}
-                    fz={'1.2em'} mx={'60px'}
+                    fz={'1.2em'} mx={{base: '20px', md: '40px', lg: '60px'}}
                     component={HashLink} to={l.link}
             >
                 {l.label}
             </Anchor>
         );
 
-    const heightProp = opened ? {} : {h: '5em'};
     return (
-        <Center bg={'aprai-purple.9'} px="md" {...heightProp}>
+        <Center w="100vw" bg={'aprai-purple.9'} px="md" h={{base: (opened ? 'auto' : '5em'), sm: '5em'}}>
             <Stack hiddenFrom="sm" pos="relative">
                 {opened ?
                     <Stack justify="center" align="center" p="lg">
@@ -36,12 +35,12 @@ function Header(){
                         <IconChevronUp style={{cursor: 'pointer'}} color="white" onClick={toggle}/>
                     </Stack>
                     :
-                    <Center>
+                    <Center my="md">
                         <IconChevronDown style={{cursor: 'pointer'}} color="white" onClick={toggle}/>
                     </Center>
                 }
             </Stack>
-            <Group ml="xl" visibleFrom="sm">
+            <Group my="md" ml="xl" visibleFrom="sm">
                 {linkButtons}
             </Group>
         </Center>
