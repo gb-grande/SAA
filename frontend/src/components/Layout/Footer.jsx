@@ -4,7 +4,7 @@ import {IconBrandFacebook, IconBrandInstagram} from "@tabler/icons-react";
 
 function Footer(){
     return (
-        <Group h={120} justify="space-between" bg={'aprai-purple.9'} ff={'Karla'} c={'white'} w={'100vw'} p="md">
+        <Group justify="space-between" bg={'aprai-purple.9'} ff={'Karla'} c={'white'} w={'100vw'} p="md">
             <Stack gap="0">
                 <Text fz="h2">APRAI</Text>
                 <Text fz="h4">Associação de Proteção aos Animais de Indaiatuba</Text>

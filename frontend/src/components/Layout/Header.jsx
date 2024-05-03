@@ -26,16 +26,20 @@ function Header(){
             </Anchor>
         );
 
+    const heightProp = opened ? {} : {h: '5em'};
     return (
-        <Center mih={'5em'} bg={'aprai-purple.9'} px="md">
+        <Center bg={'aprai-purple.9'} px="md" {...heightProp}>
             <Stack hiddenFrom="sm" pos="relative">
                 {opened ?
                     <Stack justify="center" align="center" p="lg">
                         {linkButtons}
-                        <IconChevronUp color="white" onClick={toggle}/>
+                        <IconChevronUp style={{cursor: 'pointer'}} color="white" onClick={toggle}/>
                     </Stack>
                     :
-                    <IconChevronDown color="white" onClick={toggle}/>}
+                    <Center>
+                        <IconChevronDown style={{cursor: 'pointer'}} color="white" onClick={toggle}/>
+                    </Center>
+                }
             </Stack>
             <Group ml="xl" visibleFrom="sm">
                 {linkButtons}
