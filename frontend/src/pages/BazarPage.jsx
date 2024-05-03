@@ -7,9 +7,9 @@ import ProtectedComponent from "../components/ProtectedComponent.jsx";
 const mockData = [...Array(50).keys()].map(i => {
     return {
         id: i,
-        title: "Título do post" + i,
+        title: "Título do produto" + i,
         content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel tincidunt purus, vel vulputate augue. Integer ut ex metus. Nulla imperdiet lobortis felis, sed pellentesque magna rutrum aliquet. Maecenas nec tincidunt leo, eu faucibus lectus. Maecenas hendrerit purus et diam rhoncus scelerisque. Cras tempor odio ac mi sodales, non laoreet nibh egestas. Quisque non luctus lacus. \n        Quisque pulvinar faucibus elementum. Ut cursus augue vitae consectetur tincidunt. Pellentesque dignissim, diam in ullamcorper rhoncus, ex tellus pharetra lorem, sed accumsan nisl dui consequat ipsum. Donec mollis vitae tortor faucibus consectetur. Aenean dolor urna, dapibus ut risus ut, aliquet tempor nunc. Suspendisse tempor dignissim nunc id mattis. Nullam at magna lorem.",
-        image: "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        image: "https://images.pexels.com/photos/1229942/pexels-photo-1229942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
         date: new Date()
     }
 })
@@ -20,7 +20,7 @@ function* yieldPages(data, pageSize){
     }
 }
 
-function BlogPage(){
+function BazarPage(){
     const [currentPage, setCurrentPage] = useState(1);
     const {width} = useViewportSize();
 
@@ -29,7 +29,7 @@ function BlogPage(){
     return (
       <>
           <Group>
-              <Title mb='sm'>Blog</Title>
+              <Title mb='sm'>Bazar</Title>
               <ProtectedComponent>
                   <Button component='a' href={'/admin/blog/'}>Criar</Button>
               </ProtectedComponent>
@@ -43,4 +43,4 @@ function BlogPage(){
     );
 }
 
-export default BlogPage
+export default BazarPage
