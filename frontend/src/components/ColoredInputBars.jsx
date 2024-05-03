@@ -8,7 +8,7 @@ function getWidth() {
   }
 
 function ColoredInputBars(props){
-    const s = getWidth() < 768 ? 'xs' : 'lg';
+    const s = getWidth() < 575 ? 'sm' : 'lg';
 
     return(
          <TextInput
