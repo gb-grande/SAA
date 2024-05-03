@@ -1,7 +1,7 @@
 import {useDisclosure} from "@mantine/hooks";
 import {Anchor, Center, Group, Stack} from "@mantine/core";
-import {Link} from "react-router-dom";
 import {IconChevronDown, IconChevronUp} from "@tabler/icons-react";
+import {HashLink} from "react-router-hash-link";
 
 
 function Header(){
@@ -10,7 +10,7 @@ function Header(){
     const links = [
         {label: "Quem Somos", link: "/#quemSomos"},
         {label: "Contato", link: "/#contato"},
-        {label: "Bazar", link: ""},
+        {label: "Bazar", link: "/bazar"},
         {label: "Blog", link: "/blog"},
         {label: "Administracao", link: "/admin"}
     ];
@@ -20,7 +20,7 @@ function Header(){
             <Anchor key={index}
                     c={'white'} ff={'Karla'}
                     fz={'1.2em'} mx={'60px'}
-                    component={Link} to={l.link}
+                    component={HashLink} to={l.link}
             >
                 {l.label}
             </Anchor>

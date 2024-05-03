@@ -1,8 +1,7 @@
 import {
     Paper, Title, Text,
-    Image, Space, Center, SimpleGrid
+    Image, Space, Center, SimpleGrid, Anchor, Stack
 } from "@mantine/core"
-import { Link } from 'react-router-dom';
 import FlipCard from "../components/FlipCard.jsx";
 import PostCarousel from "../components/PostCarousel.jsx";
 import Circle from "../components/Circle.jsx";
@@ -32,7 +31,7 @@ function LandingPage(){
                     image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
                     imageAlt="Gato Triste"/>
             </SimpleGrid>
-            
+
             <Title id='quemSomos'>Quem Somos</Title>
             <SimpleGrid /*Seção quem somos - TO-DO: add image*/
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
@@ -68,17 +67,17 @@ function LandingPage(){
                     spacing={{ base:'100px', sm: '100px', md: '125px', lg: '150px'}}
                     verticalSpacing='xs'
                 >
-                    <Circle 
+                    <Circle
                         icon="dog"
                         number="300"
                         description="Animais resgatados"
                     />
-                    <Circle 
+                    <Circle
                         icon="alert"
                         number="100"
                         description="Denúncias registradas"
                     />
-                    <Circle 
+                    <Circle
                         icon="food"
                         number="800"
                         description="Quilos de ração doados"
@@ -86,13 +85,14 @@ function LandingPage(){
                 </SimpleGrid>
             </Center>
 
-            <SimpleGrid /*Seção Contato - TO-DO: add map*/
+            {/*Seção Contato*/}
+            {/*TODO: Extract styles into classes, and get rid of Space abuse*/}
+            <SimpleGrid
                 my="xl"
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
             >
-                <div id="contato">
-                    <Title ta="center">Contato</Title>
-                    <Space h="md" />
+                <Stack id="contato" gap="0">
+                    <Title ta="center" mb={"md"}>Contato</Title>
                     <Text ta="center" size="xl" fw={500}>
                         Endereço
                     </Text>
@@ -104,29 +104,24 @@ function LandingPage(){
                     <Text ta="center" size="xl" fw={500}>
                         Telefone
                     </Text>
-                    <Text ta="center" size="lg" fw={500}>
-                        <Link to='tel:+55193835-7134'>
-                            (19) 3835-7134
-                        </Link>
-                    </Text>
+                    <Anchor ta="center" size="lg" fw={500} href='tel:+55193835-7134'>
+                        (19) 3835-7134
+                    </Anchor>
                     <Space h="xl" />
                     <Text ta="center" size="xl" fw={500}>
                         Redes Sociais
                     </Text>
-                    <Text ta="center" size="lg" fw={500}>
-                        <Link to='https://www.facebook.com/indaiatuba.aprai/'>
-                            Facebook: Aprai Indaiatuba
-                        </Link>
-                        <br />
-                        <Link to='https://www.instagram.com/aprai.indaiatuba/'>
-                            Instagram: @aprai.indaiatuba
-                        </Link>
-                    </Text>
-                </div>
+                    <Anchor ta="center" size="lg" fw={500} href='https://www.facebook.com/indaiatuba.aprai/'>
+                        Facebook: Aprai Indaiatuba
+                    </Anchor>
+                    <Anchor ta="center" size="lg" fw={500} href='https://www.instagram.com/aprai.indaiatuba/'>
+                        Instagram: @aprai.indaiatuba
+                    </Anchor>
+                </Stack>
                 <div>
                     <Image
-                    radius="xl"
-                    src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
+                        radius="xl"
+                        src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
                     />
                 </div>
             </SimpleGrid>
