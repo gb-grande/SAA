@@ -1,66 +1,41 @@
 import React from 'react';
-import { TextInput, Paper, Text, Space, Button } from '@mantine/core';
+import { Paper, Text, Button, Center, Stack} from '@mantine/core';
 import ColoredInputBars from "../components/ColoredInputBars.jsx";
-
-
+import {HashLink} from "react-router-hash-link";
 
 function Login() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        flexDirection: 'row',
-        height: '100vh'
-      }}
-    >
+    <Center h="100%">
       <Paper
         h={{ base: 230, xs: 375 }}
         w={{ base: 180, xs: 280 }}
-        bg="#392F88"
-        my="xl"
+        bg="aprai-purple.9"
         p={{ base: 'xs', xs: 'md' }}
         radius="xl"
       >
-        <Text ta="center"  fz={{base: "30px", xs: "40px"}}  style={{ color: 'white' }}>
+        <Text ta="center"  fz={{base: "30px", xs: "40px"}} c='white' mb='lg'>
           Login
         </Text>
 
-        <Space h="lg" />
-
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <Stack align='center' justify='center' gap={'xs'}>
           <ColoredInputBars texto = "Usuário"/>
-
-          <Space h="xs" />
-
           <ColoredInputBars texto = "Senha"/>
 
-          <Space h="xl" />
-
-          <Button 
-              justify='center'
-              variant='filled'
-              h={{ base: 30, xs: 50 }}
-              fz={{ base: 13, xs: 20 }}
-              w={{ base: 80, xs: 200 }}
-              radius='lg'
-              color = "white"
-              style={{ color: '#392F88' }}
-
-              >
+          <Button mt={{base: 'xs', xs: 'xl'}}
+                  justify='center'
+                  variant='white'
+                  h={{ base: 30, xs: 50 }}
+                  w={{ base: 80, xs: 200 }}
+                  fz={{ base: 13, xs: 20 }}
+                  radius='lg'
+                  component={HashLink}
+                  to='/admin'
+          >
                   Entrar
           </Button>
-        </div>
+        </Stack>
       </Paper>
-    </div>
+    </Center>
   );
 }
 
