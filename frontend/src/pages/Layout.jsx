@@ -1,5 +1,5 @@
 import {useDisclosure} from "@mantine/hooks";
-import {AppShell, Group, Anchor, Center, Stack, Image, Text, ActionIcon, Space, Flex} from "@mantine/core";
+import {AppShell, Group, Anchor, Center, Stack, Image, Text, ActionIcon } from "@mantine/core";
 import {Outlet, Link} from "react-router-dom";
 import { IconBrandFacebook, IconBrandInstagram, IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import logo from '../assets/logo.jpeg';
@@ -19,34 +19,33 @@ function Layout() {
     ];
 
     const linkButtons =
-        links.map(l => <Anchor  c={'white'} ff={'Karla'} fz={'1.2em'} mx={'60px'} href={l.link}>{l.label}</Anchor>);
-
-    let headerHeight = 60;
-    if (opened) headerHeight += 10 * links.length;
+        links.map(l =>
+            <Anchor c={'white'} ff={'Karla'}
+                    fz={'1.2em'} mx={'60px'}
+                    component={Link} to={l.link}
+            >
+                {l.label}
+            </Anchor>
+        );
 
     return (
-        <Stack gap={"0"} align="center">
-            <Flex
-                maw={"100%"}
-                justify="space-between"
-                align="flex-end"
-            >   
-                <Space w="25%"></Space>
-                <Image src={logo} h={"25%"} w={"25%"}></Image>
-                <Group>
+        <Stack w="100vw" gap={"0"} align="center">
+            <Center w={"100vw"} pos="relative">
+                <Image w={{base: "100vw", sm: "45vw", md: "30vw", lg: "25vw"}} h={"auto"} src={logo}/>
+                <Group style={{position: "absolute", right: 0, bottom: 0}}>
                     <ActionIcon variant="filled" color="pink" size="xl" radius="xl" component="a" href="https://www.instagram.com/aprai.indaiatuba/">
                         <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
                     </ActionIcon>
-            
+
                     <ActionIcon variant="filled" color="blue" size="xl" radius="xl" component="a" href="https://www.facebook.com/people/Aprai-Indaiatuba/100090048881690/">
-                            <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
+                        <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
                     </ActionIcon>
                 </Group>
-            </Flex>
+            </Center>
             <AppShell
                 maw={"100%"}
             >   
-                <AppShell.Header bg={'#392F88'} pos="relative" w={"100%"} content="fit"display="inline-block">
+                <AppShell.Header bg={'#392F88'} pos="relative" w={"100%"} content="fit" display="inline-block">
                     <Center mih={'5em'} px="md">
                         <Stack hiddenFrom="sm" pos="relative">
                             {opened ? 
@@ -68,7 +67,7 @@ function Layout() {
                     <Outlet/>
                 </AppShell.Main>
 
-                <AppShell.Footer bg={'#392F88'} ff={'Karla'} c={'white'} pos="relative" w={'100%'}p="md">
+                <AppShell.Footer bg={'#392F88'} ff={'Karla'} c={'white'} pos="relative" w={'100%'} p="md">
                     <Group justify="space-between" >
                         <Stack gap="0">
                             <Text fz="h2">APRAI</Text>
