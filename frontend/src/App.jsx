@@ -3,11 +3,11 @@ import Layout from "./pages/Layout.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
-import AdmMenu from "./pages/AdmMenu.jsx";
-import EditContact from "./pages/EditContact.jsx";
+import AdmMenu from "./pages/adm/AdmMenu.jsx";
+import EditContact from "./pages/adm/EditContact.jsx";
 import BlogPost from "./pages/BlogPost.jsx";
 import EditBlogPost from "./pages/EditBlogPost.jsx";
-import RegisterAdm from "./pages/RegisterAdm.jsx";
+import RegisterAdm from "./pages/adm/RegisterAdm.jsx";
 
 function App() {
     return (
