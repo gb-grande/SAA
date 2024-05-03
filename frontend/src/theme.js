@@ -23,7 +23,7 @@ export default createTheme({
             "#584ab9",
             "#493ba3",
             "#403592",
-            "#362d81"
+            "#392f88"
         ],
         'aprai-green': [
             "#e8fdf1",
