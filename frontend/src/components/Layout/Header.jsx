@@ -12,7 +12,7 @@ function Header(){
         {label: "Contato", link: "/#contato"},
         {label: "Bazar", link: "/bazar"},
         {label: "Blog", link: "/blog"},
-        {label: "Administracao", link: "/login"}
+        {label: "Administração", link: "/login"}
     ];
 
     const linkButtons =
