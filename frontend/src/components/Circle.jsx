@@ -1,15 +1,13 @@
 import { useMantineTheme, Text, Space } from '@mantine/core';
-import {IconDog, IconDogBowl, IconAlertTriangle} from "@tabler/icons-react";
+import {IconDog, IconDogBowl, IconAlertTriangle, IconStethoscope} from "@tabler/icons-react";
 
 // Exemplo:
 //
 //  <Circle
-//      icon='dog' // use 'dog' 'food' or 'alert'
+//      icon='dog' // use 'dog' 'food' 'alert' or 'vet'
 //      number='+100'
 //      description='Cachorros resgatados'
 //      />
-//
-//
 //
 
 function getIcon(icon, props){
@@ -17,6 +15,7 @@ function getIcon(icon, props){
         case 'dog': return <IconDog {...props}/>;
         case 'alert': return <IconAlertTriangle {...props}/>;
         case 'food': return <IconDogBowl {...props}/>;
+        case 'vet': return <IconStethoscope {...props}/>;
         default: return null;
     }
 }
@@ -30,8 +29,8 @@ function Circle({number, description, icon}) {
     return (
     <div
         style={{
-            width: '300px',
-            height: '300px',
+            width: '250px',
+            height: '250px',
             backgroundColor: theme.colors['aprai-purple'][9],
             borderRadius: '50%',
             border: `5px solid ${theme.colors['aprai-green'][3]}`,
@@ -41,11 +40,11 @@ function Circle({number, description, icon}) {
             alignItems: 'center',
         }}
     >   
-        <Text ta="center" size="50px" c="White">
+        <Text ta="center" size="40px" c="White">
             {number}
         </Text>
         {iconContent}
-        <Text ta="center" size="35px" c="White">
+        <Text ta="center" size="25px" c="White">
             {description}
         </Text>
         <Space h="5px" />
