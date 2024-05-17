@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start": "node ./src/server.js"
+  },
+  "type": "module",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",

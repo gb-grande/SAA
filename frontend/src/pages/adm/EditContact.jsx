@@ -1,56 +1,74 @@
-import { useState } from 'react';
+import {useEffect} from 'react';
 import { Stack, Button } from '@mantine/core'
 import ContactInput from '../../components/ContactInput.jsx';
-
-// To-Do: add update request to button
+import {useForm} from "@mantine/form";
+import axios from "axios";
 
 function EditContact () {
+    //TODO validate fields
+    const form = useForm({
+        mode: "uncontrolled",
+        initialValues: {
+            telephone: '',
+            address: '',
+            instagram: '',
+            facebook: ''
+        }
+    });
 
-    const [inputTel, setInputTel] = useState('');
-    const changeTel = (newValue) => setInputTel(newValue);
+    useEffect(() => {
+        axios.get('api/contactInfo').then(res => {
+            form.initialize(res.data);
+            console.log("Data loaded: ", res.data);
+        }).catch(err => {
+            console.log("Failed loading data.", err);
+        });
+    }, []);
 
-    const [inputAdr, setInputAdr] = useState('');
-    const changeAdr = (newValue) => setInputAdr(newValue);
-
-    const [inputIg, setInputIg] = useState('');
-    const changeIg = (newValue) => setInputIg(newValue);
-
-    const [inputFb, setInputFb] = useState('');
-    const changeFb = (newValue) => setInputFb(newValue);
+    function onSubmit(values){
+        axios.post('api/contactInfo', values).then(_ => {
+            console.log("Saved contact info: ", values)
+        }).catch(err => {
+            console.log("Couldn't save contact info.", err)
+        })
+    }
 
     return(
-        <Stack align='center' h='100%' justify='center' gap='md'>
+        <Stack align='center' h='100%' justify='center' gap='md'
+               component={'form'} onSubmit={form.onSubmit(onSubmit)}
+        >
             <ContactInput
                 label='Telefone'
                 placeholder=''
-                onChange={changeTel}
+                {...form.getInputProps('telephone')}
             />
 
             <ContactInput
                 label='Endereço'
                 placeholder=''
-                onChange={changeAdr}
+                {...form.getInputProps('address')}
             />
 
             <ContactInput
                 label='Instagram'
                 placeholder=''
-                onChange={changeIg}
+                {...form.getInputProps('instagram')}
             />
 
             <ContactInput
                 label='Facebook'
                 placeholder=''
-                onChange={changeFb}
+                {...form.getInputProps('facebook')}
             />
 
             <Button
-            justify='center'
-            variant='filled'
-            h='60px'
-            fz='20px'
-            w='300px'
-            radius='lg'
+                justify='center'
+                variant='filled'
+                h='60px'
+                fz='20px'
+                w='300px'
+                radius='lg'
+                type='submit'
             >
                 Salvar
             </Button>
