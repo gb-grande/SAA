@@ -8,6 +8,18 @@ import Circle from "../components/Circle.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+function formatTelephone(number){
+    // número = +5599999999999
+    const cleaned = number.replace(/\D/g, '');
+    // número = 5599999999999
+    const match = cleaned.match(/^(\d{2})(\d{2})(\d{4}|\d{5})(\d{4})$/);
+    // número = 55 99 99999 9999
+    if (match)
+        return ['(', match[2], ')', match[3], '-', match[4]].join('')
+    // número = (99) 99999-9999
+    return number;
+}
+
 function LandingPage(){
     const [contactInfo, setContactInfo] = useState({
         telephone: '',
@@ -17,6 +29,7 @@ function LandingPage(){
     });
 
     useEffect(() => {
+        //Uses 'ignore' variable to avoid race conditions.
         let ignore = false;
 
         axios.get('api/contactInfo').then(res => {
@@ -126,7 +139,7 @@ function LandingPage(){
                         Telefone
                     </Text>
                     <Anchor ta="center" size="lg" fw={500} href='tel:+55193835-7134'>
-                        {contactInfo.telephone}
+                        {formatTelephone(contactInfo.telephone)}
                     </Anchor>
                     <Space h="xl" />
                     <Text ta="center" size="xl" fw={500}>

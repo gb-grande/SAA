@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import { Stack, Button } from '@mantine/core'
 import ContactInput from '../../components/ContactInput.jsx';
 import {useForm} from "@mantine/form";
@@ -26,7 +26,7 @@ function EditContact () {
     }, []);
 
     function onSubmit(values){
-        axios.post('api/contactInfo', values).then(res => {
+        axios.post('api/contactInfo', values).then(_ => {
             console.log("Saved contact info: ", values)
         }).catch(err => {
             console.log("Couldn't save contact info.", err)
