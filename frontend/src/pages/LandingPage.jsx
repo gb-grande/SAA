@@ -63,14 +63,19 @@ function LandingPage(){
 
             <Center my="xl">
                 <SimpleGrid /*Círculos informativos - All fine*/
-                    cols={{ base: 1, sm: 2, lg: 3 }}
-                    spacing={{ base:'100px', sm: '100px', md: '125px', lg: '150px'}}
+                    cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
+                    spacing={{ base:'100px', sm: '100px', md: '100px', lg: '100px', xl: '100px'}}
                     verticalSpacing='xs'
                 >
                     <Circle
                         icon="dog"
                         number="300"
-                        description="Animais resgatados"
+                        description={(
+                            <>
+                                Animais<br />
+                                doados
+                            </>
+                        )}
                     />
                     <Circle
                         icon="alert"
@@ -81,6 +86,11 @@ function LandingPage(){
                         icon="food"
                         number="800"
                         description="Quilos de ração doados"
+                    />
+                    <Circle
+                        icon="vet"
+                        number="200"
+                        description="Consultas realizadas"
                     />
                 </SimpleGrid>
             </Center>
