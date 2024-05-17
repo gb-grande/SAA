@@ -1,5 +1,4 @@
 import {promises as fs} from "fs";
-import e from "express";
 
 //TODO later extract path into .env file
 const fileDir = "contactInfo.json"
@@ -17,8 +16,9 @@ export async function getContactInfo(req, res){
 
 export async function setContactInfo(req, res){
     const {telephone, address, instagram, facebook} = req.body;
-    if (!telephone || !address || !instagram || !facebook){
-        return req.status(400).send("Malformed contact info in request.")
+    //TODO proper validation
+    if (telephone === null || address === null || instagram === null || facebook === null){
+        return res.status(400).send("Malformed contact info in request.")
     }
 
     try {
