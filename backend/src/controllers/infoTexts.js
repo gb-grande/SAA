@@ -21,7 +21,7 @@ export async function setInfoText(req, res){
         let json = await fs.readFile(fileDir, {encoding: "utf8"});
         const info = JSON.parse(json);
         info[req.params.id] = req.body.data;
-        json = JSON.stringify(info);
+        json = JSON.stringify(info, null, 2);
         await fs.writeFile(fileDir, json, {encoding: "utf8"});
         return res.status(200).send();
     } catch (e){
