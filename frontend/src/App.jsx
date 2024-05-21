@@ -12,11 +12,10 @@ import BazarPage from "./pages/BazarPage.jsx";
 import Login from "./pages/Login.jsx";
 import axios from "axios";
 
-//TODO store url in a proper config file.
-axios.defaults.baseURL = 'http://localhost:8080/'
-
+axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
 
 function App() {
+    console.log(import.meta.env.VITE_BACKEND_URL);
     return (
         <Routes>
             <Route path="/" element={<Layout/>}>
