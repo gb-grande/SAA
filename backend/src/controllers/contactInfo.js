@@ -1,7 +1,7 @@
 import {promises as fs} from "fs";
+import '../config.js'
 
-//TODO later extract path into .env file
-const fileDir = "contactInfo.json"
+const fileDir = process.env.CONTACT_FILE_DIR;
 
 export async function getContactInfo(req, res){
     try{
