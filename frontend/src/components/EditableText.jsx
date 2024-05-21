@@ -3,41 +3,43 @@ import ProtectedComponent from "./ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 
-function EditableText({text, setText, onSave, ...others}){
+function EditableText({text, setText, onSave, style, ...others}){
     const [editing, {toggle}] = useDisclosure();
 
-    const TextComp = () => (
-           <>{text}</>
-    )
+    //If not editing, just the text and the edit button.
+    if (!editing){
+        return (
+            <>
+                <ProtectedComponent>
+                    <ActionIcon onClick={toggle}>
+                        <IconPencil/>
+                    </ActionIcon>
+                </ProtectedComponent>
+                {text}
+            </>
+        );
+    }
 
-    const EditableComp = () => (
-        <Textarea
-            value={text}
-            onChange={(event) => setText(event.currentTarget.value)}
-            {...others}/>
-    )
-
+    //If editing, the text area and the confirm/cancel buttons.
     return (
-      <>
-          <ProtectedComponent>
-              <ActionIcon onClick={toggle}>
-                  <IconPencil/>
-              </ActionIcon>
-          </ProtectedComponent>
-
-          {editing ? EditableComp() : TextComp()}
-
-          {
-              editing &&
-              <ProtectedComponent>
-                  <Group>
-                      <Button onClick={() => {onSave(); toggle();}}>Salvar</Button>
-                      <Button onClick={toggle}>Cancelar</Button>
-                  </Group>
-              </ProtectedComponent>
-          }
-      </>
-    );
+        <>
+            <textarea
+                value={text}
+                onChange={(event) => setText(event.currentTarget.value)}
+                style={{
+                    ...style,
+                    resize: "none",
+                }}
+                {...others}
+            />
+            <ProtectedComponent>
+                <Group>
+                    <Button onClick={() => {onSave(); toggle();}}>Salvar</Button>
+                    <Button bg="red" onClick={toggle}>Cancelar</Button>
+                </Group>
+            </ProtectedComponent>
+        </>
+    )
 }
 
 export default EditableText;
