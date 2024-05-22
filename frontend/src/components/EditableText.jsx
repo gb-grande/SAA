@@ -1,12 +1,17 @@
-import {ActionIcon, Button, Group} from "@mantine/core";
+import {ActionIcon, Button, Group, Text, Textarea} from "@mantine/core";
 import ProtectedComponent from "./ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
-function EditableText({text, onSave, style, ...others}){
+function EditableText({text, onSave, containerStyle, textClassName, ...others}){
     const [editText, setEditText] = useState("");
     const [editing, {open, close}] = useDisclosure();
+
+    function beginEditing(){
+        setEditText(text);
+        open();
+    }
 
     function save(){
         onSave(editText);
@@ -16,28 +21,30 @@ function EditableText({text, onSave, style, ...others}){
     //If not editing, just the text and the edit button.
     if (!editing){
         return (
-            <>
+            <div {...others}>
                 <ProtectedComponent>
-                    <ActionIcon onClick={() => {setEditText(text); open();}}>
+                    <ActionIcon onClick={beginEditing} pos="absolute">
                         <IconPencil/>
                     </ActionIcon>
                 </ProtectedComponent>
-                {text}
-            </>
+                <p className={textClassName}>
+                    {text}
+                </p>
+            </div>
         );
     }
 
     //If editing, the text area and the confirm/cancel buttons.
     return (
-        <>
+        <div {...others}>
             <textarea
                 value={editText}
                 onChange={(event) => setEditText(event.currentTarget.value)}
                 style={{
-                    ...style,
                     resize: "none",
+                    ...containerStyle
                 }}
-                {...others}
+                className={textClassName}
             />
             <ProtectedComponent>
                 <Group>
@@ -45,7 +52,7 @@ function EditableText({text, onSave, style, ...others}){
                     <Button bg="red" onClick={close}>Cancelar</Button>
                 </Group>
             </ProtectedComponent>
-        </>
+        </div>
     )
 }
 

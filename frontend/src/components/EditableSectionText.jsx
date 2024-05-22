@@ -2,7 +2,7 @@ import EditableText from "./EditableText.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-function EditableSectionText({section, ...others}){
+function EditableSectionText({section, containerStyle, textClassName, ...others}){
     const [text, setText] = useState("");
 
     useEffect(() => {
@@ -19,14 +19,14 @@ function EditableSectionText({section, ...others}){
     }, []);
 
     function onSave(value){
-        axios.post(`api/infoTexts/${section}`, {data: value}, {params: {id: section}})
-            .then(_ => console.log(`Updated ${section} text.`, value))
+        axios.post(`api/infoTexts/${section}`, {data: value})
+            .then(_ => console.log('Updated ${section} text.'))
             .catch(err => console.error(`Failed to update ${section} text.`, err));
         setText(value);
     }
 
     return (
-        <EditableText text={text} onSave={onSave} {...others}/>
+        <EditableText containerStyle={containerStyle} textClassName={textClassName} text={text} onSave={onSave} {...others}/>
     )
 }
 
