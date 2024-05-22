@@ -18,14 +18,15 @@ function EditableSectionText({section, ...others}){
         };
     }, []);
 
-    function onSave(){
-        axios.post(`api/infoTexts/${section}`, {data: text}, {params: {id: section}})
-            .then(_ => console.log(`Updated ${section} text.`, text))
+    function onSave(value){
+        axios.post(`api/infoTexts/${section}`, {data: value}, {params: {id: section}})
+            .then(_ => console.log(`Updated ${section} text.`, value))
             .catch(err => console.error(`Failed to update ${section} text.`, err));
+        setText(value);
     }
 
     return (
-        <EditableText text={text} setText={setText} onSave={onSave} {...others}/>
+        <EditableText text={text} onSave={onSave} {...others}/>
     )
 }
 

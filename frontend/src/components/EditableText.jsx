@@ -1,17 +1,24 @@
-import {ActionIcon, Button, Group, Textarea} from "@mantine/core";
+import {ActionIcon, Button, Group} from "@mantine/core";
 import ProtectedComponent from "./ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
+import {useState} from "react";
 
-function EditableText({text, setText, onSave, style, ...others}){
-    const [editing, {toggle}] = useDisclosure();
+function EditableText({text, onSave, style, ...others}){
+    const [editText, setEditText] = useState("");
+    const [editing, {open, close}] = useDisclosure();
+
+    function save(){
+        onSave(editText);
+        close();
+    }
 
     //If not editing, just the text and the edit button.
     if (!editing){
         return (
             <>
                 <ProtectedComponent>
-                    <ActionIcon onClick={toggle}>
+                    <ActionIcon onClick={() => {setEditText(text); open();}}>
                         <IconPencil/>
                     </ActionIcon>
                 </ProtectedComponent>
@@ -24,8 +31,8 @@ function EditableText({text, setText, onSave, style, ...others}){
     return (
         <>
             <textarea
-                value={text}
-                onChange={(event) => setText(event.currentTarget.value)}
+                value={editText}
+                onChange={(event) => setEditText(event.currentTarget.value)}
                 style={{
                     ...style,
                     resize: "none",
@@ -34,8 +41,8 @@ function EditableText({text, setText, onSave, style, ...others}){
             />
             <ProtectedComponent>
                 <Group>
-                    <Button onClick={() => {onSave(); toggle();}}>Salvar</Button>
-                    <Button bg="red" onClick={toggle}>Cancelar</Button>
+                    <Button onClick={save}>Salvar</Button>
+                    <Button bg="red" onClick={close}>Cancelar</Button>
                 </Group>
             </ProtectedComponent>
         </>
