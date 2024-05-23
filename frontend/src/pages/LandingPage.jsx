@@ -5,8 +5,8 @@ import {
 import FlipCard from "../components/FlipCard.jsx";
 import PostCarousel from "../components/PostCarousel.jsx";
 import Circle from "../components/Circle.jsx";
-import {useEffect, useState} from "react";
-import axios from "axios";
+import EditableSectionText from "../components/EditableSectionText.jsx";
+import classes from "./LandingPage.module.css"
 
 function formatTelephone(number){
     // número = +5599999999999
@@ -21,39 +21,16 @@ function formatTelephone(number){
 }
 
 function LandingPage(){
-    const [contactInfo, setContactInfo] = useState({
-        telephone: '',
-        address: '',
-        instagram: '',
-        facebook: ''
-    });
-
-    useEffect(() => {
-        //Uses 'ignore' variable to avoid race conditions.
-        let ignore = false;
-
-        axios.get('api/contactInfo').then(res => {
-            if (!ignore) setContactInfo(res.data);
-        }).catch(err => console.log("Couldn't load contact info.", err));
-
-        return () => {
-            ignore = true;
-        };
-    }, []);
-
-
     return (
         <>
-            <Text c="aprai-purple.9" ta="center" fz={{base: "30px", md: "3vw"}}  ff={"Just Me Again Down Here"}>
-                "Se você não gosta de animais, o problema é seu.
-                Se você maltrata animais, o problema é nosso."
-            </Text>
+            <EditableSectionText section="topQuote" containerStyle={{width: "100%"}} textClassName={classes.topQuote}/>
 
             <SimpleGrid w="100%" cols={{base: 1, sm: 2}} spacing={{base: 'xs', sm: 'lg'}} mt="md" mb="xl">
                 <FlipCard
                     h={{lg: 350, md:300, sm: 250, base: 200}}
                     textFront="Nos ajude com a sua doação."
                     textBack="Informações da Doação"
+                    editableBackTextSection="cardDoacao"
                     buttonText="DOE AGORA"
                     image="https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
                     imageAlt="Gato (Siri)"/>
@@ -61,32 +38,20 @@ function LandingPage(){
                 <FlipCard
                     h={{lg: 350, md:300, sm: 250, base: 200}}
                     textFront="Maus tratos? DENUNCIE!"
-                    textBack="Informações da Denúncia"
+                    editableBackTextSection="cardDenuncia"
                     buttonText="DENUNCIE AQUI"
                     image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
                     imageAlt="Gato Triste"/>
             </SimpleGrid>
 
             <Title id='quemSomos'>Quem Somos</Title>
-            <SimpleGrid /*Seção quem somos - TO-DO: add image*/
+            <SimpleGrid /*Seção quem somos - TODO: add image*/
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
             >
-                <div>
-                    <Space h="md" />
-                    <Text ta="justify" fz="20px">
-                        A Associação de Proteção aos Animais de Indaiatuba foi fundada em 1988,
-                        com o objetivo de fiscalizar e coibir maus tratos contra animais, bem
-                        como atuar no controle populacional  de cães e gatos conscientizando a
-                        população sobre a importância da castração. A entidade busca atender ao
-                        maior número possível de denúncias sobre maus tratos, além de orientar
-                        tutores, atuar no controle de transmissão de zoonoses, ajudar famílias
-                        carentes com consultas, vacinas e ração, entre outros serviços. A APRAI
-                        tem o objetivo de ser a principal referência no apoio e defesa dos animais
-                        do município de Indaiatuba.
-                    </Text>
-                </div>
+                <EditableSectionText section="sobreNos" containerStyle={{height: "380px", width: "100%"}} textClassName={classes.paragraphText}/>
                 <Image
                     radius="xl"
+                    h={400}
                     src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
                 />
             </SimpleGrid>
@@ -97,7 +62,7 @@ function LandingPage(){
             </Paper>
 
             <Center my="xl">
-                <SimpleGrid /*Círculos informativos - All fine*/
+                <SimpleGrid /*Círculos informativos*/
                     cols={{ base: 1, sm: 2, lg: 3, xl: 4 }}
                     spacing={{ base:'100px', sm: '100px', md: '100px', lg: '100px', xl: '100px'}}
                     verticalSpacing='xs'
@@ -105,6 +70,7 @@ function LandingPage(){
                     <Circle
                         icon="dog"
                         number="300"
+                        numberSection="numAnimais"
                         description={(
                             <>
                                 Animais<br />
@@ -115,16 +81,19 @@ function LandingPage(){
                     <Circle
                         icon="alert"
                         number="100"
+                        numberSection="numDenuncia"
                         description="Denúncias registradas"
                     />
                     <Circle
                         icon="food"
                         number="800"
+                        numberSection="numRacao"
                         description="Quilos de ração doados"
                     />
                     <Circle
                         icon="vet"
                         number="200"
+                        numberSection="numConsulta"
                         description="Consultas realizadas"
                     />
                 </SimpleGrid>
@@ -141,24 +110,24 @@ function LandingPage(){
                     <Text ta="center" size="xl" fw={500}>
                         Endereço
                     </Text>
-                    <Text ta="center" size="lg" fw={500}>
-                        {contactInfo.address}
+                    <Text className={classes.contactValueText}>
+                        {'Rua Onze de Junho, 684 - Centro, Indaiatuba - SP, 13330-050'}
                     </Text>
                     <Space h="xl" />
                     <Text ta="center" size="xl" fw={500}>
                         Telefone
                     </Text>
                     <Anchor ta="center" size="lg" fw={500} href='tel:+55193835-7134'>
-                        {formatTelephone(contactInfo.telephone)}
+                        {formatTelephone('+551938357134')}
                     </Anchor>
                     <Space h="xl" />
                     <Text ta="center" size="xl" fw={500}>
                         Redes Sociais
                     </Text>
-                    <Anchor ta="center" size="lg" fw={500} href={contactInfo.facebook}>
+                    <Anchor ta="center" size="lg" fw={500} href={'https://www.facebook.com/indaiatuba.aprai/'}>
                         Facebook: Aprai Indaiatuba
                     </Anchor>
-                    <Anchor ta="center" size="lg" fw={500} href={contactInfo.instagram}>
+                    <Anchor ta="center" size="lg" fw={500} href={''}>
                         Instagram: @aprai.indaiatuba
                     </Anchor>
                 </Stack>
