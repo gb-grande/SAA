@@ -2,7 +2,7 @@ import EditableText from "./EditableText.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-function EditableSectionText({section, containerStyle, textClassName, ...others}){
+function EditableSectionText({section, containerStyle, inputStyle, textClassName, maxLen}){
     const [text, setText] = useState("");
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function EditableSectionText({section, containerStyle, textClassName, ...others}
     }
 
     return (
-        <EditableText containerStyle={containerStyle} textClassName={textClassName} text={text} onSave={onSave} {...others}/>
+        <EditableText inputStyle={inputStyle} containerStyle={containerStyle} textClassName={textClassName} text={text} onSave={onSave} maxLen={maxLen}/>
     )
 }
 

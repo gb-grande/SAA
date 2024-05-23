@@ -1,10 +1,10 @@
-import {ActionIcon, Box, Button, FocusTrap, Group} from "@mantine/core";
+import {ActionIcon, Box, Button, Center, FocusTrap, Group, Textarea} from "@mantine/core";
 import ProtectedComponent from "./ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
-function EditableText({text, onSave, containerStyle, textClassName, ...others}){
+function EditableText({text, onSave, containerStyle, inputStyle, textClassName, maxLen}){
     const [editText, setEditText] = useState("");
     const [editing, {open, close}] = useDisclosure();
 
@@ -21,40 +21,54 @@ function EditableText({text, onSave, containerStyle, textClassName, ...others}){
     //If not editing, just the text and the edit button.
     if (!editing){
         return (
-            <Box>
+            <div style={containerStyle}>
                 <ProtectedComponent>
                     <ActionIcon onClick={beginEditing} pos="absolute">
                         <IconPencil/>
                     </ActionIcon>
                 </ProtectedComponent>
-                <p className={textClassName}>
-                    {text}
-                </p>
-            </Box>
+                <Center>
+                    <p className={textClassName}>
+                        {text}
+                    </p>
+                </Center>
+            </div>
         );
     }
 
+    const maxLenProp = maxLen ? {maxLength: maxLen} : {};
     //If editing, the text area and the confirm/cancel buttons.
     return (
-        <Box {...others}>
+        <div style={containerStyle}>
             <FocusTrap active={true}>
                 <textarea
                     value={editText}
                     onChange={(event) => setEditText(event.currentTarget.value)}
                     style={{
                         resize: "none",
-                        ...containerStyle
+                        background: "none",
+                        width: "100%",
+                        height: "100%",
+                        ...inputStyle
                     }}
+                    {...maxLenProp}
                     className={textClassName}
                 />
+                {/*<Textarea*/}
+                {/*    value={editText}*/}
+                {/*    onChange={(event) => setEditText(event.currentTarget.value)}*/}
+                {/*    classNames={{root: textClassName}}*/}
+                {/*    variant="unstyled"*/}
+                {/*/>*/}
             </FocusTrap>
+
             <ProtectedComponent>
                 <Group pos={"absolute"}>
                     <Button onClick={save}>Salvar</Button>
                     <Button bg="red" onClick={close}>Cancelar</Button>
                 </Group>
             </ProtectedComponent>
-        </Box>
+        </div>
     )
 }
 
