@@ -1,4 +1,4 @@
-import {ActionIcon, Button, Group, Text, Textarea} from "@mantine/core";
+import {ActionIcon, Box, Button, FocusTrap, Group} from "@mantine/core";
 import ProtectedComponent from "./ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
@@ -21,7 +21,7 @@ function EditableText({text, onSave, containerStyle, textClassName, ...others}){
     //If not editing, just the text and the edit button.
     if (!editing){
         return (
-            <div {...others}>
+            <Box>
                 <ProtectedComponent>
                     <ActionIcon onClick={beginEditing} pos="absolute">
                         <IconPencil/>
@@ -30,29 +30,31 @@ function EditableText({text, onSave, containerStyle, textClassName, ...others}){
                 <p className={textClassName}>
                     {text}
                 </p>
-            </div>
+            </Box>
         );
     }
 
     //If editing, the text area and the confirm/cancel buttons.
     return (
-        <div {...others}>
-            <textarea
-                value={editText}
-                onChange={(event) => setEditText(event.currentTarget.value)}
-                style={{
-                    resize: "none",
-                    ...containerStyle
-                }}
-                className={textClassName}
-            />
+        <Box {...others}>
+            <FocusTrap active={true}>
+                <textarea
+                    value={editText}
+                    onChange={(event) => setEditText(event.currentTarget.value)}
+                    style={{
+                        resize: "none",
+                        ...containerStyle
+                    }}
+                    className={textClassName}
+                />
+            </FocusTrap>
             <ProtectedComponent>
-                <Group>
+                <Group pos={"absolute"}>
                     <Button onClick={save}>Salvar</Button>
                     <Button bg="red" onClick={close}>Cancelar</Button>
                 </Group>
             </ProtectedComponent>
-        </div>
+        </Box>
     )
 }
 

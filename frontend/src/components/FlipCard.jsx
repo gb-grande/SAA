@@ -1,6 +1,8 @@
 import ReactCardFlip from 'react-card-flip';
 import {Image, Text, Button, Stack, Center, Paper, SimpleGrid, Space} from "@mantine/core"
 import {useDisclosure} from "@mantine/hooks";
+import classes from "./FlipCard.module.css"
+import EditableSectionText from "./EditableSectionText.jsx";
 
 // Exemplo:
 //
@@ -14,7 +16,10 @@ import {useDisclosure} from "@mantine/hooks";
 //
 //
 
-function FlipCard({image, imageAlt, textFront, textBack, buttonText, normalizedImgW = .5, style = {}, ...others}) {
+function FlipCard({image, imageAlt, textFront, textBack, buttonText,
+                      normalizedImgW = .5, style = {},
+                      editableBackTextSection,
+                      ...others}) {
     const [isFlipped, {toggle}] = useDisclosure();
 
     return (
@@ -35,9 +40,13 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText, normalizedI
                 </SimpleGrid>
             </Paper>
 
-            <Paper style={{overflow: "hidden", ...style}} radius="lg" withBorder bg="aprai-purple.3" pl={0} pr="sm" {...others}>
+            <Paper style={{overflow: "hidden", ...style}} radius="lg" withBorder bg="aprai-purple.3" pt="xs" pl="xs" pr="xs" {...others}>
                  <Center h={"100%"}>
-                     <Text ta="center" fz="xl" fw="600">{textBack}</Text>
+                     {
+                         editableBackTextSection
+                             ? <EditableSectionText h={"80%"} section={editableBackTextSection} textClassName={classes.cardBackText} containerStyle={{height: "100%", width: "100%"}} style={{width: "100%"}}/>
+                             : <Text className={classes.cardBackText}>{textBack}</Text>
+                     }
                  </Center>
             </Paper>
          </ReactCardFlip>
