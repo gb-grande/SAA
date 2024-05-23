@@ -1,5 +1,7 @@
 import { useMantineTheme, Text, Space } from '@mantine/core';
 import {IconDog, IconDogBowl, IconAlertTriangle, IconStethoscope} from "@tabler/icons-react";
+import EditableSectionText from "./EditableSectionText.jsx";
+import classes from "./Circle.module.css"
 
 // Exemplo:
 //
@@ -20,7 +22,7 @@ function getIcon(icon, props){
     }
 }
 
-function Circle({number, description, icon}) {
+function Circle({number, numberSection, description, icon}) {
     const theme = useMantineTheme();
 
     const iconProps = {size:100, height:100, color:theme.colors['aprai-green'][3], stroke:1};
@@ -39,10 +41,18 @@ function Circle({number, description, icon}) {
             justifyContent: 'center',
             alignItems: 'center',
         }}
-    >   
-        <Text ta="center" size="40px" c="White">
-            {number}
-        </Text>
+    >
+
+        {
+            numberSection
+                ? <EditableSectionText section={numberSection}
+                                       textClassName={classes.numberText}
+                                       containerStyle={{width: 140, height: 50}}
+                                       inputStyle={{overflow: "hidden"}}
+                                       maxLen={5}/>
+                : <p className={classes.numberText}>{number}</p>
+        }
+        {/*<Text ta="center" size="40px" c="White"> {number} </Text>*/}
         {iconContent}
         <Text ta="center" size="25px" c="White">
             {description}

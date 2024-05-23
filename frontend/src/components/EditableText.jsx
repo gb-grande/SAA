@@ -1,4 +1,4 @@
-import {ActionIcon, Box, Button, Center, FocusTrap, Group, Textarea} from "@mantine/core";
+import {ActionIcon, Button, Center, FocusTrap, Group} from "@mantine/core";
 import ProtectedComponent from "./ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
