@@ -3,7 +3,7 @@ import axios from "axios";
 import useFetch from "../hooks/useFetch.jsx";
 
 function EditableSectionText({section, containerStyle, inputStyle, textClassName, maxLen}){
-    const {result, setResult, error} = useFetch(`api/infoTexts/${section}`);
+    const {result, setResult, error} = useFetch(`api/infoTexts/${section}`, null, '');
     if (error){
         console.error(`Couldn't load '${section}' info.`, textError);
     }

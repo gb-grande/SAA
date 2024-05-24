@@ -3,12 +3,14 @@ import {ActionIcon} from "@mantine/core";
 import useFetch from "../hooks/useFetch.jsx";
 
 /**
- * @param media Either 'facebook' or 'instagram.
+ * @param media Either 'facebook' or 'instagram'.
  */
 function SocialMediaIcon({media}){
-    const {result, error} = useFetch('api/contactInfos');
+    const {result, error} = useFetch('api/contactInfos', null, {
+        instagram: '',
+        facebook: ''
+    });
     if (error) console.error('Could not load contact info.', error);
-    if (!result) return (<></>);
 
     const style = {width: '100%', height: '100%'};
     let icon;
@@ -16,12 +18,12 @@ function SocialMediaIcon({media}){
     let url;
     switch (media){
         case 'facebook':
-            icon = <IconBrandFacebook style={style}/>;
+            icon = (<IconBrandFacebook style={style}/>);
             color = 'blue';
             url = result.facebook;
             break;
         case 'instagram':
-            icon = <IconBrandInstagram style={style}/>;
+            icon = (<IconBrandInstagram style={style}/>);
             color = 'pink';
             url = 'https://www.instagram.com/' + result.instagram;
             break;
