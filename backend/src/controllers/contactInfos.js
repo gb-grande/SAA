@@ -1,7 +1,6 @@
 import {promises as fs} from "fs";
-import '../config.js'
 
-const fileDir = process.env.CONTACT_FILE_DIR;
+const fileDir = "contactInfos.json"
 
 export async function getContactInfo(req, res){
     try{
@@ -15,15 +14,20 @@ export async function getContactInfo(req, res){
 }
 
 export async function setContactInfo(req, res){
-    const {telephone, address, instagram, facebook} = req.body;
     //TODO proper validation
-    if (telephone === null || address === null || instagram === null || facebook === null){
+    if (!('phone' in req.body && 'address' in req.body && 'instagram' in req.body && 'facebook' in req.body)){
         return res.status(400).send("Malformed contact info in request.")
     }
 
+    //Project into only the target fields to avoid writing other data from req.body into the .json
+    const info = {
+        'phone': req.body.phone,
+        'address': req.body.address,
+        'instagram': req.body.instagram,
+        'facebook': req.body.facebook
+    };
     try {
-        const infoJson = JSON.stringify({telephone, address, instagram, facebook});
-        await fs.writeFile(fileDir, infoJson, {encoding: "utf8"});
+        await fs.writeFile(fileDir, JSON.stringify(info, null, 2), {encoding: "utf8"});
         return res.status(200).send();
     } catch {
         return res.status(500).send("Contact info not saved.");

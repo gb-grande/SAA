@@ -3,13 +3,15 @@ import { Stack, Button } from '@mantine/core'
 import ContactInput from '../../components/ContactInput.jsx';
 import {useForm} from "@mantine/form";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function EditContact () {
-    //TODO validate fields
+    //TODO validate fields and make explicit if should input social media link or handle
+    const navigate = useNavigate();
     const form = useForm({
         mode: "uncontrolled",
         initialValues: {
-            telephone: '',
+            phone: '',
             address: '',
             instagram: '',
             facebook: ''
@@ -17,7 +19,7 @@ function EditContact () {
     });
 
     useEffect(() => {
-        axios.get('api/contactInfo').then(res => {
+        axios.get('api/contactInfos').then(res => {
             form.initialize(res.data);
             console.log("Data loaded: ", res.data);
         }).catch(err => {
@@ -26,8 +28,9 @@ function EditContact () {
     }, []);
 
     function onSubmit(values){
-        axios.post('api/contactInfo', values).then(_ => {
-            console.log("Saved contact info: ", values)
+        axios.post('api/contactInfos', values).then(_ => {
+            console.log("Saved contact info: ", values);
+            navigate('..');
         }).catch(err => {
             console.log("Couldn't save contact info.", err)
         })
@@ -40,7 +43,7 @@ function EditContact () {
             <ContactInput
                 label='Telefone'
                 placeholder=''
-                {...form.getInputProps('telephone')}
+                {...form.getInputProps('phone')}
             />
 
             <ContactInput
