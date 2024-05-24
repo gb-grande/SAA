@@ -27,7 +27,7 @@ export async function setContactInfo(req, res){
         'facebook': req.body.facebook
     };
     try {
-        await fs.writeFile(fileDir, JSON.stringify(info), {encoding: "utf8"});
+        await fs.writeFile(fileDir, JSON.stringify(info, null, 2), {encoding: "utf8"});
         return res.status(200).send();
     } catch {
         return res.status(500).send("Contact info not saved.");
