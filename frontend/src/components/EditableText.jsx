@@ -14,7 +14,7 @@ function EditableText({text, onSave, containerStyle, inputStyle, textClassName, 
     }
 
     function save(){
-        onSave(editText);
+        onSave(String(editText));
         close();
     }
 
