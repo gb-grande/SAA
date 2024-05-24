@@ -1,32 +1,23 @@
 import EditableText from "./EditableText.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import useFetch from "../hooks/useFetch.jsx";
 
 function EditableSectionText({section, containerStyle, inputStyle, textClassName, maxLen}){
-    const [text, setText] = useState("");
-
-    useEffect(() => {
-        //Uses 'ignore' variable to avoid race conditions.
-        let ignore = false;
-
-        axios.get(`api/infoTexts/${section}`)
-            .then(res => {if (!ignore) setText(res.data);})
-            .catch(err => console.error(`Couldn't load '${section}' info.`, err));
-
-        return () => {
-            ignore = true;
-        };
-    }, []);
+    const {result, setResult, error} = useFetch(`api/infoTexts/${section}`);
+    if (error){
+        console.error(`Couldn't load '${section}' info.`, textError);
+    }
 
     function onSave(value){
         axios.post(`api/infoTexts/${section}`, {data: value})
-            .then(_ => console.log('Updated ${section} text.'))
+            .then(_ => console.log(`Updated ${section} text.`))
             .catch(err => console.error(`Failed to update ${section} text.`, err));
-        setText(value);
+        setResult(value);
     }
 
     return (
-        <EditableText inputStyle={inputStyle} containerStyle={containerStyle} textClassName={textClassName} text={text} onSave={onSave} maxLen={maxLen}/>
+        <EditableText inputStyle={inputStyle} containerStyle={containerStyle} textClassName={textClassName} text={result} onSave={onSave} maxLen={maxLen}/>
     )
 }
 
