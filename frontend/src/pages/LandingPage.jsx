@@ -7,8 +7,11 @@ import PostCarousel from "../components/PostCarousel.jsx";
 import Circle from "../components/Circle.jsx";
 import EditableSectionText from "../components/EditableSectionText.jsx";
 import classes from "./LandingPage.module.css"
+import useFetch from "../hooks/useFetch.jsx";
 
 function formatTelephone(number){
+    if (!number) return '';
+
     // número = +5599999999999
     const cleaned = number.replace(/\D/g, '');
     // número = 5599999999999
@@ -21,6 +24,14 @@ function formatTelephone(number){
 }
 
 function LandingPage(){
+    const {result: contactInfo, error: contactInfoErr} = useFetch('api/contactInfos', null, {
+        phone: '',
+        address: '',
+        instagram: '',
+        facebook: ''
+    });
+    if (contactInfoErr) console.error('Could not load contact info in landing page.', contactInfoErr);
+
     return (
         <>
             <EditableSectionText section="topQuote" containerStyle={{width: "100%"}} textClassName={classes.topQuote}/>
@@ -111,24 +122,24 @@ function LandingPage(){
                         Endereço
                     </Text>
                     <Text className={classes.contactValueText}>
-                        {'Rua Onze de Junho, 684 - Centro, Indaiatuba - SP, 13330-050'}
+                        {contactInfo.address}
                     </Text>
                     <Space h="xl" />
                     <Text ta="center" size="xl" fw={500}>
                         Telefone
                     </Text>
-                    <Anchor ta="center" size="lg" fw={500} href='tel:+55193835-7134'>
-                        {formatTelephone('+551938357134')}
+                    <Anchor ta="center" size="lg" fw={500} href={`tel:${contactInfo.phone}`}>
+                        {formatTelephone(contactInfo.phone)}
                     </Anchor>
                     <Space h="xl" />
                     <Text ta="center" size="xl" fw={500}>
                         Redes Sociais
                     </Text>
-                    <Anchor ta="center" size="lg" fw={500} href={'https://www.facebook.com/indaiatuba.aprai/'}>
+                    <Anchor ta="center" size="lg" fw={500} href={contactInfo.facebook}>
                         Facebook: Aprai Indaiatuba
                     </Anchor>
-                    <Anchor ta="center" size="lg" fw={500} href={''}>
-                        Instagram: @aprai.indaiatuba
+                    <Anchor ta="center" size="lg" fw={500} href={`https://www.instagram.com/${contactInfo.instagram}`}>
+                        Instagram: {contactInfo.instagram}
                     </Anchor>
                 </Stack>
                 <div>
