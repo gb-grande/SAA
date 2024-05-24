@@ -15,13 +15,13 @@ export async function getContactInfo(req, res){
 
 export async function setContactInfo(req, res){
     //TODO proper validation
-    if (!('telephone' in req.body && 'address' in req.body && 'instagram' in req.body && 'facebook' in req.body)){
+    if (!('phone' in req.body && 'address' in req.body && 'instagram' in req.body && 'facebook' in req.body)){
         return res.status(400).send("Malformed contact info in request.")
     }
 
     //Project into only the target fields to avoid writing other data from req.body into the .json
     const info = {
-        'telephone': req.body.telephone,
+        'phone': req.body.phone,
         'address': req.body.address,
         'instagram': req.body.instagram,
         'facebook': req.body.facebook

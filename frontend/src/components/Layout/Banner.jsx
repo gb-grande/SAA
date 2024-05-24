@@ -1,5 +1,4 @@
-import {ActionIcon, Center, Group, Image} from "@mantine/core";
-import {IconBrandFacebook, IconBrandInstagram} from "@tabler/icons-react";
+import {Center, Group, Image} from "@mantine/core";
 import logo from "../../assets/logo.jpeg";
 import {HashLink} from "react-router-hash-link";
 import SocialMediaIcon from "../SocialMediaIcon.jsx";

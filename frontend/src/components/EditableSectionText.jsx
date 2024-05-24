@@ -1,5 +1,4 @@
 import EditableText from "./EditableText.jsx";
-import {useEffect, useState} from "react";
 import axios from "axios";
 import useFetch from "../hooks/useFetch.jsx";
 
