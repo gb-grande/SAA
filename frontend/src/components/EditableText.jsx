@@ -10,8 +10,11 @@ function splitText(text){
     if (!text || !text.split) return;
     const parts = text.split(urlRegex);
     for (let i = 0; i < parts.length; i++){
-        if (parts[i].match(urlRegex))
-            parts[i] = (<a key={i} href={parts[i]}>{parts[i]}</a>);
+        if (parts[i].match(urlRegex)) {
+            const url = parts[i];
+            const href = url.startsWith('http') ? url : ('http://' + url);
+            parts[i] = (<a key={i} href={href}>{url}</a>);
+        }
         else
             parts[i] = (<span key={i}>{parts[i]}</span>);
     }
