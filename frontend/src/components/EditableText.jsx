@@ -4,6 +4,19 @@ import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
+const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/g
+function splitText(text){
+    if (!text || !text.split) return;
+    const parts = text.split(urlRegex);
+    for (let i = 0; i < parts.length; i++){
+        if (parts[i].match(urlRegex))
+            parts[i] = (<a key={i} href={parts[i]}>{parts[i]}</a>);
+        else
+            parts[i] = (<span key={i}>{parts[i]}</span>);
+    }
+    return parts;
+}
+
 function EditableText({text, onSave, containerStyle, inputStyle, textClassName, maxLen}){
     const [editText, setEditText] = useState("");
     const [editing, {open, close}] = useDisclosure();
@@ -29,7 +42,7 @@ function EditableText({text, onSave, containerStyle, inputStyle, textClassName, 
                 </ProtectedComponent>
                 <Center>
                     <p className={textClassName}>
-                        {text}
+                        {splitText(text)}
                     </p>
                 </Center>
             </div>
