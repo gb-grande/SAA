@@ -4,7 +4,9 @@ import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
-const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)+|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)+|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)+|www\.[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)+)/g
+
+
+const urlRegex = /((?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9@:%._+~#=]{2,256}(?:\.[a-z]{2,6})+\b(?:\.?[-a-zA-Z0-9@:%_+~#?&/=])*)/g
 
 function splitText(text){
     if (text === undefined || text === null) return;
