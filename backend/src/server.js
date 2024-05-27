@@ -19,7 +19,7 @@ const server = http.createServer(app)
 
 const port = process.env.PORT || 4000
 
-const uri = ""
+const uri = process.env.URI
 
 async function connect(){
     try{
