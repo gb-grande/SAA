@@ -17,10 +17,7 @@ app.use('/api/contactInfos', contactInfos)
 
 const server = http.createServer(app)
 
-const port = process.env.PORT || 4000
-
-const uri = process.env.URI
-
+const uri = process.env.DB_URI
 async function connect(){
     try{
         await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -29,9 +26,9 @@ async function connect(){
         console.error(error);
     }
 }
-
 connect();
 
+const port = process.env.PORT || 4000
 server.listen(port, () => {
     console.log(`Server running in port ${port}`);
 })
