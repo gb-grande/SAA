@@ -2,14 +2,14 @@ import EditableText from "./EditableText.jsx";
 import axios from "axios";
 import useFetch from "../hooks/useFetch.jsx";
 
-function EditableSectionText({section, containerStyle, inputStyle, textClassName, maxLen}){
+function EditableSectionText({section, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
     const {result: text, setResult: setText, error} = useFetch(`api/infoTexts/${section}`, null, '');
     if (error){
         console.error(`Couldn't load '${section}' info.`, error);
     }
 
     function onSave(value){
-        if (value === text) return;
+        if (String(value) === String(text)) return;
 
         axios.post(`api/infoTexts/${section}`, {data: value})
             .then(_ => {
@@ -20,8 +20,9 @@ function EditableSectionText({section, containerStyle, inputStyle, textClassName
     }
 
     return (
-        <EditableText inputStyle={inputStyle} containerStyle={containerStyle} textClassName={textClassName}
-                      text={text} onSave={onSave} maxLen={maxLen}
+        <EditableText inputStyle={inputStyle} containerStyle={containerStyle}
+                      textContainerStyle={textContainerStyle} inputContainerStyle={inputContainerStyle}
+                      textClassName={textClassName} text={text} onSave={onSave} maxLen={maxLen}
         />
     )
 }

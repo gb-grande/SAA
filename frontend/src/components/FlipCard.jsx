@@ -44,7 +44,20 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText,
                  <Center h={"100%"}>
                      {
                          editableBackTextSection
-                             ? <EditableSectionText h={"80%"} section={editableBackTextSection} textClassName={classes.cardBackText} containerStyle={{height: "100%", width: "100%"}} style={{width: "100%"}}/>
+                             ? <EditableSectionText h={"80%"} section={editableBackTextSection}
+                                                    textClassName={classes.cardBackText}
+                                                    inputContainerStyle={{
+                                                        height: "80%",
+                                                        width: "100%",
+                                                    }}
+                                                    textContainerStyle={{
+                                                        height: "100%",
+                                                        width: "100%",
+                                                        display: "flex",
+                                                        flexDirection: "column",
+                                                        justifyContent: "center"
+                                                    }}
+                             />
                              : <Text className={classes.cardBackText}>{textBack}</Text>
                      }
                  </Center>

@@ -7,7 +7,8 @@ import {useState} from "react";
 const urlRegex = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)+|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9](?:\.[a-zA-Z0-9]+)+|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)+|www\.[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)+)/g
 
 function splitText(text){
-    if (!text || !text.split) return;
+    if (text === undefined || text === null) return;
+    if (typeof(text) != "string") text = String(text);
     const parts = text.split(urlRegex);
     for (let i = 0; i < parts.length; i++){
         if (parts[i].match(urlRegex)) {
@@ -21,7 +22,7 @@ function splitText(text){
     return parts;
 }
 
-function EditableText({text, onSave, containerStyle, inputStyle, textClassName, maxLen}){
+function EditableText({text, onSave, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
     const [editText, setEditText] = useState("");
     const [editing, {open, close}] = useDisclosure();
 
@@ -38,7 +39,7 @@ function EditableText({text, onSave, containerStyle, inputStyle, textClassName, 
     //If not editing, just the text and the edit button.
     if (!editing){
         return (
-            <div style={containerStyle}>
+            <div style={textContainerStyle ?? containerStyle}>
                 <ProtectedComponent>
                     <ActionIcon onClick={beginEditing} pos="absolute">
                         <IconPencil/>
@@ -56,7 +57,7 @@ function EditableText({text, onSave, containerStyle, inputStyle, textClassName, 
     const maxLenProp = maxLen ? {maxLength: maxLen} : {};
     //If editing, the text area and the confirm/cancel buttons.
     return (
-        <div style={containerStyle}>
+        <div style={inputContainerStyle ?? containerStyle}>
             <FocusTrap active={true}>
                 <textarea
                     value={editText}
