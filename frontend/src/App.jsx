@@ -12,7 +12,10 @@ import BazarPage from "./pages/BazarPage.jsx";
 import Login from "./pages/Login.jsx";
 import axios from "axios";
 
-axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
+if (import.meta.env.VITE_BACKEND_URL)
+    axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
+else
+    console.error("No AXIOS Url for connection!")
 
 function App() {
     return (
