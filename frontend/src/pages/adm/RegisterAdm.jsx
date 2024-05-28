@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 
 function RegisterAdm () {
     const navigate = useNavigate();
-    //TODO proper validation
+    //TODO proper password validation
     const form = useForm({
         mode: "uncontrolled",
         initialValues: {
@@ -16,8 +16,7 @@ function RegisterAdm () {
         },
         validate: {
             passwordConfirm: (value, values) =>
-                value !== values.password ? 'As senhas devem ser iguais.' : null
-
+                value !== values.password ? 'As senhas devem ser iguais.' : null,
         }
     });
 
@@ -30,8 +29,8 @@ function RegisterAdm () {
             console.log("Registered new admin: ", values);
             navigate('..');
         }).catch(err => {
-            console.log("Couldn't register new admin.", err)
-            if (err.response.status === 409){
+            console.log("Couldn't register new admin.", err);
+            if (err.response?.status === 409){
                 form.setFieldError('user', 'Administrador já existe.');
             }
         })
