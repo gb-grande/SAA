@@ -14,6 +14,7 @@ app.use(express.json())
 
 app.use('/api/infoTexts', infoTexts)
 app.use('/api/contactInfos', contactInfos)
+app.use('/admins/login', contactInfos)
 
 const server = http.createServer(app)
 

@@ -7,12 +7,12 @@ function getWidth() {
     return width;
   }
 
-function ColoredInputBars(props){
+function ColoredInputBars({texto, ...others}){
     const s = getWidth() < 575 ? 'sm' : 'lg';
 
     return(
          <TextInput
-            placeholder={props.texto}
+            placeholder={texto}
             classNames={{ input: 'custom-input' }}
             size = {s}
             variant="filled"
@@ -22,6 +22,7 @@ function ColoredInputBars(props){
                 backgroundColor: '#A9ABC9',
             },
             }}
+            {...others}
         />
     )
 }
