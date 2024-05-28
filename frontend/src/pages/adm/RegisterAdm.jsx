@@ -16,7 +16,7 @@ function RegisterAdm () {
         },
         validate: {
             passwordConfirm: (value, values) =>
-                value !== values.password ? 'Passwords did not match' : null
+                value !== values.password ? 'As senhas devem ser iguais.' : null
 
         }
     });
@@ -31,6 +31,9 @@ function RegisterAdm () {
             navigate('..');
         }).catch(err => {
             console.log("Couldn't register new admin.", err)
+            if (err.response.status === 409){
+                form.setFieldError('user', 'Administrador já existe.');
+            }
         })
     }
 

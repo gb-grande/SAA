@@ -7,10 +7,11 @@ export async function registerAdmin(req, res){
             password: req.body.password
         });
         await admin.save();
-        console.log('Saved new admin.');
-        return res.status(200).send('Admin registered.')
+        return res.status(201).send('Admin registered.');
     } catch (e){
-        console.log('error registering admin', e);
+        if (e.code === 11000){
+            return res.status(409).send('Duplicate user.');
+        }
         return res.status(400).send('Error registering admin.')
     }
 }
