@@ -4,8 +4,9 @@ import http from 'http'
 import cors from 'cors'
 import helmet from "helmet";
 import infoTexts from "./routes/infoTexts.js";
-import './config.js'
 import contactInfos from "./routes/contactInfos.js";
+import admins from "./routes/admins.js";
+import './config.js'
 
 const app = express()
 app.use(helmet())
@@ -14,13 +15,14 @@ app.use(express.json())
 
 app.use('/api/infoTexts', infoTexts)
 app.use('/api/contactInfos', contactInfos)
+app.use('/api/admins', admins)
 
 const server = http.createServer(app)
 
 const uri = process.env.DB_URI
 async function connect(){
     try{
-        await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(uri);
         console.log("Connected to MongoDB");
     }catch(error){
         console.error(error);
