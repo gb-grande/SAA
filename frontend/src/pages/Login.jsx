@@ -1,30 +1,49 @@
-import React from 'react';
-import { Paper, Text, Button, Center, Stack} from '@mantine/core';
+import React, { useState } from 'react';
+import { Paper, Text, Button, Center, Stack, Switch} from '@mantine/core';
 import ColoredInputBars from "../components/ColoredInputBars.jsx";
-import {HashLink} from "react-router-hash-link";
-import {useForm} from "@mantine/form";
+import {isNotEmpty, useForm} from "@mantine/form";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false); // Com useDisclousure não estava funcionando.
+    const navigate = useNavigate();
     const form = useForm({
         mode: "uncontrolled",
-        initialValues: {
-            usuario: '',
-            senha: '',
+        
+        validate: {
+            user: isNotEmpty('Informe o usuário'),
+            password: isNotEmpty('Informe a senha')
         }
     });
 
     function onSubmit(values){
+        setLoading(true);
+        setError('');
         console.log(values);
         axios.post(`/admins/login`, values)
             .then(_ => {
-                console.log("Foi");
+                document.cookie = "logged=true;SameSite=lax;max-age=7200;"
+                navigate('/admin');
             })
-            .catch(err => console.error("Deu erro", err));
+            .catch(err => {
+                setLoading(false);
+                console.error("Erro:", err.response.data.message);
+                setError(err.response.data.message);
+            });
     }
     return (
         <Center h="100%">
+            <Stack>
+            { error &&
+            <Paper pos='relative' w={{ base: 180, xs: 280 }} radius='md' align='center' p='sm' bg="red" fw={700}>
+                <Text>
+                    {error}
+                </Text>
+            </Paper>}
             <Paper
-                h={{ base: 230, xs: 375 }}
+                mih={{ base: 230, xs: 375 }}
                 w={{ base: 180, xs: 280 }}
                 bg="aprai-purple.9"
                 p={{ base: 'xs', xs: 'md' }}
@@ -35,13 +54,14 @@ function Login() {
                 </Text>
 
                 <Stack align='center' justify='center' gap={'xs'} component={'form'} onSubmit={form.onSubmit(onSubmit)}>
+                    
                     <ColoredInputBars 
                         texto = "Usuário"
-                        {...form.getInputProps('usuario')}
+                        {...form.getInputProps('user')}
                     />
                     <ColoredInputBars 
                         texto = "Senha"
-                        {...form.getInputProps('senha')}    
+                        {...form.getInputProps('password')}    
                     />
 
                     <Button 
@@ -52,12 +72,14 @@ function Login() {
                         w={{ base: 80, xs: 200 }}
                         fz={{ base: 13, xs: 20 }}
                         radius='lg'
-                        type='submit' 
+                        type='submit'
+                        loading={loading}
                     >
                         Entrar
                     </Button>
                 </Stack>
             </Paper>
+            </Stack>
         </Center>
   );
 }

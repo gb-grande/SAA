@@ -6,15 +6,18 @@ import helmet from "helmet";
 import infoTexts from "./routes/infoTexts.js";
 import './config.js'
 import contactInfos from "./routes/contactInfos.js";
+import adminLogin from "./routes/adminLogin.js";
+import cookieParser from 'cookie-parser';
 
 const app = express()
 app.use(helmet())
 app.use(cors({origin: true, credentials: true}))
 app.use(express.json())
+app.use(cookieParser());
 
 app.use('/api/infoTexts', infoTexts)
 app.use('/api/contactInfos', contactInfos)
-app.use('/admins/login', contactInfos)
+app.use('/admins/login', adminLogin)
 
 const server = http.createServer(app)
 
