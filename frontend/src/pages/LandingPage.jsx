@@ -1,6 +1,6 @@
 import {
     Paper, Title, Text,
-    Image, Space, Center, SimpleGrid, Anchor, Stack
+    Image, Space, Center, SimpleGrid, Anchor, Stack, Flex
 } from "@mantine/core"
 import FlipCard from "../components/FlipCard.jsx";
 import PostCarousel from "../components/PostCarousel.jsx";
@@ -34,7 +34,7 @@ function LandingPage(){
 
     return (
         <>
-            <EditableSectionText section="topQuote" containerStyle={{width: "100%"}} textClassName={classes.topQuote}/>
+            <EditableSectionText section="topQuote" containerStyle={{width: "100%"}} textClassName={classes.topQuote} />
 
             <SimpleGrid w="100%" cols={{base: 1, sm: 2}} spacing={{base: 'xs', sm: 'lg'}} mt="md" mb="xl">
                 <FlipCard
@@ -54,18 +54,29 @@ function LandingPage(){
                     image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
                     imageAlt="Gato Triste"/>
             </SimpleGrid>
+            
 
-            <Title id='quemSomos'>Quem Somos</Title>
+            <Title id='quemSomos' pt={"5rem"} pl={"1rem"} pr={"1rem"}>Quem Somos</Title>
             <SimpleGrid /*Seção quem somos - TODO: add image*/
                 cols={{ base: 1, sm: 1, md: 2, lg: 2 }}
+                pl={"1rem"}
+                pr={"1rem"}
             >
-                <EditableSectionText section="sobreNos" containerStyle={{height: "380px", width: "100%"}} textClassName={classes.paragraphText}/>
+                <EditableSectionText section="sobreNos" inputContainerStyle={{height: "380px", width: "100%"}} textClassName={classes.paragraphText}/>
                 <Image
                     radius="xl"
                     h={400}
                     src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
                 />
             </SimpleGrid>
+
+            <Center maw="100%" /*Seção plano sócio - TODO: add image*/  >  
+                <Stack align="center">
+                    <Title id='descricaoPlano' pt={"5rem"} pl={"1rem"} pr={"1rem"}>Plano Sócio Colaborador APRAI 2024 </Title>         
+                    <EditableSectionText section="planoSocio" inputContainerStyle={{height: "380px", width: "100%"}} textClassName={classes.paragraphText}/>
+                </Stack>
+            </Center>   
+
 
             <Paper h={{base: 400, sm: 500}} w="100%" bg="aprai-purple.3" my="xl" p={{base: "xs", sm: "md"}} radius="xl">
                 <Title ta="center" mb={'md'}>Últimas Notícias</Title>
