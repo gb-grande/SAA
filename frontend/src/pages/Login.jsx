@@ -4,6 +4,7 @@ import ColoredInputBars from "../components/ColoredInputBars.jsx";
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import Cookies from 'js-cookie'
 
 function Login() {
     const [error, setError] = useState('');
