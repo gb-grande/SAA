@@ -11,7 +11,7 @@ function EditableSectionText({section, containerStyle, textContainerStyle, input
     function onSave(value){
         if (String(value) === String(text)) return;
 
-        axios.post(`api/infoTexts/${section}`, {data: value})
+        axios.put(`api/infoTexts/${section}`, {data: value})
             .then(_ => {
                 console.log(`Updated ${section} text.`);
                 setText(value);

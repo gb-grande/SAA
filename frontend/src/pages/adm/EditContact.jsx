@@ -28,7 +28,7 @@ function EditContact () {
     }, []);
 
     function onSubmit(values){
-        axios.post('api/contactInfos', values).then(_ => {
+        axios.put('api/contactInfos', values).then(_ => {
             console.log("Saved contact info: ", values);
             navigate('..');
         }).catch(err => {

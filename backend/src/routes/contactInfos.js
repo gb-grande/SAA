@@ -4,6 +4,6 @@ import {getContactInfo, setContactInfo} from "../controllers/contactInfos.js";
 const router = express.Router();
 
 router.get('/', getContactInfo);
-router.post('/', setContactInfo);
+router.put('/', setContactInfo);
 
 export default router;
