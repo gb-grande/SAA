@@ -1,50 +1,73 @@
-import { useState } from 'react';
 import { Stack, Button } from '@mantine/core'
 import ContactInput from '../../components/ContactInput.jsx';
-
-// To-Do: add update request to button,
-// check password and make it safe
+import {useForm} from "@mantine/form";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 function RegisterAdm () {
+    const navigate = useNavigate();
+    //TODO proper password validation
+    const form = useForm({
+        mode: "uncontrolled",
+        initialValues: {
+            user: '',
+            password: '',
+            passwordConfirm: ''
+        },
+        validate: {
+            passwordConfirm: (value, values) =>
+                value !== values.password ? 'As senhas devem ser iguais.' : null,
+        }
+    });
 
-    const [inputUsr, setInputUsr] = useState('');
-    const changeUsr = (newValue) => setInputUsr(newValue);
-
-    const [inputPwd, setInputPwd] = useState('');
-    const changePwd = (newValue) => setInputPwd(newValue);
-
-    const [inputConf, setInputConf] = useState('');
-    const changeConf = (newValue) => setInputConf(newValue);
+    function onSubmit(values){
+        values = {
+            user: values.user,
+            password: values.password
+        }
+        axios.post('api/admins', values).then(_ => {
+            console.log("Registered new admin: ", values);
+            navigate('..');
+        }).catch(err => {
+            console.log("Couldn't register new admin.", err);
+            if (err.response?.status === 409){
+                form.setFieldError('user', 'Administrador já existe.');
+            }
+        })
+    }
 
     return(
-        <Stack align='center' h='100%' justify='center' gap='md'>
+        <Stack align='center' h='100%' justify='center' gap='md'
+               component={'form'} onSubmit={form.onSubmit(onSubmit)}
+        >
             <ContactInput
                 label='Usuário'
                 placeholder=''
-                onChange={changeUsr}
+                {...form.getInputProps('user')}
             />
 
             <ContactInput
                 label='Senha'
                 placeholder=''
-                onChange={changePwd}
                 type='password'
+                {...form.getInputProps('password')}
             />
 
             <ContactInput
                 label='Confirmar Senha'
                 placeholder=''
-                onChange={changeConf}
                 type='password'
+                {...form.getInputProps('passwordConfirm')}
             />
 
             <Button
-            justify='center'
-            variant='filled'
-            h='60px'
-            fz='20px'
-            w='300px'
-            radius='lg'
+                justify='center'
+                variant='filled'
+                h='60px'
+                fz='20px'
+                w='300px'
+                radius='lg'
+                type='submit'
             >
                 Salvar
             </Button>
