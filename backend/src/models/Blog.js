@@ -13,7 +13,7 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    imageId: mongoose.ObjectId,
+    imageId: mongoose.Types.ObjectId,
     content: {
         type: String,
         required: true
