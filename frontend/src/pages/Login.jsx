@@ -24,7 +24,7 @@ function Login() {
         console.log(values);
         axios.post(`/admins/login`, values)
             .then(_ => {
-                document.cookie = "logged=true;SameSitelax;max-age=7200;"
+                Cookies.set('logged', 'true', {sameSite: 'lax'});
                 navigate('/admin');
             })
             .catch(err => {
@@ -61,6 +61,7 @@ function Login() {
                     />
                     <ColoredInputBars 
                         texto = "Senha"
+                        type='password'
                         {...form.getInputProps('password')}    
                     />
 

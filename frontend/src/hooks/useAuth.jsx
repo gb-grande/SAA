@@ -5,7 +5,7 @@ function useAuth() {
     const logged = Cookies.get('logged');
     console.log(logged);
     //checking whether token is preset or not
-    if (logged) {
+    if (logged === 'true') {
         return true;
     } else {
         return false;

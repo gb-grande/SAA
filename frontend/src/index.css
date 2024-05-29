@@ -3,7 +3,7 @@
   word-wrap: break-word;
 }
 
-.custom-input::placeholder {
+.custom-input::placeholder {  
   color: #392F88;
   font-size: 15px;
 
