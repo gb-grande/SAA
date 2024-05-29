@@ -14,6 +14,10 @@ function AdmMenu () {
                 text='Gerenciar Postagens'
             />
             <MenuButton
+                link='/bazar'
+                text='Gerenciar Bazar'
+            />
+            <MenuButton
                 link='/admin/editarcontato'
                 text='Editar Informações de Contato'
             />
