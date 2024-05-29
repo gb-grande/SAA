@@ -11,6 +11,7 @@ import RegisterAdm from "./pages/adm/RegisterAdm.jsx";
 import BazarPage from "./pages/BazarPage.jsx";
 import Login from "./pages/Login.jsx";
 import axios from "axios";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 if (import.meta.env.VITE_BACKEND_URL)
     axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
@@ -30,7 +31,11 @@ function App() {
 
             <Route path="*" element={<NotFound/>}/>
 
-            <Route path="/admin" element={<Layout/>}>
+            <Route path="/admin" element={
+            <ProtectedRoute>
+                <Layout/>
+            </ProtectedRoute>
+            }>
                 <Route index element={<AdmMenu/>}/>
                 <Route path="blog/:id?" element={<EditBlogPost/>}/>
 

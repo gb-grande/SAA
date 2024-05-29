@@ -24,7 +24,7 @@ function Login() {
         console.log(values);
         axios.post(`/admins/login`, values)
             .then(_ => {
-                document.cookie = "logged=true;SameSite=lax;max-age=7200;"
+                document.cookie = "logged=true;SameSitelax;max-age=7200;"
                 navigate('/admin');
             })
             .catch(err => {

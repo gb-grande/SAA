@@ -29,7 +29,7 @@ export async function makeLogin(req, res) {
 
         if (result) {
             console.log("Senha correta! Autorizando o login.");
-            res.send("Login efetuado");
+            res.status(201).send();
         } else {
             console.log("Senha incorreta! Informando o usuário.");
             res.status(401).send({message: "Usuário ou senha inválidos."});
