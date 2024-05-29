@@ -20,5 +20,5 @@ const schema = new mongoose.Schema({
     }
 })
 
-const Blog = new mongoose.model("Blog", schema);
-export default Blog;
+const Post = new mongoose.model("Post", schema);
+export default Post;

@@ -6,7 +6,7 @@ import helmet from "helmet"
 import infoTexts from "./routes/infoTexts.js"
 import contactInfos from "./routes/contactInfos.js"
 import admins from "./routes/admins.js"
-import blogs from "./routes/blogs.js"
+import posts from "./routes/posts.js"
 import './config.js'
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use('/api/infoTexts', infoTexts);
 app.use('/api/contactInfos', contactInfos);
 app.use('/api/admins', admins);
-app.use('/api/blogs', blogs);
+app.use('/api/posts', posts);
 
 const server = http.createServer(app);
 
