@@ -1,6 +1,5 @@
-import { TextInput, Group, Button, FileButton, Text, Center, Anchor, Modal } from "@mantine/core"
+import { TextInput, Group, Button, FileButton, Text, Center } from "@mantine/core"
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDisclosure } from '@mantine/hooks';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import Highlight from '@tiptap/extension-highlight';
@@ -9,15 +8,26 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
-import { useState } from "react";
+import {useState} from "react";
 import { modals } from "@mantine/modals";
+import axios from "axios";
+import {useForm} from "@mantine/form";
 
 function EditBlogPost() {
-    const [file, setFile] = useState(null);
-    const [opened, { open, close }] = useDisclosure(false);
+    let navigate = useNavigate();
     const {id} = useParams();
 
-    let navigate = useNavigate(); 
+    //TODO store image before setting form value
+    const [file, setFile] = useState(null);
+
+    const form = useForm({
+        mode: "uncontrolled",
+        initialValues: {
+            title: '',
+            content: '',
+            image: null
+        }
+    })
 
     const editor = useEditor({
         extensions: [
@@ -29,9 +39,34 @@ function EditBlogPost() {
             Highlight,
             TextAlign.configure({ types: ['heading', 'paragraph'] }),
         ],
+        onUpdate: ({ editor }) => form.setFieldValue('content', editor.getHTML())
     });
 
-    function handleDeleteClicked() {
+    //TODO initialize form or message/redirect if no post with the id
+    // useEffect(() => {
+    //     axios.get(`api/posts/${id}`).then(res => form.initialize({
+    //         title: res.data.title,
+    //         content: res.data.content,
+    //         image: res.data.image
+    //     }))
+    // }, [id]);
+
+    function onSubmit(values){
+        console.log("will submit ", values)
+        if (id === undefined) {
+            axios.post('api/posts/', {
+                posterUsername: 'TEMP', //TODO send stored current user
+                title: values.title,
+                imageId: null, //TODO first upload image and then set id
+                content: values.content
+            })
+                .then(res => navigate(`/blog/${res.data.id}`))
+                .catch(err => console.log('Error saving blog post.', err));
+        }
+        else alert("Editing existing post not yet implemented :(");
+    }
+
+    function onCancel() {
         modals.openConfirmModal({
             title: 'Cancelar escrita',
             centered: true,
@@ -48,17 +83,18 @@ function EditBlogPost() {
     }
 
     return (
-        <>
+        <form onSubmit={form.onSubmit(onSubmit)}>
             <Group m="md" justify="space-between">
                 <TextInput 
                     placeholder="Título"
                     w={{base: "100%", sm: 460}}
                     maxLength={128}
+                    {...form.getInputProps('title')}
                 />
                 <div>
-                    <Anchor href="/blog/1"><Button mr="md" bg='aprai-purple.5' radius="lg" fz="xl">Salvar</Button></Anchor>
+                    <Button type="submit" mr="md" bg='aprai-purple.5' radius="lg" fz="xl">Salvar</Button>
                     
-                    <Button bg='red' radius="lg" fz="xl" onClick={handleDeleteClicked}>Cancelar</Button>
+                    <Button bg='red' radius="lg" fz="xl" onClick={onCancel}>Cancelar</Button>
                 </div>
             </Group>
 
@@ -115,12 +151,12 @@ function EditBlogPost() {
                     {(props) => <Button bg='aprai-purple.5' radius="lg" fz="xl" {...props}>Carregar Imagem</Button>}
                 </FileButton>
             </Center>
-            {file && (
+            {form.image && (
                 <Text size="sm" ta="center" mt="sm">
-                Arquivo selecionado: {file.name}
+                Arquivo selecionado: {form.image.name}
                 </Text>
             )}
-        </>
+        </form>
     )
 }
 
