@@ -1,7 +1,7 @@
 import { Button, Center } from '@mantine/core';
 import { HashLink } from "react-router-hash-link";
 
-function MenuButton ({link, text}) {
+function MenuButton ({link, text, ...others}) {
 
     return(
         <Center>
@@ -14,6 +14,7 @@ function MenuButton ({link, text}) {
                 radius='md'
                 component={HashLink}
                 to={link}
+                {...others}
                 >
                 {text}
             </Button>
