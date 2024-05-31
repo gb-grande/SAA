@@ -12,7 +12,6 @@ function authError(res) {
 }
 
 export async function makeLogin(req, res) {
-    console.log(req.body);
     const user = req.body.user;
     const password = req.body.password;
 
