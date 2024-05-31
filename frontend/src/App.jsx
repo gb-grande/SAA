@@ -32,9 +32,9 @@ function App() {
             <Route path="*" element={<NotFound/>}/>
 
             <Route path="/admin" element={
-            <ProtectedRoute>
-                <Layout/>
-            </ProtectedRoute>
+                <ProtectedRoute>
+                    <Layout/>
+                </ProtectedRoute>
             }>
                 <Route index element={<AdmMenu/>}/>
                 <Route path="blog/:id?" element={<EditBlogPost/>}/>
