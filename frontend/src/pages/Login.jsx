@@ -19,12 +19,18 @@ function Login() {
         }
     });
 
+    // TODO: do proper authentication
+    if (Cookies.get('logged')) {
+        Cookies.remove('logged');
+    }
+
     function onSubmit(values){
         setLoading(true);
         setError('');
         console.log(values);
         axios.post(`/admins/login`, values)
             .then(_ => {
+                // TODO: do proper authentication
                 Cookies.set('logged', 'true', {sameSite: 'lax'});
                 navigate('/admin');
             })
