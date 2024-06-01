@@ -1,4 +1,4 @@
-import { TextInput, Group, Button, FileButton, Text, Center } from "@mantine/core"
+import {TextInput, Group, Button, FileButton, Text, Center} from "@mantine/core"
 import { useParams, useNavigate } from 'react-router-dom';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
@@ -11,7 +11,7 @@ import SubScript from '@tiptap/extension-subscript';
 import {useState} from "react";
 import { modals } from "@mantine/modals";
 import axios from "axios";
-import {useForm} from "@mantine/form";
+import {isNotEmpty, useForm} from "@mantine/form";
 
 function EditBlogPost() {
     let navigate = useNavigate();
@@ -21,11 +21,15 @@ function EditBlogPost() {
     const [file, setFile] = useState(null);
 
     const form = useForm({
-        mode: "uncontrolled",
+        mode: "controlled",
         initialValues: {
             title: '',
             content: '',
             image: null
+        },
+        validate: {
+            title: isNotEmpty('O título não pode estar vazio.'),
+            content: isNotEmpty('O conteúdo não pode estar vazio.')
         }
     })
 
@@ -52,7 +56,6 @@ function EditBlogPost() {
     // }, [id]);
 
     function onSubmit(values){
-        console.log("will submit ", values)
         if (id === undefined) {
             axios.post('api/posts/', {
                 posterUsername: 'TEMP', //TODO send stored current user
@@ -92,7 +95,7 @@ function EditBlogPost() {
                     {...form.getInputProps('title')}
                 />
                 <div>
-                    <Button type="submit" mr="md" bg='aprai-purple.5' radius="lg" fz="xl">Salvar</Button>
+                    <Button type="submit" mr="md" bg='aprai-purple.5' radius="lg" fz="xl" disabled={!form.values.content}>Salvar</Button>
                     
                     <Button bg='red' radius="lg" fz="xl" onClick={onCancel}>Cancelar</Button>
                 </div>
@@ -101,46 +104,46 @@ function EditBlogPost() {
             <RichTextEditor editor={editor} m="md" mih={600}>
                 <RichTextEditor.Toolbar sticky stickyOffset={60}>
                     <RichTextEditor.ControlsGroup>
-                    <RichTextEditor.Bold />
-                    <RichTextEditor.Italic />
-                    <RichTextEditor.Underline />
-                    <RichTextEditor.Strikethrough />
-                    <RichTextEditor.ClearFormatting />
-                    <RichTextEditor.Highlight />
-                    <RichTextEditor.Code />
+                        <RichTextEditor.Bold />
+                        <RichTextEditor.Italic />
+                        <RichTextEditor.Underline />
+                        <RichTextEditor.Strikethrough />
+                        <RichTextEditor.ClearFormatting />
+                        <RichTextEditor.Highlight />
+                        <RichTextEditor.Code />
                     </RichTextEditor.ControlsGroup>
 
                     <RichTextEditor.ControlsGroup>
-                    <RichTextEditor.H1 />
-                    <RichTextEditor.H2 />
-                    <RichTextEditor.H3 />
-                    <RichTextEditor.H4 />
+                        <RichTextEditor.H1 />
+                        <RichTextEditor.H2 />
+                        <RichTextEditor.H3 />
+                        <RichTextEditor.H4 />
                     </RichTextEditor.ControlsGroup>
 
                     <RichTextEditor.ControlsGroup>
-                    <RichTextEditor.Blockquote />
-                    <RichTextEditor.Hr />
-                    <RichTextEditor.BulletList />
-                    <RichTextEditor.OrderedList />
-                    <RichTextEditor.Subscript />
-                    <RichTextEditor.Superscript />
+                        <RichTextEditor.Blockquote />
+                        <RichTextEditor.Hr />
+                        <RichTextEditor.BulletList />
+                        <RichTextEditor.OrderedList />
+                        <RichTextEditor.Subscript />
+                        <RichTextEditor.Superscript />
                     </RichTextEditor.ControlsGroup>
 
                     <RichTextEditor.ControlsGroup>
-                    <RichTextEditor.Link />
-                    <RichTextEditor.Unlink />
+                        <RichTextEditor.Link />
+                        <RichTextEditor.Unlink />
                     </RichTextEditor.ControlsGroup>
 
                     <RichTextEditor.ControlsGroup>
-                    <RichTextEditor.AlignLeft />
-                    <RichTextEditor.AlignCenter />
-                    <RichTextEditor.AlignJustify />
-                    <RichTextEditor.AlignRight />
+                        <RichTextEditor.AlignLeft />
+                        <RichTextEditor.AlignCenter />
+                        <RichTextEditor.AlignJustify />
+                        <RichTextEditor.AlignRight />
                     </RichTextEditor.ControlsGroup>
 
                     <RichTextEditor.ControlsGroup>
-                    <RichTextEditor.Undo />
-                    <RichTextEditor.Redo />
+                        <RichTextEditor.Undo />
+                        <RichTextEditor.Redo />
                     </RichTextEditor.ControlsGroup>
                 </RichTextEditor.Toolbar>
                 <RichTextEditor.Content />
@@ -151,9 +154,9 @@ function EditBlogPost() {
                     {(props) => <Button bg='aprai-purple.5' radius="lg" fz="xl" {...props}>Carregar Imagem</Button>}
                 </FileButton>
             </Center>
-            {form.image && (
+            {form.values.image && (
                 <Text size="sm" ta="center" mt="sm">
-                Arquivo selecionado: {form.image.name}
+                Arquivo selecionado: {form.values.image.name}
                 </Text>
             )}
         </form>
