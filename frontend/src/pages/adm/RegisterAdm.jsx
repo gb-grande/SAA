@@ -1,6 +1,6 @@
 import { Stack, Button } from '@mantine/core'
 import ContactInput from '../../components/ContactInput.jsx';
-import {useForm} from "@mantine/form";
+import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
@@ -15,6 +15,8 @@ function RegisterAdm () {
             passwordConfirm: ''
         },
         validate: {
+            user: isNotEmpty('O usuário é obrigatório.'),
+            password: isNotEmpty('A senha é obrigatória.'),
             passwordConfirm: (value, values) =>
                 value !== values.password ? 'As senhas devem ser iguais.' : null,
         }

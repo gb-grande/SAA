@@ -1,9 +1,14 @@
 import Admin from "../models/Admin.js";
-import bcrypt from "bcrypt"
-import '../config.js'
+import bcrypt from "bcrypt";
+import mongoose from "mongoose";
+import '../config.js';
 
 export async function registerAdmin(req, res){
     try {
+        //Password can't be validated by mongoose because bcrypt's hashing turns empty string into a valid hash.
+        if (!req.body.password)
+            return res.status(400).send({message: 'A senha é obrigatória.'});
+
         const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
         const admin = new Admin({
@@ -11,12 +16,15 @@ export async function registerAdmin(req, res){
             password: hashedPassword
         });
         await admin.save();
-        return res.status(201).send('Admin registered.');
+        return res.status(201).send({message: 'Administrador registrado.'});
     } catch (e){
         if (e.code === 11000){
-            return res.status(409).send('Duplicate user.');
+            return res.status(409).send({message: 'Administrador já existente.'});
+        }
+        if (e instanceof mongoose.Error.ValidationError){
+            return res.status(400).send({errors: e.errors});
         }
         console.error('Unhandled error registering admin.', e);
-        return res.status(400).send('Error registering admin.')
+        return res.status(500).send('Error ao registrar administrador.')
     }
 }
