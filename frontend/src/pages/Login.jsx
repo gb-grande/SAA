@@ -27,7 +27,6 @@ function Login() {
     function onSubmit(values){
         setLoading(true);
         setError('');
-        console.log(values);
         axios.post(`/admins/login`, values)
             .then(_ => {
                 // TODO: do proper authentication
