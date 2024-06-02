@@ -21,6 +21,12 @@ function AdmMenu () {
                 link='/admin/editarcontato'
                 text='Editar Informações de Contato'
             />
+            <MenuButton
+                link='/login'
+                text='Sair'
+            >
+
+            </MenuButton>
         </Stack>
     );
 }
