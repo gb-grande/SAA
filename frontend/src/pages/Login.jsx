@@ -19,18 +19,13 @@ function Login() {
         }
     });
 
-    // TODO: do proper authentication
-    if (Cookies.get('logged')) {
-        Cookies.remove('logged');
-    }
-
     function onSubmit(values){
         setLoading(true);
         setError('');
         axios.post(`/admins/login`, values)
             .then(_ => {
                 // TODO: do proper authentication
-                Cookies.set('logged', 'true', {sameSite: 'lax'});
+                Cookies.set('logged', 'true', {sameSite: 'Lax', Secure: true});
                 navigate('/admin');
             })
             .catch(err => {
@@ -39,6 +34,11 @@ function Login() {
                 setError(err.response.data.message);
             });
     }
+    // TODO: do proper authentication
+    if (Cookies.get('logged')) {
+        Cookies.remove('logged', {sameSite: 'Lax'} /* this some how removes a warning */);
+    }
+
     return (
         <Center h="100%">
             <Stack>
@@ -54,7 +54,7 @@ function Login() {
                 bg="aprai-purple.9"
                 p={{ base: 'xs', xs: 'md' }}
                 radius="xl"
-            >
+                >
                 <Text ta="center"  fz={{base: "30px", xs: "40px"}} c='white' mb='lg'>
                     Login
                 </Text>
