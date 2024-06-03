@@ -1,7 +1,7 @@
 # Sistema de Apoio à APRAI
 
 ### Descrição
-Projeto feito seguindo o framework Scrum para a disciplina de Engenharia de Software no ICMC-USP, em colaboração com a ONG Associação de proteção aos animais de Indaiatuba.
+Projeto feito seguindo o framework Scrum para as disciplinas de Engenharia de Software - SCC0130 e de Introdução ao Desenvolvimento Web - SCC0219 do ICMC-USP, em colaboração com a ONG Associação de proteção aos animais de Indaiatuba (APRAI).
 Consiste em um site para divulgação das ações da associação, junto com um sistema para facilitar atividades administrativas.
 
 
