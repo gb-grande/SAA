@@ -8,11 +8,11 @@ export async function getInfoText(req, res){
         const json = await fs.readFile(fileDir, {encoding: "utf8"});
         const info = JSON.parse(json);
         return (req.params.id in info)
-            ? res.status(200).send(info[req.params['id']])
-            : res.status(404).send("Text info does not exist");
+            ? res.status(200).send(info[req.params.id])
+            : res.status(404).send({message: 'Texto não encontrado.'});
     } catch (e){
-        console.log(e);
-        return res.status(500).send("Info file not found.");
+        console.log('Unhandled error when getting info texts:', e);
+        return res.status(500).send({message: "Erro ao tentar encontrar texto."});
     }
 }
 
@@ -23,9 +23,9 @@ export async function setInfoText(req, res){
         info[req.params.id] = req.body.data;
         json = JSON.stringify(info, null, 2);
         await fs.writeFile(fileDir, json, {encoding: "utf8"});
-        return res.status(200).send();
+        return res.status(200).send({message: 'Texto atualizado.'});
     } catch (e){
-        console.log(e);
-        return res.status(500).send("Contact info not saved.");
+        console.log('Unhandled error when updating info texs:', e);
+        return res.status(500).send({message: "Erro ao tentar atualizar texto."});
     }
 }

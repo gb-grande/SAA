@@ -22,9 +22,10 @@ export async function registerAdmin(req, res){
             return res.status(409).send({message: 'Administrador já existente.'});
         }
         if (e instanceof mongoose.Error.ValidationError){
-            return res.status(400).send({errors: e.errors});
+            const errors = Object.values(e.errors).map(e => ({[e.path]: e.message}));
+            return res.status(400).send({validationErrors: Object.assign({}, ...errors)});
         }
         console.error('Unhandled error registering admin.', e);
-        return res.status(500).send('Error ao registrar administrador.')
+        return res.status(500).send({message: 'Error ao registrar administrador.'})
     }
 }
