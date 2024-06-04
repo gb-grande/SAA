@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 const adminSchema = new mongoose.Schema({
     user: {
         type: String,
-        required: true,
+        required: [true, 'O usuário é obrigatório.'],
         unique: true
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'A senha é obrigatória.']
     }
 });
 
