@@ -19,6 +19,32 @@ export async function createPost(req, res) {
             return res.status(400).send({validationErrors: Object.assign({}, ...errors)});
         }
         console.error('Unhandled error in blog creation.', e);
-        return res.status(500).send({message: 'Error ao criar blog.'})
+        return res.status(500).send({message: 'Error ao criar blog.'});
+    }
+}
+
+export async function updatePost(req, res) {
+    try {
+        const { id } = req.params;
+        const updates = req.body;
+
+        if(!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).send({message: 'ID do post é inválido.'});
+        }
+
+        const post = await Post.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+
+        if (!post) {
+            return res.status(404).send({message: 'Post não foi encontrado.'});
+        }
+        return res.status(200).send(post);
+
+    } catch (e) {
+        if (e instanceof moongose.Error.ValidationError) {
+            const errors = Object.values(e.errors).map(e => ({[e.path]: e.message}));
+            return res.status(400).send({validationErrors: Object.assign({}, ...errors)});
+        }
+        console.error('Unhandled error in post update.', e);
+        return res.status(500).send({message: 'Erro ao atualizar post.'});
     }
 }

@@ -1,4 +1,4 @@
-import {TextInput, Group, Button, FileButton, Text, Center} from "@mantine/core"
+import { TextInput, Group, Button, FileButton, Text, Center } from "@mantine/core"
 import { useParams, useNavigate } from 'react-router-dom';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
@@ -8,14 +8,14 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
-import {useState} from "react";
+import { useState, useEffect } from "react";
 import { modals } from "@mantine/modals";
 import axios from "axios";
-import {isNotEmpty, useForm} from "@mantine/form";
+import { isNotEmpty, useForm } from "@mantine/form";
 
 function EditBlogPost() {
     let navigate = useNavigate();
-    const {id} = useParams();
+    const { id } = useParams();
 
     //TODO store image before setting form value
     const [file, setFile] = useState(null);
@@ -48,11 +48,13 @@ function EditBlogPost() {
 
     //TODO initialize form or message/redirect if no post with the id
     // useEffect(() => {
-    //     axios.get(`api/posts/${id}`).then(res => form.initialize({
-    //         title: res.data.title,
-    //         content: res.data.content,
-    //         image: res.data.image
-    //     }))
+    //     if (id) {
+    //         axios.get(`api/posts/${id}`).then(res => form.initialize({
+    //             title: res.data.title,
+    //             content: res.data.content,
+    //             image: res.data.image
+    //         }))
+    //     }
     // }, [id]);
 
     function onSubmit(values){
@@ -74,7 +76,18 @@ function EditBlogPost() {
                     }
                 });
         }
-        else alert("Editing existing post not yet implemented :(");
+        else {
+            axios.put(`api/posts/${id}`, {
+                title: values.title,
+                imageId: null, //TODO first upload image and then set id
+                content: values.content
+            })
+                .then(res => navigate(`/blog/${res.data.id}`))
+                .catch(err => {
+                    console.error("Unhandled error when creating blog.", err);
+                    //TODO notification to notify error to user
+                });
+        }
     }
 
     function onCancel() {
