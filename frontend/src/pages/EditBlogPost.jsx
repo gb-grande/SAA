@@ -64,7 +64,15 @@ function EditBlogPost() {
                 content: values.content
             })
                 .then(res => navigate(`/blog/${res.data.id}`))
-                .catch(err => console.log('Error saving blog post.', err));
+                .catch(err => {
+                    if (err.response.data.validationErrors){
+                        form.setErrors(err.response.data.validationErrors);
+                    }
+                    else {
+                        console.error("Unhandled error when creating blog.", err);
+                        //TODO notification to notify error to user
+                    }
+                });
         }
         else alert("Editing existing post not yet implemented :(");
     }

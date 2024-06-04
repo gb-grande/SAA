@@ -15,12 +15,10 @@ export async function createPost(req, res) {
         return res.status(201).send({id: saved._id});
     } catch (e) {
         if (e instanceof mongoose.Error.ValidationError){
-            const errors = Object.values(e.errors).map(e => {
-                return {path: e.path, type: e.kind}
-            });
-            return res.status(400).send(errors);
+            const errors = Object.values(e.errors).map(e => ({[e.path]: e.message}));
+            return res.status(400).send({validationErrors: Object.assign({}, ...errors)});
         }
-        console.log('Unhandled error in blog creation.', e);
-        return res.status(500).send('Error during blog creation.');
+        console.error('Unhandled error in blog creation.', e);
+        return res.status(500).send({message: 'Error ao criar blog.'})
     }
 }
