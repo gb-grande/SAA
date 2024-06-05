@@ -1,5 +1,9 @@
+import { response } from "express";
+import {promises as fs} from "fs";
 import Post from "../models/Post.js";
 import mongoose from "mongoose";
+
+const fileDir = "posts.json"
 
 export async function createPost(req, res) {
     try {
@@ -20,6 +24,27 @@ export async function createPost(req, res) {
         }
         console.error('Unhandled error in blog creation.', e);
         return res.status(500).send({message: 'Error ao criar blog.'});
+    }
+}
+
+export async function getPosts(req, res) {
+    try {
+        const posts = await Post.find({})
+        return res.status(200).send(posts)
+    } catch (e){
+        return res.status(400).send({ error: e.message })
+    }
+}
+
+export async function getPost(req, res) {
+    try {
+        const post = await Post.findById(req.params.id)
+        return (post) 
+            ? res.status(200).send(post)
+            : res.status(404).send({message: 'Post não existente'})
+    } catch (e){
+        console.log(e)
+        return res.status(400).json({ e: e.message })
     }
 }
 
