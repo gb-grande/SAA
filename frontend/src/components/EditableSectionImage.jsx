@@ -4,7 +4,10 @@ import axios from "axios";
 import {notifications} from "@mantine/notifications";
 
 function EditableSectionImage({section, ...others}){
-    const {result: url, setResult: setUrl, error} = useFetch(`api/sectionImages/${section}`);
+    const {result: {imageUrl}, setResult: setUrl, error} = useFetch(
+        `api/sectionImages/${section}`, {},
+        {imageUrl: ''}, [section]
+    );
     if (error) {
         console.error(`Error when fetching image for '${section}'`, error);
     }
@@ -25,8 +28,8 @@ function EditableSectionImage({section, ...others}){
     }
 
     return (
-        <EditableImage onSave={onSave} url={url} {...others}/>
-    )
+        <EditableImage onSave={onSave} url={imageUrl} {...others}/>
+    );
 }
 
 export default EditableSectionImage;
