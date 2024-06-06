@@ -30,7 +30,11 @@ function BlogPost() {
             .catch(error => console.log(error))
     }, [])
 
+    
+
+
     function handleDeleteClicked(){
+
         modals.openConfirmModal({
             title: 'Excluir postagem',
             centered: true,
@@ -42,9 +46,13 @@ function BlogPost() {
             labels: {confirm: 'Deletar', cancel: 'Cancelar'},
             confirmProps: {color: 'red'},
             cancelProps: {variant: 'filled'},
-            onConfirm: () => console.log('Deletar post ' + id)
+            onConfirm: () => axios.delete(`api/posts/${id}`)
         });
     }
+  
+
+
+
     
     return (
         <>
