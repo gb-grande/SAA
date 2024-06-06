@@ -2,7 +2,7 @@ import {Card, Image, Text, Title} from "@mantine/core";
 
 export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
     const {title, content, image} = post;
-
+    
     let textH = h - 20;
     if (image) textH -= imgHPct * h;
     if (showDate) textH -= 10;
@@ -16,7 +16,7 @@ export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, .
             h={h} w={w}
             bg={bgColor}
             {...others}
-            component="a" href={`/blog/${post.id}`}
+            component="a" href={`/blog/${post._id}`}
         >
             {image &&
                 <Card.Section>
