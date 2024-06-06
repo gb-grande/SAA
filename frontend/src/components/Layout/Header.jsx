@@ -12,7 +12,7 @@ function Header(){
         {label: "Contato", link: "/#contato"},
         {label: "Bazar", link: "/bazar"},
         {label: "Blog", link: "/blog"},
-        {label: "Administração", link: "/login"}
+        {label: "Administração", link: "/admin"}
     ];
 
     const linkButtons =
@@ -27,7 +27,7 @@ function Header(){
         );
 
     return (
-        <Center w="100vw" bg={'aprai-purple.9'} px="md" h={{base: (opened ? 'auto' : '5em'), sm: '5em'}}>
+        <Center bg={'aprai-purple.9'} px="md" h={{base: (opened ? 'auto' : '5em'), sm: '5em'}}>
             <Stack hiddenFrom="sm" pos="relative">
                 {opened ?
                     <Stack justify="center" align="center" p="lg">

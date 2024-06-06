@@ -31,7 +31,14 @@ function SocialMediaIcon({media}){
     }
 
     return (
-        <ActionIcon variant="filled" color={color} size="xl" radius="xl" component="a" href={url}>
+        <ActionIcon 
+            variant="filled" 
+            color={color} 
+            size="lg"
+            radius="xl" 
+            component="a" 
+            href={url}
+        >
             {icon}
         </ActionIcon>
     )

@@ -2,17 +2,20 @@ import express from 'express'
 import mongoose from 'mongoose'
 import http from 'http'
 import cors from 'cors'
-import helmet from "helmet"
-import infoTexts from "./routes/infoTexts.js"
-import contactInfos from "./routes/contactInfos.js"
-import admins from "./routes/admins.js"
-import posts from "./routes/posts.js"
+import helmet from "helmet";
+import infoTexts from "./routes/infoTexts.js";
+import contactInfos from "./routes/contactInfos.js";
+import admins from "./routes/admins.js";
+import adminLogin from "./routes/adminLogin.js";
+import cookieParser from 'cookie-parser';
+import posts from "./routes/posts.js";
 import './config.js'
 
 const app = express();
 app.use(helmet());
 app.use(cors({origin: true, credentials: true}));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/infoTexts', infoTexts);
 app.use('/api/contactInfos', contactInfos);
