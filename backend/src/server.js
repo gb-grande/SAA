@@ -23,6 +23,9 @@ app.use('/admins/login', adminLogin);
 app.use('/api/admins', admins);
 app.use('/api/sectionImages', sectionImages);
 
+//Serve static files
+app.use('/images', express.static('images'), );
+
 const server = http.createServer(app);
 
 const uri = process.env.DB_URI;
