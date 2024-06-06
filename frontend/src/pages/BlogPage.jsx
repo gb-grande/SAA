@@ -1,8 +1,9 @@
 import {Pagination, Title, Center, Group, Button} from "@mantine/core";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import PostGrid from "../components/PostGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
 import ProtectedComponent from "../components/ProtectedComponent.jsx";
+import axios from "axios";
 
 const mockData = [...Array(50).keys()].map(i => {
     return {
@@ -22,10 +23,23 @@ function* yieldPages(data, pageSize){
 
 function BlogPage(){
     const [currentPage, setCurrentPage] = useState(1);
+    const [posts, setPosts] = useState([])
+    console.log(posts)
     const {width} = useViewportSize();
 
     const cardsPerPage = 12;
-    const pages = [...yieldPages(mockData, cardsPerPage)];
+
+    useEffect(() => {
+        try{
+            axios.get(`api/posts`).then(res => {
+                setPosts(res.data)
+            })
+        }catch (err) {
+            console.log(err)
+        }
+    }, [posts]);
+
+    const pages = [...yieldPages(posts, cardsPerPage)];
     return (
       <>
           <Group>
