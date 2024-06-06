@@ -9,7 +9,6 @@ function EditableImage({url, onSave, ...others}){
 
     function endEditing(){
         setEditing(false);
-        setFile(null);
     }
 
     return (
@@ -28,14 +27,14 @@ function EditableImage({url, onSave, ...others}){
                     }
                 </FileButton>
             </ProtectedComponent>
-            <Image crossOrigin={"anonymous"} src={(editing && file) ? URL.createObjectURL(file) : url} {...others}/>
+            <Image crossOrigin={"anonymous"} src={file ? URL.createObjectURL(file) : url} {...others}/>
             {editing &&
                 <Group pos="absolute">
-                    <Button onClick={() => {
-                        onSave(file);
+                    <Button onClick={() => onSave(file, endEditing)}>Salvar</Button>
+                    <Button bg="red" onClick={() => {
+                        setFile(null);
                         endEditing();
-                    }}>Salvar</Button>
-                    <Button bg="red" onClick={endEditing}>Cancelar</Button>
+                    }}>Cancelar</Button>
                 </Group>
             }
         </div>

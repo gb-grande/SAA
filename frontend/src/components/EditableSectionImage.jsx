@@ -9,20 +9,20 @@ function EditableSectionImage({section, ...others}){
         {imageUrl: ''}, [section]
     );
     if (error) {
-        console.error(`Error when fetching image for '${section}'`, error);
+        console.error(`Error when fetching image for '${section}'`, error.response);
     }
 
-    function onSave(file){
+    function onSave(file, endEditing){
         if (!file) return;
 
         axios.putForm(`api/sectionImages/${section}`,{image: file})
             .then(res => {
-                console.log(res);
                 setUrl(res.data.imageUrl);
                 notifications.show({message: 'Imagem salva.'});
+                endEditing();
             })
             .catch(err => {
-                console.error('Error when saving image: ', err.response.message);
+                console.error('Error when saving image: ', err.response);
                 notifications.show({message: 'Erro ao salvar imagem.', color: 'red'});
             });
     }

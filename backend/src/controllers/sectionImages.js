@@ -69,7 +69,7 @@ export async function setImage(req, res){
                         res.status(400).send({message: 'Extensão de imagem inválida.'});
                         break;
                     default:
-                        console.log('Unhandled error during Multer upload.', e);
+                        console.log('Unhandled error during Multer upload.', err);
                         res.status(500).send({message: "Erro ao tentar atualizar imagem."});
                         break;
                 }
