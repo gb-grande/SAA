@@ -1,6 +1,5 @@
 import {
-    Paper, Title, Text,
-    Image, Space, Center, SimpleGrid, Anchor, Stack, Flex
+    Paper, Title, Text, Space, Center, SimpleGrid, Anchor, Stack
 } from "@mantine/core"
 import FlipCard from "../components/FlipCard.jsx";
 import PostCarousel from "../components/PostCarousel.jsx";
@@ -8,6 +7,7 @@ import Circle from "../components/Circle.jsx";
 import EditableSectionText from "../components/EditableSectionText.jsx";
 import classes from "./LandingPage.module.css"
 import useFetch from "../hooks/useFetch.jsx";
+import EditableSectionImage from "../components/EditableSectionImage.jsx";
 
 function formatTelephone(number){
     if (!number) return '';
@@ -43,7 +43,7 @@ function LandingPage(){
                     textBack="Informações da Doação"
                     editableBackTextSection="cardDoacao"
                     buttonText="DOE AGORA"
-                    image="https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+                    editableImageTextSection="cardDoacao"
                     imageAlt="Gato (Siri)"/>
 
                 <FlipCard
@@ -51,7 +51,7 @@ function LandingPage(){
                     textFront="Maus tratos? DENUNCIE!"
                     editableBackTextSection="cardDenuncia"
                     buttonText="DENUNCIE AQUI"
-                    image="https://t4.ftcdn.net/jpg/01/77/43/63/240_F_177436300_PN50VtrZbrdxSAMKIgbbOIU90ZSCn8y3.jpg"
+                    editableImageTextSection="cardDenuncia"
                     imageAlt="Gato Triste"/>
             </SimpleGrid>
             
@@ -63,11 +63,7 @@ function LandingPage(){
                 pr={"1rem"}
             >
                 <EditableSectionText section="sobreNos" inputContainerStyle={{height: "380px", width: "100%"}} textClassName={classes.paragraphText}/>
-                <Image
-                    radius="xl"
-                    h={400}
-                    src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
-                />
+                <EditableSectionImage section="sobreNos" radius="xl" h={400}/>
             </SimpleGrid>
 
             <Center maw="100%" /*Seção plano sócio - TODO: add image*/  >  
@@ -154,10 +150,7 @@ function LandingPage(){
                     </Anchor>
                 </Stack>
                 <div>
-                    <Image
-                        radius="xl"
-                        src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-7.png"
-                    />
+                    <EditableSectionImage section="contactInfo" radius="xl"/>
                 </div>
             </SimpleGrid>
         </>
