@@ -2,6 +2,7 @@ import {Title, Text, Image, Center, Group, Button} from "@mantine/core"
 import { useParams } from 'react-router-dom';
 import ProtectedComponent from "../components/ProtectedComponent.jsx";
 import { modals } from "@mantine/modals";
+import axios from "axios";
 
 
 function BlogPost() {
@@ -21,7 +22,11 @@ function BlogPost() {
     `
     };
 
+    
+
+
     function handleDeleteClicked(){
+
         modals.openConfirmModal({
             title: 'Excluir postagem',
             centered: true,
@@ -33,9 +38,13 @@ function BlogPost() {
             labels: {confirm: 'Deletar', cancel: 'Cancelar'},
             confirmProps: {color: 'red'},
             cancelProps: {variant: 'filled'},
-            onConfirm: () => console.log('Deletar post ' + id)
+            onConfirm: () => axios.delete(`api/posts/${id}`)
         });
     }
+  
+
+
+
     
     return (
         <>

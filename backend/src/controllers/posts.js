@@ -48,3 +48,29 @@ export async function updatePost(req, res) {
         return res.status(500).send({message: 'Erro ao atualizar post.'});
     }
 }
+
+export async function deletePost(req, res) {
+    try {
+        const { id } = req.params;
+
+        if(!mongoose.Types.ObjectId.isValid(id)) {
+            console.log("id não encontrado");
+            return res.status(400).send({message: 'ID do post é inválido.'});
+        }
+
+        const result = await Post.findByIdAndDelete(id);
+
+        if (result == null) {
+            return res.status(404).send({message: 'Post não foi encontrado.'});
+        }
+        return res.status(200).send({message: 'O Post foi deletado'});
+
+    } catch (e) {
+        if (e instanceof moongose.Error.ValidationError) {
+            const errors = Object.values(e.errors).map(e => ({[e.path]: e.message}));
+            return res.status(400).send({validationErrors: Object.assign({}, ...errors)});
+        }
+        console.error('Unhandled error in post deletion.', e);
+        return res.status(500).send({message: 'Erro ao deletar o post.'});
+    }
+}
