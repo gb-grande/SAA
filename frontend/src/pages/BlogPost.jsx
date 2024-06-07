@@ -68,7 +68,9 @@ function BlogPost() {
                     <Button w={100} onClick={handleDeleteClicked} bg='red'>Excluir</Button>
                 </ProtectedComponent>
             </Group>
-            <Text c="aprai-purple.9">{post.date?.toLocaleDateString()}</Text>
+            {post.date?.toLocaleDateString &&
+                <Text c="aprai-purple.9">{post.date.toLocaleDateString()}</Text>
+            }
             <Center>
                 <Image m="md" w={{lg: 350, md:300, sm: 250, base: 200}} radius="xl" src={post.imageUrl} />
             </Center>
