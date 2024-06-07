@@ -3,6 +3,7 @@ import {Image, Text, Button, Stack, Center, Paper, SimpleGrid, Space} from "@man
 import {useDisclosure} from "@mantine/hooks";
 import classes from "./FlipCard.module.css"
 import EditableSectionText from "./EditableSectionText.jsx";
+import EditableSectionImage from "./EditableSectionImage.jsx";
 
 // Exemplo:
 //
@@ -16,9 +17,9 @@ import EditableSectionText from "./EditableSectionText.jsx";
 //
 //
 
-function FlipCard({image, imageAlt, textFront, textBack, buttonText,
-                      normalizedImgW = .5, style = {},
-                      editableBackTextSection,
+function FlipCard({buttonText, normalizedImgW = .5, style = {},
+                      textFront, textBack, editableBackTextSection,
+                      image, imageAlt, editableImageTextSection,
                       ...others}) {
     const [isFlipped, {toggle}] = useDisclosure();
 
@@ -26,11 +27,16 @@ function FlipCard({image, imageAlt, textFront, textBack, buttonText,
         <ReactCardFlip isFlipped={isFlipped}>
             <Paper style={{overflow: "hidden", ...style}} radius="lg" withBorder bg="aprai-purple.3" pl={0} pr="sm" {...others}>
                 <SimpleGrid {...others} cols={2}>
-                    <Image
-                        src={image}
-                        alt={imageAlt}
-                        h="100%"
-                    />
+                    {
+                        editableImageTextSection
+                            ? <EditableSectionImage section={editableImageTextSection}
+                                                    alt={imageAlt}
+                                                    h="100%"/>
+                            : <Image src={image}
+                                     alt={imageAlt}
+                                     h="100%"/>
+
+                    }
                     <Stack justify='flex-center'>
                         <Space style={{flex: 1}}/>
                         <Text ta='center' c='black' fz="xl" fw="600">{textFront}</Text>
