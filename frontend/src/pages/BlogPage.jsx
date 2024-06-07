@@ -4,6 +4,7 @@ import PostGrid from "../components/PostGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
 import ProtectedComponent from "../components/ProtectedComponent.jsx";
 import useFetch from "../hooks/useFetch.jsx";
+import {HashLink} from "react-router-hash-link";
 
 function* yieldPages(data, pageSize){
     for (let i = 0; i < data.length; i += pageSize){
@@ -26,7 +27,7 @@ function BlogPage(){
           <Group>
               <Title mb='sm'>Blog</Title>
               <ProtectedComponent>
-                  <Button component='a' href={'/admin/blog/'}>Criar</Button>
+                  <Button component={HashLink} to={'/admin/blog/'}>Criar</Button>
               </ProtectedComponent>
           </Group>
           <PostGrid data={pages[currentPage - 1]} containerWidth={width}/>

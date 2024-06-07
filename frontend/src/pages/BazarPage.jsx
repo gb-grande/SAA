@@ -3,6 +3,7 @@ import {useState} from "react";
 import PostGrid from "../components/PostGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
 import ProtectedComponent from "../components/ProtectedComponent.jsx";
+import {HashLink} from "react-router-hash-link";
 
 const mockData = [...Array(50).keys()].map(i => {
     return {
@@ -31,7 +32,7 @@ function BazarPage(){
           <Group>
               <Title mb='sm'>Bazar</Title>
               <ProtectedComponent>
-                  <Button component='a' href={'/admin/blog/'}>Criar</Button>
+                  <Button component={HashLink} to={'/admin/blog/'}>Criar</Button>
               </ProtectedComponent>
           </Group>
           <PostGrid data={pages[currentPage - 1]} containerWidth={width}/>

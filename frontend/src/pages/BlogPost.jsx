@@ -5,6 +5,7 @@ import { modals } from "@mantine/modals";
 import axios from "axios";
 import useFetch from "../hooks/useFetch.jsx";
 import {notifications} from "@mantine/notifications";
+import {HashLink} from "react-router-hash-link";
 
 
 function BlogPost() {
@@ -63,7 +64,7 @@ function BlogPost() {
             <Group>
                 <Title>{post.title}</Title>
                 <ProtectedComponent>
-                    <Button w={100} variant='filled' component='a' href={`/admin/blog/${id}`}>Editar</Button>
+                    <Button w={100} variant='filled' component={HashLink} to={`/admin/blog/${id}`}>Editar</Button>
                     <Button w={100} onClick={handleDeleteClicked} bg='red'>Excluir</Button>
                 </ProtectedComponent>
             </Group>
