@@ -3,16 +3,8 @@ import {useState} from "react";
 import PostGrid from "../components/PostGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
 import ProtectedComponent from "../components/ProtectedComponent.jsx";
-
-const mockData = [...Array(50).keys()].map(i => {
-    return {
-        id: i,
-        title: "Título do post" + i,
-        content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel tincidunt purus, vel vulputate augue. Integer ut ex metus. Nulla imperdiet lobortis felis, sed pellentesque magna rutrum aliquet. Maecenas nec tincidunt leo, eu faucibus lectus. Maecenas hendrerit purus et diam rhoncus scelerisque. Cras tempor odio ac mi sodales, non laoreet nibh egestas. Quisque non luctus lacus. \n        Quisque pulvinar faucibus elementum. Ut cursus augue vitae consectetur tincidunt. Pellentesque dignissim, diam in ullamcorper rhoncus, ex tellus pharetra lorem, sed accumsan nisl dui consequat ipsum. Donec mollis vitae tortor faucibus consectetur. Aenean dolor urna, dapibus ut risus ut, aliquet tempor nunc. Suspendisse tempor dignissim nunc id mattis. Nullam at magna lorem.",
-        image: "https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-        date: new Date()
-    }
-})
+import useFetch from "../hooks/useFetch.jsx";
+import {HashLink} from "react-router-hash-link";
 
 function* yieldPages(data, pageSize){
     for (let i = 0; i < data.length; i += pageSize){
@@ -22,16 +14,20 @@ function* yieldPages(data, pageSize){
 
 function BlogPage(){
     const [currentPage, setCurrentPage] = useState(1);
+    const {result: posts} = useFetch('api/posts', {
+        defaultValue: []
+    });
     const {width} = useViewportSize();
-
     const cardsPerPage = 12;
-    const pages = [...yieldPages(mockData, cardsPerPage)];
+
+    const pages = [...yieldPages(posts, cardsPerPage)];
+    
     return (
       <>
           <Group>
               <Title mb='sm'>Blog</Title>
               <ProtectedComponent>
-                  <Button component='a' href={'/admin/blog/'}>Criar</Button>
+                  <Button component={HashLink} to={'/admin/blog/'}>Criar</Button>
               </ProtectedComponent>
           </Group>
           <PostGrid data={pages[currentPage - 1]} containerWidth={width}/>

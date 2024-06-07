@@ -47,7 +47,7 @@ function EditContact () {
         setLoading(true);
         //Add the +55 to the phone number
         values = {...values, phone: '+55' + values.phone.replace(/[+\s()-]/g, '')};
-        axios.post('api/contactInfos', values).then(_ => {
+        axios.put('api/contactInfos', values).then(_ => {
             console.log("Saved contact info: ", values);
             notifications.show({message: 'Informação atualizada com sucesso.'})
             navigate('..');

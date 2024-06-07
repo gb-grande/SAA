@@ -9,7 +9,8 @@ import adminLogin from "./routes/adminLogin.js";
 import cookieParser from 'cookie-parser';
 import admins from "./routes/admins.js";
 import sectionImages from "./routes/sectionImages.js";
-import './config.js';
+import posts from "./routes/posts.js";
+import './config.js'
 
 const app = express();
 app.use(helmet());
@@ -22,6 +23,7 @@ app.use('/api/contactInfos', contactInfos);
 app.use('/admins/login', adminLogin);
 app.use('/api/admins', admins);
 app.use('/api/sectionImages', sectionImages);
+app.use('/api/posts', posts);
 
 //Serve static files
 app.use('/images', express.static('images'), );

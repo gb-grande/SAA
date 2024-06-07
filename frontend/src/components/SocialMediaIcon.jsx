@@ -6,9 +6,11 @@ import useFetch from "../hooks/useFetch.jsx";
  * @param media Either 'facebook' or 'instagram'.
  */
 function SocialMediaIcon({media}){
-    const {result, error} = useFetch('api/contactInfos', null, {
-        instagram: '',
-        facebook: ''
+    const {result, error} = useFetch('api/contactInfos', {
+        defaultValue: {
+            instagram: '',
+            facebook: ''
+        }
     });
     if (error) console.error('Could not load contact info.', error);
 

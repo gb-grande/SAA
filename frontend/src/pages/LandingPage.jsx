@@ -24,11 +24,13 @@ function formatTelephone(number){
 }
 
 function LandingPage(){
-    const {result: contactInfo, error: contactInfoErr} = useFetch('api/contactInfos', null, {
-        phone: '',
-        address: '',
-        instagram: '',
-        facebook: ''
+    const {result: contactInfo, error: contactInfoErr} = useFetch('api/contactInfos',  {
+        defaultValue: {
+            phone: '',
+            address: '',
+            instagram: '',
+            facebook: ''
+        }
     });
     if (contactInfoErr) console.error('Could not load contact info in landing page.', contactInfoErr);
 

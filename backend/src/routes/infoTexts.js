@@ -4,6 +4,6 @@ import {getInfoText, setInfoText} from "../controllers/infoTexts.js";
 const router = express.Router();
 
 router.get('/:id', getInfoText);
-router.post('/:id', setInfoText);
+router.put('/:id', setInfoText);
 
 export default router;

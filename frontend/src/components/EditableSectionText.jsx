@@ -4,7 +4,9 @@ import useFetch from "../hooks/useFetch.jsx";
 import {notifications} from "@mantine/notifications";
 
 function EditableSectionText({section, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
-    const {result: text, setResult: setText, error} = useFetch(`api/infoTexts/${section}`, null, '');
+    const {result: text, setResult: setText, error} = useFetch(`api/infoTexts/${section}`, {
+        defaultValue: ''
+    });
     if (error){
         console.error(`Couldn't load '${section}' info.`, error);
     }
@@ -12,7 +14,7 @@ function EditableSectionText({section, containerStyle, textContainerStyle, input
     function onSave(value){
         if (String(value) === String(text)) return;
 
-        axios.post(`api/infoTexts/${section}`, {data: value})
+        axios.put(`api/infoTexts/${section}`, {data: value})
             .then(_ => {
                 setText(value);
                 notifications.show({message: 'Seção de texto salva.'});

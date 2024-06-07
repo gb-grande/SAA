@@ -5,8 +5,12 @@ import {notifications} from "@mantine/notifications";
 
 function EditableSectionImage({section, ...others}){
     const {result: {imageUrl}, setResult: setUrl, error} = useFetch(
-        `api/sectionImages/${section}`, {},
-        {imageUrl: ''}, [section]
+        `api/sectionImages/${section}`,  {
+            defaultValue: {
+                imageUrl: ''
+            },
+            dependencies: [section]
+        },
     );
     if (error) {
         console.error(`Error when fetching image for '${section}'`, error.response);
