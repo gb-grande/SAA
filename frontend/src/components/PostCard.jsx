@@ -27,7 +27,7 @@ export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, .
 
             <Card.Section p='sm' pt={imageUrl ? 0 : 'sm'}>
                 {showDate &&
-                    <Text size='xs' c={textColor}>{post.date.split('T')[0]}</Text>
+                    <Text size='xs' c={textColor}>{post.date?.toLocaleDateString()}</Text>
                 }
                 <Title order={4} lineClamp={2} c={textColor}>{title}</Title>
                 <Text c={textColor} lineClamp={lineCount} dangerouslySetInnerHTML={{__html: content}}/>
