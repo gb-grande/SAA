@@ -1,40 +1,38 @@
-import {Title, Text, Image, Center, Group, Button} from "@mantine/core"
-import {useParams } from 'react-router-dom';
-import {useEffect, useState} from "react";
+import {Title, Text, Image, Center, Group, Button, LoadingOverlay} from "@mantine/core"
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import ProtectedComponent from "../components/ProtectedComponent.jsx";
 import { modals } from "@mantine/modals";
 import axios from "axios";
+import useFetch from "../hooks/useFetch.jsx";
+import {notifications} from "@mantine/notifications";
 
 
 function BlogPost() {
+    const navigate = useNavigate();
     const {id} = useParams();
-    
-    const today = new Date();
-    const[post, setPost] = useState({})
-    // const post = {
-    //     title: "APRAI",
-    //     time: today,
-    //     image: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEitxnXh3BCHXlUOIPJdO1y51fEPdGCGf9bImEnIUVo_uPy5ECws2w1iAI2wrDs8Sc0oVbtdnYZvFG5UzykV-qvcWamD-Wyj6MOvh6UCTXHPH-5Xf-B5tH-8BqYSvw4roWyud7AgdE_3eXc/s800/pet_omocha_inu.png",
-    //     text: `
-    //     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vel tincidunt purus, vel vulputate augue. Integer ut ex metus. Nulla imperdiet lobortis felis, sed pellentesque magna rutrum aliquet. Maecenas nec tincidunt leo, eu faucibus lectus. Maecenas hendrerit purus et diam rhoncus scelerisque. Cras tempor odio ac mi sodales, non laoreet nibh egestas. Quisque non luctus lacus. 
-    //     Quisque pulvinar faucibus elementum. Ut cursus augue vitae consectetur tincidunt. Pellentesque dignissim, diam in ullamcorper rhoncus, ex tellus pharetra lorem, sed accumsan nisl dui consequat ipsum. Donec mollis vitae tortor faucibus consectetur. Aenean dolor urna, dapibus ut risus ut, aliquet tempor nunc. Suspendisse tempor dignissim nunc id mattis. Nullam at magna lorem.
-        
-    // `
-    // };
+    const {result: post, error, loading, setLoading} = useFetch(`api/posts/${id}`, {
+        defaultValue: {
+            title: "",
+            content: "",
+            date: new Date(),
+            imageUrl: "",
+        },
+        postProcessFunc: data => ({
+            ...data,
+            date: new Date(data.date)
+        })
+    });
 
-    useEffect(() => {
-        axios.get(`api/posts/` + id)
-            .then(res => {
-                setPost(res.data)
-            })
-            .catch(error => console.log(error))
-    }, [])
+    if (error){
+        console.error("Error when fetching blog post.", error);
+        return <Navigate to='/blog'/>;
+    }
 
-    
-
+    if (loading){
+        return <LoadingOverlay visible={true}/>;
+    }
 
     function handleDeleteClicked(){
-
         modals.openConfirmModal({
             title: 'Excluir postagem',
             centered: true,
@@ -46,13 +44,19 @@ function BlogPost() {
             labels: {confirm: 'Deletar', cancel: 'Cancelar'},
             confirmProps: {color: 'red'},
             cancelProps: {variant: 'filled'},
-            onConfirm: () => axios.delete(`api/posts/${id}`)
+            onConfirm: () => {
+                setLoading(true);
+                axios.delete(`api/posts/${id}`)
+                    .then(_ => {
+                        notifications.show({message: 'Post deletado.'});
+                        navigate('/blog');
+                    }).catch(err => {
+                        notifications.show({message: "Erro ao deletar post.", color: "red"});
+                        console.error("Error when deleting post.", err.response);
+                    }).finally(() => setLoading(false));
+            }
         });
     }
-  
-
-
-
     
     return (
         <>
@@ -63,16 +67,16 @@ function BlogPost() {
                     <Button w={100} onClick={handleDeleteClicked} bg='red'>Excluir</Button>
                 </ProtectedComponent>
             </Group>
-            <Text c="aprai-purple.9">Postado em</Text>
+            <Text c="aprai-purple.9">{post.date?.toLocaleDateString()}</Text>
             <Center>
-                <Image m="md" w={{lg: 350, md:300, sm: 250, base: 200}} radius="xl" src={post.imageId} />
+                <Image m="md" w={{lg: 350, md:300, sm: 250, base: 200}} radius="xl" src={post.imageUrl} />
             </Center>
             <Text 
                 ml={{base: "5%", sm: "10%"}} 
                 mr={{base: "5%", sm: "10%"}} 
-                style={{whiteSpace: "pre-line", textAlign: "justify"}}>
-                    {post.content}
-            </Text>
+                style={{whiteSpace: "pre-line", textAlign: "justify"}}
+                dangerouslySetInnerHTML={{__html: post.content}}
+            />
         </>
     )
 }

@@ -14,7 +14,7 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    imageId: mongoose.Types.ObjectId,
+    imageUrl: String,
     content: {
         type: String,
         required: true,
