@@ -42,17 +42,20 @@ export async function getAdmins(req, res) {
 
 export async function editPassword(req, res) {
     try {
+        if (!req.body.oldPassword || !req.body.newPassword)
+            return res.status(400).send({message: 'As senhas antiga e nova são obrigatórias.'});
+
         const admin = await Admin.findOne({user: req.body.user});
         
         if (!admin)
-            return res.status(401).send({message: 'Usuário ou senha antiga inválidos.'});
+            return res.status(401).send({message: 'Usuário não existe.'});
 
         bcrypt.compare(req.body.oldPassword, admin.password, async (err, result) => {
             if (err)
                 return res.status(500).send({message: 'Erro ao comparar senhas.'});
             
             if (!result)
-                return res.status(401).send({message: 'Usuário ou senha antiga inválidos.'});
+                return res.status(401).send({message: 'Senha antiga inválida.'});
 
             const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
             const hashedPassword = await bcrypt.hash(req.body.newPassword, saltRounds);
