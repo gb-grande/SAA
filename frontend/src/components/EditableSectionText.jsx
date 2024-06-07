@@ -4,7 +4,9 @@ import useFetch from "../hooks/useFetch.jsx";
 import {notifications} from "@mantine/notifications";
 
 function EditableSectionText({section, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
-    const {result: text, setResult: setText, error} = useFetch(`api/infoTexts/${section}`, null, '');
+    const {result: text, setResult: setText, error} = useFetch(`api/infoTexts/${section}`, {
+        defaultValue: ''
+    });
     if (error){
         console.error(`Couldn't load '${section}' info.`, error);
     }
