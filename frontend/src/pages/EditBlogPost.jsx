@@ -43,19 +43,27 @@ function EditBlogPost() {
             Highlight,
             TextAlign.configure({ types: ['heading', 'paragraph'] }),
         ],
+        content: form.values.content,
         onUpdate: ({ editor }) => form.setFieldValue('content', editor.getHTML())
     });
 
-    //TODO initialize form or message/redirect if no post with the id
-    // useEffect(() => {
-    //     if (id) {
-    //         axios.get(`api/posts/${id}`).then(res => form.initialize({
-    //             title: res.data.title,
-    //             content: res.data.content,
-    //             image: res.data.image
-    //         }))
-    //     }
-    // }, [id]);
+    useEffect(() => {
+        if (!id || !editor) return;
+
+        axios.get(`api/posts/${id}`)
+            .then(res => {
+                form.initialize({
+                    title: res.data.title,
+                    content: res.data.content,
+                    image: res.data.imageUrl
+                });
+                editor.commands.setContent(res.data.content);
+            })
+            .catch(err => {
+                console.error("Error fetching post to edit", err);
+                navigate('/blog');
+            });
+    }, [id, editor]);
 
     function onSubmit(values){
         if (id === undefined) {
