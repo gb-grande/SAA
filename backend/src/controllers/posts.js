@@ -26,7 +26,9 @@ export async function createPost(req, res) {
 
 export async function getPosts(req, res) {
     try {
-        const posts = await Post.find({}, null, {sort: {date: -1}});
+        const { type } = req.query;
+        const filter = type === 'blog' ? { isPost: true } : type === 'bazar' ? { isPost: false } : {};
+        const posts = await Post.find(filter, null, {sort: {date: -1}});
         return res.status(200).send(posts);
     } catch (e){
         return res.status(400).send({ error: e.message });

@@ -14,7 +14,7 @@ function* yieldPages(data, pageSize){
 
 function BlogPage(){
     const [currentPage, setCurrentPage] = useState(1);
-    const {result: posts} = useFetch('api/posts', {
+    const {result: posts} = useFetch('api/posts?type=blog', {
         defaultValue: []
     });
     const {width} = useViewportSize();
