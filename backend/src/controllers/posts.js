@@ -5,7 +5,7 @@ export async function createPost(req, res) {
     try {
         //TODO upload image
         const blog = new Post({
-            isPost: req.isPost,
+            isPost: req.body.isPost,
             posterUsername: req.body.posterUsername,
             date: req.body.date ?? Date.now(),
             title: req.body.title,

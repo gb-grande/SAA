@@ -26,7 +26,7 @@ function BazarPage(){
           <Group>
               <Title mb='sm'>Bazar</Title>
               <ProtectedComponent>
-                  <Button component={HashLink} to={'/admin/blog/'}>Criar</Button>
+                  <Button component={HashLink} to={'/admin/bazar/'}>Criar</Button>
               </ProtectedComponent>
           </Group>
           <PostGrid data={pages[currentPage - 1]} containerWidth={width}/>

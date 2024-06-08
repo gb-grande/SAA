@@ -18,7 +18,7 @@ function EditBlogPost() {
     const { id } = useParams();
     const location = useLocation();
     const isPost = location.pathname.includes('/blog');
-    const route = isPost ? '/blog' : '/bazar';
+    const route = isPost ? 'blog' : 'bazar';
 
     //TODO store image before setting form value
     const [file, setFile] = useState(null);
