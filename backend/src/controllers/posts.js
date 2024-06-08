@@ -5,6 +5,7 @@ export async function createPost(req, res) {
     try {
         //TODO upload image
         const blog = new Post({
+            isPost: req.isPost,
             posterUsername: req.body.posterUsername,
             date: req.body.date ?? Date.now(),
             title: req.body.title,
@@ -18,8 +19,8 @@ export async function createPost(req, res) {
             const errors = Object.values(e.errors).map(e => ({[e.path]: e.message}));
             return res.status(400).send({validationErrors: Object.assign({}, ...errors)});
         }
-        console.error('Unhandled error in blog creation.', e);
-        return res.status(500).send({message: 'Error ao criar blog.'});
+        console.error('Unhandled error in post creation.', e);
+        return res.status(500).send({message: 'Error ao criar post.'});
     }
 }
 
