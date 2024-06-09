@@ -18,7 +18,6 @@ function EditBlogPost() {
     const { id } = useParams();
     const location = useLocation();
     const isPost = location.pathname.includes('/blog');
-    console.log('tem')
     const route = isPost ? 'blog' : 'bazar';
 
     //TODO store image before setting form value
