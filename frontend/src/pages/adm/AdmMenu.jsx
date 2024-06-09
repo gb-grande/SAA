@@ -1,7 +1,9 @@
 import {Stack} from '@mantine/core'
 import MenuButton from "../../components/MenuButton.jsx";
+import {useNavigate} from "react-router-dom";
 
 function AdmMenu () {
+    const navigate = useNavigate();
 
     return(
         <Stack align='center' h='100%' justify='center' gap='xl'>
@@ -24,6 +26,9 @@ function AdmMenu () {
             <MenuButton
                 link='/login'
                 text='Sair'
+                onClick={() => {
+                    localStorage.removeItem('token');
+                }}
             >
 
             </MenuButton>

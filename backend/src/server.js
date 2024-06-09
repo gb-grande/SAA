@@ -8,6 +8,7 @@ import contactInfos from "./routes/contactInfos.js";
 import adminLogin from "./routes/adminLogin.js";
 import cookieParser from 'cookie-parser';
 import admins from "./routes/admins.js";
+import auth from "./routes/auth.js";
 import sectionImages from "./routes/sectionImages.js";
 import posts from "./routes/posts.js";
 import './config.js'
@@ -24,6 +25,7 @@ app.use('/admins/login', adminLogin);
 app.use('/api/admins', admins);
 app.use('/api/sectionImages', sectionImages);
 app.use('/api/posts', posts);
+app.use('/api/auth', auth);
 
 //Serve static files
 app.use('/images', express.static('images'), );
