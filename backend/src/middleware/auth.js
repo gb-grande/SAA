@@ -1,12 +1,16 @@
 import jwt from 'jsonwebtoken'
 
-export async function authenticateToken(req, res, next) {
-    const token = req.header('Authorization');
-    if (!token) return res.sendStatus(401);
+async function authMidd(req, res, next) {
+    const tokenHead = req.header('Authorization');
+    const token = tokenHead && tokenHead.split(' ')[1];
+    if (!token) return res.status(401).send({message: "Token inválido."});
 
-    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-        if (err) return res.sendStatus(401);
-        req.user = user;
+    jwt.verify(token, process.env.JWT_SECRET, (err, _) => {
+        if (err) {
+            return res.status(401).send({message: "Token inválido."});
+        }
         next();
     });
 }
+
+export default authMidd;

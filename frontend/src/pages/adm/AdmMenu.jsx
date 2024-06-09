@@ -1,10 +1,8 @@
 import {Stack} from '@mantine/core'
 import MenuButton from "../../components/MenuButton.jsx";
-import {useNavigate} from "react-router-dom";
+import axios from 'axios';
 
 function AdmMenu () {
-    const navigate = useNavigate();
-
     return(
         <Stack align='center' h='100%' justify='center' gap='xl'>
             <MenuButton
@@ -27,6 +25,7 @@ function AdmMenu () {
                 link='/login'
                 text='Sair'
                 onClick={() => {
+                    delete axios.defaults.headers.common['Authorization'];
                     localStorage.removeItem('token');
                 }}
             >

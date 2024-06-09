@@ -23,6 +23,7 @@ function Login() {
         setError('');
         axios.post(`/admins/login`, values)
             .then(res => {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
                 localStorage.setItem('token', res.data.token);
                 navigate('/admin');
             })

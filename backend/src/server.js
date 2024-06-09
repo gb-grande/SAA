@@ -11,6 +11,7 @@ import admins from "./routes/admins.js";
 import auth from "./routes/auth.js";
 import sectionImages from "./routes/sectionImages.js";
 import posts from "./routes/posts.js";
+import authMidd from "./middleware/auth.js";
 import './config.js'
 
 const app = express();
@@ -18,6 +19,10 @@ app.use(helmet());
 app.use(cors({origin: true, credentials: true}));
 app.use(express.json());
 app.use(cookieParser());
+
+app.post('/api/*', authMidd);
+app.put('/api/*', authMidd);
+app.delete('/api/*', authMidd);
 
 app.use('/api/infoTexts', infoTexts);
 app.use('/api/contactInfos', contactInfos);
