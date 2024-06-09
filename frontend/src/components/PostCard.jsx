@@ -2,8 +2,10 @@ import {Card, Image, Text, Title} from "@mantine/core";
 import {HashLink} from "react-router-hash-link";
 
 export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
-    const {title, content, imageUrl} = post;
+    const {isPost, title, content, imageUrl} = post;
     
+    const route = isPost ? 'blog' : 'bazar';
+
     let textH = h - 20;
     if (imageUrl) textH -= imgHPct * h;
     if (showDate) textH -= 10;
@@ -17,7 +19,7 @@ export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, .
             h={h} w={w}
             bg={bgColor}
             {...others}
-            component={HashLink} to={`/blog/${post._id}`}
+            component={HashLink} to={`/${route}/${post._id}`}
         >
             {imageUrl &&
                 <Card.Section>

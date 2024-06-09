@@ -18,6 +18,7 @@ function EditBlogPost() {
     const { id } = useParams();
     const location = useLocation();
     const isPost = location.pathname.includes('/blog');
+    console.log('tem')
     const route = isPost ? 'blog' : 'bazar';
 
     //TODO store image before setting form value
@@ -64,7 +65,7 @@ function EditBlogPost() {
             })
             .catch(err => {
                 console.error("Error fetching post to edit", err);
-                navigate('/blog');
+                navigate(`/${route}`);
             });
     }, [id, editor]);
 
@@ -94,7 +95,7 @@ function EditBlogPost() {
                 imageId: null, //TODO first upload image and then set id
                 content: values.content
             })
-                .then(res => navigate(`/${route}/${res.data.id}`))
+                .then(res => navigate(`/${route}/${id}`))
                 .catch(err => {
                     console.error("Unhandled error when creating post.", err);
                     //TODO notification to notify error to user
@@ -114,7 +115,7 @@ function EditBlogPost() {
             labels: {confirm: 'Cancelar', cancel: 'Continuar escrevendo'},
             confirmProps: {color: 'red'},
             cancelProps: {variant: 'filled'},
-            onConfirm: () => navigate("/blog")
+            onConfirm: () => navigate(`/${route}`)
         })
     }
 
