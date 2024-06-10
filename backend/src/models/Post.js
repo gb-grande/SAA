@@ -16,26 +16,29 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    imageUrl: {
-        type: String,
-        set: function(newUrl){
-            const oldUrl = this.imageUrl;
-            if (oldUrl) {
-                deleteImage(oldUrl)
-                    .then(_ => console.log(`Deleted old image at ${oldUrl}.`))
-                    .catch(e => console.error(`Error when deleting old image at ${oldUrl}.`, e));
-            }
-            return newUrl;
-        }
-    },
+    imageUrl: String,
     content: {
         type: String,
         required: true,
         set: function(newContent){
-            console.log("Will sanitize "+newContent);
             //TODO verify if the default set of allowed tags is safe enough
             return sanitizeHtml(newContent);
         }
+    }
+});
+
+schema.pre(['updateOne', 'findByIdAndUpdate', 'findOneAndUpdate'], {}, async function(next){
+    //If changes the image, delete the old image from minio.
+    try {
+        const post = await this.model.findById(this._conditions._id);
+        if (post.imageUrl && this.get('imageUrl') !== post.imageUrl){
+            await deleteImage(post.imageUrl);
+            console.log("Old image deleted.");
+        }
+    } catch (err){
+        console.error("Error when deleting old image.", err);
+    } finally {
+        next();
     }
 });
 
