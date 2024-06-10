@@ -91,7 +91,7 @@ function LandingPage(){
                 >
                     <Circle
                         icon="dog"
-                        number="300"
+                        number="358"
                         numberSection="numAnimais"
                         description={(
                             <>
@@ -102,19 +102,19 @@ function LandingPage(){
                     />
                     <Circle
                         icon="alert"
-                        number="100"
+                        number="1006"
                         numberSection="numDenuncia"
-                        description="Denúncias registradas"
+                        description="Denúncias verificadas"
                     />
                     <Circle
                         icon="food"
-                        number="800"
+                        number="4.2"
                         numberSection="numRacao"
-                        description="Quilos de ração doados"
+                        description="Tons de ração doadas"
                     />
                     <Circle
                         icon="vet"
-                        number="200"
+                        number="552"
                         numberSection="numConsulta"
                         description="Consultas realizadas"
                     />
