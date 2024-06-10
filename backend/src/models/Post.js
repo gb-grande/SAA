@@ -3,6 +3,10 @@ import sanitizeHtml from "sanitize-html"
 import {deleteImage} from "../middleware/minio.js";
 
 const schema = new mongoose.Schema({
+    isBlog: { //? is blog : is bazar item
+        type: Boolean,
+        required: true
+    },
     posterUsername: {
         type: String,
         required: true

@@ -1,5 +1,5 @@
 import {TextInput, Group, Button, FileButton, Text, Center, Image, Stack} from "@mantine/core"
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import Highlight from '@tiptap/extension-highlight';
@@ -18,6 +18,9 @@ import classes from "./EditBlogPost.module.css"
 function EditBlogPost() {
     let navigate = useNavigate();
     const { id } = useParams();
+    const location = useLocation();
+    const isBlog = location.pathname.includes('/blog');
+    const route = isBlog ? 'blog' : 'bazar';
     const [file, setFile] = useState(null);
     const form = useForm({
         mode: "controlled",
@@ -31,7 +34,7 @@ function EditBlogPost() {
             content: isNotEmpty('O conteúdo não pode estar vazio.')
         }
     });
-    //To make sure we can keep track of wheter we have changed to no image, or never had an image to begin with.
+    //To make sure we can keep track of whether we have deleted the image, or never had an image to begin with.
     const [imageDeleted, setImageDeleted] = useState(false);
 
     const editor = useEditor({
@@ -62,28 +65,27 @@ function EditBlogPost() {
             })
             .catch(err => {
                 console.error("Error fetching post to edit", err);
-                navigate('/blog');
+                navigate(`/${route}`);
             });
     }, [id, editor]);
 
     function onSubmit(values){
-
-        //If a file is sent, the imageUrl will be overwritten.
+        //If a file is sent, the imageUrl will be overwritten in the middleware.
         //If no file and no imageUrl is sent, the image will be deleted.
         values.image = file;
         if (imageDeleted) values.imageUrl = '';
 
         if (id === undefined) {
+            values.isBlog = isBlog;
             values.posterUsername = 'TEMP'; // TODO insert username
             axios.postForm('api/posts/', values)
-                .then(res => navigate(`/blog/${res.data.id}`))
+                .then(res => navigate(`/${route}/${res.data.id}`))
                 .catch(err => {
                     if (err.response.data.validationErrors){
-                        console.log(err.response.data.validationErrors);
                         form.setErrors(err.response.data.validationErrors);
                     }
                     else {
-                        console.error("Unhandled error when creating blog.", err);
+                        console.error("Unhandled error when creating post.", err);
                         notifications.show({message: "Erro ao salvar post.", color: 'red'});
                     }
                 });
@@ -92,7 +94,7 @@ function EditBlogPost() {
             axios.putForm(`api/posts/${id}`, values)
                 .then(res => navigate(`/blog/${res.data.id}`))
                 .catch(err => {
-                    console.error("Unhandled error when updating blog.", err);
+                    console.error("Unhandled error when updating post.", err);
                     notifications.show({message: "Erro ao salvar post.", color: 'red'});
                 });
         }
@@ -110,7 +112,7 @@ function EditBlogPost() {
             labels: {confirm: 'Cancelar', cancel: 'Continuar escrevendo'},
             confirmProps: {color: 'red'},
             cancelProps: {variant: 'filled'},
-            onConfirm: () => navigate("/blog")
+            onConfirm: () => navigate(`/${route}`)
         })
     }
 
