@@ -1,26 +1,11 @@
-import { Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from '../providers/AuthProvider.jsx';
 
 function ProtectedRoute({children}){
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [isTokenValid, setIsTokenValid] = useState(false);
+    const { token } = useAuth();
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        axios.get('/api/auth', {headers: {Authorization: `Bearer ${token}`}})
-            .then(_ => {
-                setIsAuthenticated(true);
-            })
-            .catch(err => {
-                console.error(err);
-                setIsAuthenticated(false);
-            })
-            .finally(() => setIsTokenValid(true));
-    }, []);
-
-    if (!isTokenValid) return <div/>;
-    if (isAuthenticated) return children;
+    if (token) return children;
+    
     return <Navigate to='/login' replace />
 }
 

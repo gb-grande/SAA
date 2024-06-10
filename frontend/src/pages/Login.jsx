@@ -4,11 +4,13 @@ import ColoredInputBars from "../components/ColoredInputBars.jsx";
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import { useAuth } from '../providers/AuthProvider.jsx';
 
 function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false); // Com useDisclousure não estava funcionando.
     const navigate = useNavigate();
+    const {setToken} = useAuth();
     const form = useForm({
         mode: "uncontrolled",
         
@@ -23,8 +25,7 @@ function Login() {
         setError('');
         axios.post(`/admins/login`, values)
             .then(res => {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-                localStorage.setItem('token', res.data.token);
+                setToken(res.data.token);
                 navigate('/admin');
             })
             .catch(err => {
