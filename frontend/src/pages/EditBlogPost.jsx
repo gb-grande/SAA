@@ -17,8 +17,8 @@ function EditBlogPost() {
     let navigate = useNavigate();
     const { id } = useParams();
     const location = useLocation();
-    const isPost = location.pathname.includes('/blog');
-    const route = isPost ? 'blog' : 'bazar';
+    const isBlog = location.pathname.includes('/blog');
+    const route = isBlog ? 'blog' : 'bazar';
 
     //TODO store image before setting form value
     const [file, setFile] = useState(null);
@@ -71,7 +71,7 @@ function EditBlogPost() {
     function onSubmit(values){
         if (id === undefined) {
             axios.post('api/posts/', {
-                isPost: isPost,
+                isBlog: isBlog,
                 posterUsername: 'TEMP', //TODO send stored current user
                 title: values.title,
                 imageId: null, //TODO first upload image and then set id

@@ -24,7 +24,7 @@ function BlogPost() {
         })
     });
 
-    const route = post.isPost ? 'blog' : 'bazar';
+    const route = post.isBlog ? 'blog' : 'bazar';
 
     if (error){
         console.error("Error when fetching blog post.", error);

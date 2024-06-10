@@ -5,7 +5,7 @@ export async function createPost(req, res) {
     try {
         //TODO upload image
         const blog = new Post({
-            isPost: req.body.isPost,
+            isBlog: req.body.isBlog,
             posterUsername: req.body.posterUsername,
             date: req.body.date ?? Date.now(),
             title: req.body.title,
@@ -27,7 +27,7 @@ export async function createPost(req, res) {
 export async function getPosts(req, res) {
     try {
         const { type } = req.query;
-        const filter = type === 'blog' ? { isPost: true } : type === 'bazar' ? { isPost: false } : {};
+        const filter = type === 'blog' ? { isBlog: true } : type === 'bazar' ? { isBlog: false } : {};
         const posts = await Post.find(filter, null, {sort: {date: -1}});
         return res.status(200).send(posts);
     } catch (e){

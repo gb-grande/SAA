@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import sanitizeHtml from "sanitize-html"
 
 const schema = new mongoose.Schema({
-    isPost: {
+    isBlog: { //? is blog : is bazar item
         type: Boolean,
         required: true
     },

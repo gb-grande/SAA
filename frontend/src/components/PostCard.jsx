@@ -2,9 +2,9 @@ import {Card, Image, Text, Title} from "@mantine/core";
 import {HashLink} from "react-router-hash-link";
 
 export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
-    const {isPost, title, content, imageUrl} = post;
+    const {isBlog, title, content, imageUrl} = post;
     
-    const route = isPost ? 'blog' : 'bazar';
+    const route = isBlog ? 'blog' : 'bazar';
 
     let textH = h - 20;
     if (imageUrl) textH -= imgHPct * h;
