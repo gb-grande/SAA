@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import { modals } from "@mantine/modals";
 import axios from "axios";
 import { isNotEmpty, useForm } from "@mantine/form";
+import {notifications} from "@mantine/notifications";
 
 function EditBlogPost() {
     let navigate = useNavigate();
@@ -67,33 +68,34 @@ function EditBlogPost() {
 
     function onSubmit(values){
         if (id === undefined) {
-            axios.post('api/posts/', {
+            axios.postForm('api/posts/', {
                 posterUsername: 'TEMP', //TODO send stored current user
                 title: values.title,
-                imageId: null, //TODO first upload image and then set id
+                image: file,
                 content: values.content
             })
                 .then(res => navigate(`/blog/${res.data.id}`))
                 .catch(err => {
                     if (err.response.data.validationErrors){
+                        console.log(err.response.data.validationErrors);
                         form.setErrors(err.response.data.validationErrors);
                     }
                     else {
                         console.error("Unhandled error when creating blog.", err);
-                        //TODO notification to notify error to user
+                        notifications.show({message: "Erro ao salvar post.", color: 'red'});
                     }
                 });
         }
         else {
-            axios.put(`api/posts/${id}`, {
+            axios.putForm(`api/posts/${id}`, {
                 title: values.title,
-                imageId: null, //TODO first upload image and then set id
+                image: file,
                 content: values.content
             })
                 .then(res => navigate(`/blog/${res.data.id}`))
                 .catch(err => {
-                    console.error("Unhandled error when creating blog.", err);
-                    //TODO notification to notify error to user
+                    console.error("Unhandled error when updating blog.", err);
+                    notifications.show({message: "Erro ao salvar post.", color: 'red'});
                 });
         }
     }
