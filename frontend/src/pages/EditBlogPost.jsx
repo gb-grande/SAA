@@ -30,7 +30,9 @@ function EditBlogPost() {
             title: isNotEmpty('O título não pode estar vazio.'),
             content: isNotEmpty('O conteúdo não pode estar vazio.')
         }
-    })
+    });
+    //To make sure we can keep track of wheter we have changed to no image, or never had an image to begin with.
+    const [imageDeleted, setImageDeleted] = useState(false);
 
     const editor = useEditor({
         extensions: [
@@ -65,13 +67,15 @@ function EditBlogPost() {
     }, [id, editor]);
 
     function onSubmit(values){
+
+        //If a file is sent, the imageUrl will be overwritten.
+        //If no file and no imageUrl is sent, the image will be deleted.
+        values.image = file;
+        if (imageDeleted) values.imageUrl = '';
+
         if (id === undefined) {
-            axios.postForm('api/posts/', {
-                posterUsername: 'TEMP', //TODO send stored current user
-                title: values.title,
-                image: file,
-                content: values.content
-            })
+            values.posterUsername = 'TEMP'; // TODO insert username
+            axios.postForm('api/posts/', values)
                 .then(res => navigate(`/blog/${res.data.id}`))
                 .catch(err => {
                     if (err.response.data.validationErrors){
@@ -85,11 +89,7 @@ function EditBlogPost() {
                 });
         }
         else {
-            axios.putForm(`api/posts/${id}`, {
-                title: values.title,
-                image: file,
-                content: values.content
-            })
+            axios.putForm(`api/posts/${id}`, values)
                 .then(res => navigate(`/blog/${res.data.id}`))
                 .catch(err => {
                     console.error("Unhandled error when updating blog.", err);
@@ -114,9 +114,18 @@ function EditBlogPost() {
         })
     }
 
-    const imageUrl = file ? URL.createObjectURL(file) : form.values.imageUrl;
+    let imageUrl = imageDeleted ? null : form.values.imageUrl;
+    if (file) imageUrl = URL.createObjectURL(file);
 
-    console.log(imageUrl);
+    let imageRevertButtonLabel;
+    if (imageDeleted || file) imageRevertButtonLabel = 'Reverter Imagem';
+    else if (form.values.imageUrl) imageRevertButtonLabel = 'Remover Imagem';
+
+    let imageRevertButtonFunction;
+    if (imageDeleted) imageRevertButtonFunction = () => setImageDeleted(false);
+    else if (file) imageRevertButtonFunction = () => setFile(null);
+    else if (form.values.imageUrl) imageRevertButtonFunction = () => setImageDeleted(true);
+
     return (
         <form onSubmit={form.onSubmit(onSubmit)}>
             <Group m="md" justify="space-between">
@@ -128,7 +137,7 @@ function EditBlogPost() {
                 />
                 <div>
                     <Button type="submit" className={classes.customButton} disabled={!form.values.content}>Salvar</Button>
-                    
+
                     <Button bg='red' className={classes.customButton} onClick={onCancel}>Cancelar</Button>
                 </div>
             </Group>
@@ -181,14 +190,20 @@ function EditBlogPost() {
                 <RichTextEditor.Content />
             </RichTextEditor>
 
-            <Center >
-                <Stack>
+            <Center>
+                <Stack w={{lg: 350, md:300, sm: 250, base: 200}}>
                     <FileButton onChange={setFile} accept="image/png,image/jpeg">
                         {(props) => <Button className={classes.customButton} {...props}>Carregar Imagem</Button>}
                     </FileButton>
-                    <Button className={classes.customButton} onClick={() => setFile(null)} disabled={!file}>Reverter Imagem</Button>
+
+                    {imageRevertButtonLabel &&
+                        <Button className={classes.customButton} onClick={imageRevertButtonFunction}>
+                            {imageRevertButtonLabel}
+                        </Button>
+                    }
+
                     {imageUrl &&
-                        <Image m="md" w={{lg: 350, md:300, sm: 250, base: 200}} radius="xl" src={imageUrl} />
+                        <Image radius="xl" src={imageUrl} />
                     }
                 </Stack>
             </Center>
