@@ -28,6 +28,7 @@ function App() {
                 <Route path="blog" element={<BlogPage/>}/>
                 <Route path="blog/:id" element={<BlogPost/>}/>
                 <Route path="bazar" element={<BazarPage/>}/>
+                <Route path="bazar/:id" element={<BlogPost/>}/>
                 <Route path="login" element={<Login/>}/>
             </Route>
 
@@ -40,6 +41,7 @@ function App() {
             }>
                 <Route index element={<AdmMenu/>}/>
                 <Route path="blog/:id?" element={<EditBlogPost/>}/>
+                <Route path="bazar/:id?" element={<EditBlogPost/>}/>
 
                 <Route path="editarcontato" element={<EditContact/>}/>
                 <Route path="cadastro" element={<RegisterAdm/>}/>

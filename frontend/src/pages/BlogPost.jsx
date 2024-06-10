@@ -24,9 +24,11 @@ function BlogPost() {
         })
     });
 
+    const route = post.isBlog ? 'blog' : 'bazar';
+
     if (error){
         console.error("Error when fetching blog post.", error);
-        return <Navigate to='/blog'/>;
+        return <Navigate to={`/${route}`}/>;
     }
 
     if (loading){
@@ -50,7 +52,7 @@ function BlogPost() {
                 axios.delete(`api/posts/${id}`)
                     .then(_ => {
                         notifications.show({message: 'Post deletado.'});
-                        navigate('/blog');
+                        navigate(`/${route}`);
                     }).catch(err => {
                         notifications.show({message: "Erro ao deletar post.", color: "red"});
                         console.error("Error when deleting post.", err.response);
@@ -64,7 +66,7 @@ function BlogPost() {
             <Group>
                 <Title>{post.title}</Title>
                 <ProtectedComponent>
-                    <Button w={100} variant='filled' component={HashLink} to={`/admin/blog/${id}`}>Editar</Button>
+                    <Button w={100} variant='filled' component={HashLink} to={`/admin/${route}/${id}`}>Editar</Button>
                     <Button w={100} onClick={handleDeleteClicked} bg='red'>Excluir</Button>
                 </ProtectedComponent>
             </Group>
