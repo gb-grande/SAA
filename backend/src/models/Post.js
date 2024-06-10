@@ -14,7 +14,7 @@ const schema = new mongoose.Schema({
     date: {
         type: Date,
         required: true,
-        default: new Date()
+        default: function() {return new Date();}
     },
     title: {
         type: String,
