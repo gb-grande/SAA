@@ -1,4 +1,4 @@
-import { TextInput, Group, Button, FileButton, Text, Center } from "@mantine/core"
+import {TextInput, Group, Button, FileButton, Text, Center, Image, Stack} from "@mantine/core"
 import { useParams, useNavigate } from 'react-router-dom';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
@@ -13,20 +13,18 @@ import { modals } from "@mantine/modals";
 import axios from "axios";
 import { isNotEmpty, useForm } from "@mantine/form";
 import {notifications} from "@mantine/notifications";
+import classes from "./EditBlogPost.module.css"
 
 function EditBlogPost() {
     let navigate = useNavigate();
     const { id } = useParams();
-
-    //TODO store image before setting form value
     const [file, setFile] = useState(null);
-
     const form = useForm({
         mode: "controlled",
         initialValues: {
             title: '',
             content: '',
-            image: null
+            imageUrl: ''
         },
         validate: {
             title: isNotEmpty('O título não pode estar vazio.'),
@@ -56,7 +54,7 @@ function EditBlogPost() {
                 form.initialize({
                     title: res.data.title,
                     content: res.data.content,
-                    image: res.data.imageUrl
+                    imageUrl: res.data.imageUrl
                 });
                 editor.commands.setContent(res.data.content);
             })
@@ -116,6 +114,9 @@ function EditBlogPost() {
         })
     }
 
+    const imageUrl = file ? URL.createObjectURL(file) : form.values.imageUrl;
+
+    console.log(imageUrl);
     return (
         <form onSubmit={form.onSubmit(onSubmit)}>
             <Group m="md" justify="space-between">
@@ -126,9 +127,9 @@ function EditBlogPost() {
                     {...form.getInputProps('title')}
                 />
                 <div>
-                    <Button type="submit" mr="md" bg='aprai-purple.5' radius="lg" fz="xl" disabled={!form.values.content}>Salvar</Button>
+                    <Button type="submit" className={classes.customButton} disabled={!form.values.content}>Salvar</Button>
                     
-                    <Button bg='red' radius="lg" fz="xl" onClick={onCancel}>Cancelar</Button>
+                    <Button bg='red' className={classes.customButton} onClick={onCancel}>Cancelar</Button>
                 </div>
             </Group>
 
@@ -180,16 +181,17 @@ function EditBlogPost() {
                 <RichTextEditor.Content />
             </RichTextEditor>
 
-            <Center>
-                <FileButton onChange={setFile} accept="image/png,image/jpeg">
-                    {(props) => <Button bg='aprai-purple.5' radius="lg" fz="xl" {...props}>Carregar Imagem</Button>}
-                </FileButton>
+            <Center >
+                <Stack>
+                    <FileButton onChange={setFile} accept="image/png,image/jpeg">
+                        {(props) => <Button className={classes.customButton} {...props}>Carregar Imagem</Button>}
+                    </FileButton>
+                    <Button className={classes.customButton} onClick={() => setFile(null)} disabled={!file}>Reverter Imagem</Button>
+                    {imageUrl &&
+                        <Image m="md" w={{lg: 350, md:300, sm: 250, base: 200}} radius="xl" src={imageUrl} />
+                    }
+                </Stack>
             </Center>
-            {form.values.image && (
-                <Text size="sm" ta="center" mt="sm">
-                Arquivo selecionado: {form.values.image.name}
-                </Text>
-            )}
         </form>
     )
 }
