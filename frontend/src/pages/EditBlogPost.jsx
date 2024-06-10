@@ -1,5 +1,5 @@
 import { TextInput, Group, Button, FileButton, Text, Center } from "@mantine/core"
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
 import Highlight from '@tiptap/extension-highlight';
@@ -16,6 +16,9 @@ import { isNotEmpty, useForm } from "@mantine/form";
 function EditBlogPost() {
     let navigate = useNavigate();
     const { id } = useParams();
+    const location = useLocation();
+    const isBlog = location.pathname.includes('/blog');
+    const route = isBlog ? 'blog' : 'bazar';
 
     //TODO store image before setting form value
     const [file, setFile] = useState(null);
@@ -61,25 +64,26 @@ function EditBlogPost() {
             })
             .catch(err => {
                 console.error("Error fetching post to edit", err);
-                navigate('/blog');
+                navigate(`/${route}`);
             });
     }, [id, editor]);
 
     function onSubmit(values){
         if (id === undefined) {
             axios.post('api/posts/', {
+                isBlog: isBlog,
                 posterUsername: 'TEMP', //TODO send stored current user
                 title: values.title,
                 imageId: null, //TODO first upload image and then set id
                 content: values.content
             })
-                .then(res => navigate(`/blog/${res.data.id}`))
+                .then(res => navigate(`/${route}/${res.data.id}`))
                 .catch(err => {
                     if (err.response.data.validationErrors){
                         form.setErrors(err.response.data.validationErrors);
                     }
                     else {
-                        console.error("Unhandled error when creating blog.", err);
+                        console.error("Unhandled error when creating post.", err);
                         //TODO notification to notify error to user
                     }
                 });
@@ -90,9 +94,9 @@ function EditBlogPost() {
                 imageId: null, //TODO first upload image and then set id
                 content: values.content
             })
-                .then(res => navigate(`/blog/${res.data.id}`))
+                .then(res => navigate(`/${route}/${id}`))
                 .catch(err => {
-                    console.error("Unhandled error when creating blog.", err);
+                    console.error("Unhandled error when creating post.", err);
                     //TODO notification to notify error to user
                 });
         }
@@ -110,7 +114,7 @@ function EditBlogPost() {
             labels: {confirm: 'Cancelar', cancel: 'Continuar escrevendo'},
             confirmProps: {color: 'red'},
             cancelProps: {variant: 'filled'},
-            onConfirm: () => navigate("/blog")
+            onConfirm: () => navigate(`/${route}`)
         })
     }
 
