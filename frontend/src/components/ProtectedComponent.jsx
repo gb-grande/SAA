@@ -1,13 +1,10 @@
-import useAuth from '../hooks/useAuth'
+import { useAuth } from '../providers/AuthProvider.jsx';
 
 function ProtectedComponent({children}){
-    const isAuthenticated = () => {
-        return useAuth();
-    }
-
+    const { token } = useAuth();
     return (
         <>
-            {isAuthenticated() && children}
+            {token && children}
         </>
     )
 }
