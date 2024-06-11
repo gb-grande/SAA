@@ -10,7 +10,7 @@ function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false); // Com useDisclousure não estava funcionando.
     const navigate = useNavigate();
-    const {setToken} = useAuth();
+    const {token, setToken} = useAuth();
     const form = useForm({
         mode: "uncontrolled",
         
@@ -19,6 +19,10 @@ function Login() {
             password: isNotEmpty('Informe a senha')
         }
     });
+
+    if (token) {
+        navigate('/admin');
+    }
 
     function onSubmit(values){
         setLoading(true);
