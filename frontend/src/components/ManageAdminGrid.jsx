@@ -3,17 +3,14 @@ import {SimpleGrid, useMantineTheme} from "@mantine/core";
 import {useMediaQuery} from "@mantine/hooks";
 
 function ManageAdminGrid({data = [], containerWidth}){
-    //This might be over-engineered.
-    //Maybe it would be better to simply use breakpoints to set col count.
     const theme = useMantineTheme();
     const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
     const cardWidth = isMobile ? 272 : 450;
     const cardHeight = isMobile ? 70 : 70;
-    const cards = data.map((post, index) => (
+    const cards = data.map((admin, index) => (
         <div>
-            <ManageAdminCard key={index} post={post} h={cardHeight} radius='xl' light={true} imgHPct={0.5}/>
-           
+            <ManageAdminCard key={index} admin={admin} h={cardHeight} radius='xl' light={true} imgHPct={0.5}/>
         </div>
     ));
 

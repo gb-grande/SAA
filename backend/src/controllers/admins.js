@@ -57,6 +57,7 @@ export async function deleteAdmin(req,res) {
         return res.status(500).send({message: 'Erro ao deletar administrador'})
     }
 }
+
 export async function editPassword(req, res) {
     try {
         if (!req.body.oldPassword || !req.body.newPassword)

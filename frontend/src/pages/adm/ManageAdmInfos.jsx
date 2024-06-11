@@ -3,14 +3,8 @@ import {useState} from "react";
 import ManageAdminGrid from "../../components/ManageAdminGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
 import ProtectedComponent from "../../components/ProtectedComponent.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
 import {HashLink} from "react-router-hash-link";
-
-const mockData = [...Array(50).keys()].map(i => {
-    return {
-        id: i,
-        title: "adm " + i,
-    }
-})
 
 function* yieldPages(data, pageSize){
     for (let i = 0; i < data.length; i += pageSize){
@@ -22,8 +16,12 @@ function ManageAdmInfos(){
     const [currentPage, setCurrentPage] = useState(1);
     const {width} = useViewportSize();
 
+    const {result: admins} = useFetch('api/admins', {
+        defaultValue: []
+    });
+    
     const cardsPerPage = 12;
-    const pages = [...yieldPages(mockData, cardsPerPage)];
+    const pages = [...yieldPages(admins, cardsPerPage)];
     return (
       <>
           <Group>

@@ -1,16 +1,32 @@
-import {Card, Button, Text, Title, Flex, Space} from "@mantine/core";
+import {TextInput, Card, Button, Text, Title, Flex, Space} from "@mantine/core";
+import {modals} from "@mantine/modals"
 import {HashLink} from "react-router-hash-link";
 
-export function ManageAdminCard({post, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
-    const {title, content, imageUrl} = post;
+export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
+    const {user} = admin;
+    console.log(user)
     
     let textH = h - 20;
-    if (imageUrl) textH -= imgHPct * h;
-    if (showDate) textH -= 10;
     const lineCount = Math.floor(textH / 32);
 
     const bgColor = light ? "aprai-purple.3" : "aprai-purple.9";
     const textColor = light ? "aprai-purple.9" : "white";
+
+    function modalTest () {
+        modals.open({
+            title:`Atualizar senha de ${user}`,
+            children: (
+                <>
+                    <TextInput label="Sua antiga senha" placeholder="Antiga senha" data-autofocus />
+                    <TextInput label="Sua nova senha" placeholder="Nova senha" data-autofocus />
+                    <TextInput label="Confirme sua nova senha" placeholder="Senha" data-autofocus />
+                    <Button fullWidth onClick={() => modals.closeAll()} mt="md">
+                        Submit
+                    </Button>
+                </>
+            )
+        })
+    }
     return (
 
         <Card
@@ -18,24 +34,17 @@ export function ManageAdminCard({post, h, w, light=false, showDate=true, imgHPct
             h={h} w={w}
             bg={bgColor}
             {...others}
-            component={HashLink} to={`/blog/${post._id}`}
         >
-
-
             <Card.Section p='sm' >
-                {showDate && post.date?.toLocaleDateString &&
-                    <Text size='xs' c={textColor}>{post.date.toLocaleDateString()}</Text>
-                }
-
                 <Space h = "3px"/>
                 <Flex justify = 'space-between' align = 'center'>
                     <Title order={4} lineClamp={2} c={textColor} style={{ marginRight: '10px' }}>
-                        {title}
+                        {user}
                     </Title>
 
                     <div>
                     <   Flex justify = 'space-between' align = 'center'>
-                            <Button component={HashLink} to="/admin/cadastro/">
+                            <Button component={HashLink} onClick={modalTest()}>
                                 Editar
                             </Button>
 
@@ -47,10 +56,6 @@ export function ManageAdminCard({post, h, w, light=false, showDate=true, imgHPct
                         </Flex>
                     </div>
                 </Flex>
-                
-                <Text c={textColor} lineClamp={lineCount} dangerouslySetInnerHTML={{__html: content}}/>
-
-               
             </Card.Section>
         </Card>
     )
