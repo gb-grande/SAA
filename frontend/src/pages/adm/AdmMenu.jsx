@@ -10,6 +10,10 @@ function AdmMenu () {
                 text='Cadastro de Administrador'
             />
             <MenuButton
+                link='/admin/gerenciarcadastro'
+                text='Gerenciar Cadastro de Administrador'
+            />
+            <MenuButton
                 link='/blog'
                 text='Gerenciar Postagens'
             />
