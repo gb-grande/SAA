@@ -1,5 +1,6 @@
 import Admin from "../models/Admin.js"
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 function serverError(err, res) {
     console.error('Error:', err);
@@ -17,7 +18,6 @@ export async function makeLogin(req, res) {
 
     try {
         const adm = await Admin.findOne({user});
-        console.log(adm);
 
         if (adm === null) {
             authError(res); 
@@ -31,8 +31,10 @@ export async function makeLogin(req, res) {
             }
 
             if (result) {
-                console.log("Senha correta! Autorizando o login.");
-                res.sendStatus(200);
+                const token = jwt.sign({
+                    sub: adm.user,
+                }, process.env.JWT_SECRET, {expiresIn: '1d'});
+                res.status(200).send({token});
             } else {
                 authError(res);
             }
