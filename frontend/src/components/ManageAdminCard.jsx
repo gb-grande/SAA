@@ -4,6 +4,10 @@ import {useDisclosure } from "@mantine/hooks";
 import {isNotEmpty, useForm} from "@mantine/form";
 import {HashLink} from "react-router-hash-link";
 import axios from "axios";
+import { notifications } from "@mantine/notifications";
+
+// TO-DO !! fix password visibility!
+// TO-DO !! prohibit users from deleting themselves!!
 
 export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
     const [visible, { toggle }] = useDisclosure(false);
@@ -22,7 +26,12 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
         validate: {
             oldPassword: isNotEmpty('Informe a velha senha'),
             newPassword: isNotEmpty('Informe a nova senha'),
-            passwordConfirm: isNotEmpty('Confirme a nova senha')
+            passwordConfirm: (value, values) => {
+                if (value !== values.newPassword) {
+                    return 'As senhas não coincidem!';
+                }
+                return isNotEmpty('Confirme a nova senha')(value);
+            }
         }
     });
 
@@ -33,10 +42,18 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
     const textColor = light ? "aprai-purple.9" : "white";
 
     function onClick(){
-        form.validate()
+        const validationResults = form.validate();
+    
+        if (validationResults.hasErrors) {
+            const firstError = Object.values(validationResults.errors)[0]
+            notifications.show({ message: firstError, color: 'red' });
+            return;
+        }
+
         const oldPassword = form.getInputProps('oldPassword').defaultValue
         const newPassword = form.getInputProps('newPassword').defaultValue
         const passwordConfirm = form.getInputProps('passwordConfirm').defaultValue
+
         console.log(`user: ${user} past:${oldPassword} new:${newPassword} confirm:${passwordConfirm}`)
         axios.put(`api/admins/${user}`, {
             user: user,
@@ -50,14 +67,10 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
             }
             else {
                 console.error("Unhandled error when saving admin info.", err);
-                notifications.show({message: 'Erro ao atualizar admin..', color: 'red'})
+                notifications.show({message: 'Erro ao atualizar admin.', color: 'red'})
             }
         })
         modals.closeAll()
-    }
-
-    function onConfirm(){
-        axios.delete(`api/admins/${user}`)
     }
 
     function modalPassword () {
@@ -78,6 +91,18 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
         })
     }
 
+    function onConfirm() {
+        console.log(`quero deletar user: ${user}`);
+        axios.delete(`api/admins/${user}`)
+            .then(
+                notifications.show({message: 'Usuário deletado com sucesso.'})
+            )
+            .catch(err => {
+                console.error("Unhandled error when deleting admin.", err);
+                notifications.show({message: 'Erro ao deletar admin.', color: 'red'});
+            });
+    }
+
     function modalDelete (){
         modals.openConfirmModal({
             title: 'Deletar conta de administrador',
@@ -87,10 +112,10 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
                 Você quer deletar a conta {user}?
               </Text>
             ),
-            labels: { confirm: 'Deletar conta', cancel: "Cancelar" },
+            labels: { confirm: 'Deletar Conta', cancel: "Cancelar" },
             confirmProps: { color: 'red' },
             onCancel: () => console.log('Cancel'),
-            onConfirm: () => console.log('Confirmed'),
+            onConfirm: onConfirm,
           });
     }
     

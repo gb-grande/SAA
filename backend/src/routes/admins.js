@@ -4,7 +4,7 @@ import {editPassword, getAdmins, registerAdmin, deleteAdmin} from "../controller
 const router = express.Router();
 
 router.get('/', getAdmins);
-router.put('/', editPassword);
+router.put('/:user', editPassword);
 router.delete('/:user', deleteAdmin)
 router.post('/', registerAdmin);
 
