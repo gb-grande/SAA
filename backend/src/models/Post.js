@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import sanitizeHtml from "sanitize-html"
+import {deleteImage} from "../middleware/minio.js";
 
 const schema = new mongoose.Schema({
     isBlog: { //? is blog : is bazar item
@@ -12,7 +13,8 @@ const schema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: true,
+        default: function() {return new Date();}
     },
     title: {
         type: String,
@@ -22,12 +24,26 @@ const schema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
+        set: function(newContent){
+            //TODO verify if the default set of allowed tags is safe enough
+            return sanitizeHtml(newContent);
+        }
     }
 });
 
-schema.pre('save', {}, async function(){
-    //TODO verify if the default set of allowed tags is safe enough
-    this.content = sanitizeHtml(this.content);
+schema.pre(['updateOne', 'findByIdAndUpdate', 'findOneAndUpdate'], {}, async function(next){
+    //If changes the image, delete the old image from minio.
+    try {
+        const post = await this.model.findById(this._conditions._id);
+        if (post.imageUrl && this.get('imageUrl') !== post.imageUrl){
+            await deleteImage(post.imageUrl);
+            console.log("Old image deleted.");
+        }
+    } catch (err){
+        console.error("Error when deleting old image.", err);
+    } finally {
+        next();
+    }
 });
 
 const Post = new mongoose.model("Post", schema);

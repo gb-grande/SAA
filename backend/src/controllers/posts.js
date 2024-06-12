@@ -3,15 +3,7 @@ import mongoose from "mongoose";
 
 export async function createPost(req, res) {
     try {
-        //TODO upload image
-        const blog = new Post({
-            isBlog: req.body.isBlog,
-            posterUsername: req.body.posterUsername,
-            date: req.body.date ?? Date.now(),
-            title: req.body.title,
-            imageId: req.body.imageId,
-            content: req.body.content
-        });
+        const blog = new Post(req.body);
         const saved = await blog.save();
         return res.status(201).send({id: saved._id});
     } catch (e) {
@@ -56,13 +48,11 @@ export async function updatePost(req, res) {
             return res.status(400).send({message: 'ID do post é inválido.'});
         }
 
-        const post = await Post.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
-
-        if (!post) {
+        const query = await Post.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+        if (!query) {
             return res.status(404).send({message: 'Post não foi encontrado.'});
         }
-        return res.status(200).send(post);
-
+        return res.status(200).send({id});
     } catch (e) {
         if (e instanceof moongose.Error.ValidationError) {
             const errors = Object.values(e.errors).map(e => ({[e.path]: e.message}));

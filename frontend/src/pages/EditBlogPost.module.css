@@ -1,0 +1,5 @@
+.custom-button{
+    background-color: var(--mantine-color-aprai-purple-5);
+    border-radius: var(--mantine-radius-lg);
+    font-size: var(--mantine-font-size-xl);
+}
