@@ -6,12 +6,11 @@ import {HashLink} from "react-router-hash-link";
 import axios from "axios";
 import { notifications } from "@mantine/notifications";
 
-// TO-DO !! fix password visibility!
 // TO-DO !! prohibit users from deleting themselves!!
 
 export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
-    const [visible, { toggle }] = useDisclosure(false);
-    const {user} = admin;
+    const { opened, toggle } = useDisclosure();
+    const { user } = admin;
 
     const form = useForm({
         mode: "uncontrolled",
@@ -79,9 +78,9 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
             children: (
                 <>
                     <Stack component='form'>
-                        <PasswordInput label="Sua antiga senha" placeholder='' visible={visible} onVisibilityChange={toggle}  {...form.getInputProps('oldPassword')} />
-                        <PasswordInput label="Sua nova senha" placeholder='' visible={visible} onVisibilityChange={toggle} {...form.getInputProps('newPassword')}/>
-                        <PasswordInput label="Confirme sua nova senha" placeholder='' visible={visible} onVisibilityChange={toggle} {...form.getInputProps('passwordConfirm')}/>
+                        <PasswordInput label="Sua antiga senha" placeholder='' visible={opened} onVisibilityChange={toggle}  {...form.getInputProps('oldPassword')} />
+                        <PasswordInput label="Sua nova senha" placeholder='' visible={opened} onVisibilityChange={toggle} {...form.getInputProps('newPassword')}/>
+                        <PasswordInput label="Confirme sua nova senha" placeholder='' visible={opened} onVisibilityChange={toggle} {...form.getInputProps('passwordConfirm')}/>
                         <Button fullWidth onClick={onClick} mt="md">
                             Submit
                         </Button>
