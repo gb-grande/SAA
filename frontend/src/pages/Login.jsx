@@ -57,7 +57,7 @@ function Login() {
                 >
                 <Text ta="center"  fz={{base: "30px", xs: "40px"}} c='white' mb='lg'>
                     Login
-                </Text>
+                </Text> 
 
                 <Stack align='center' justify='center' gap={'xs'} component={'form'} onSubmit={form.onSubmit(onSubmit)}>
                     
