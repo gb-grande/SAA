@@ -42,18 +42,15 @@ export async function getAdmins(req, res) {
 
 export async function deleteAdmin(req,res) {
     try{
-        const {user} = req.params.user
-        if(!mongoose.isValidObjectId(id))
-            return res.status(400).send({message: 'ID do admin é inválido.'})
-        
-
-        const adm_deletado = await Admin.findOne({'user': user})
-
+        const {user} = req.params
+        const adm_deletado = await Admin.findOne({"user": user})
         if(!adm_deletado)
             return res.status(401).send({message: 'Admin não existe.'})
+
+        await Admin.findOneAndDelete({"user": user})
         return res.status(200).send({message: `${adm_deletado} foi removido.`})
     }catch(e){
-        console.error(('Unhandled error deleting admin.', e))
+        console.error(('Unhandled error deleting admin.', e.response))
         return res.status(500).send({message: 'Erro ao deletar administrador'})
     }
 }
