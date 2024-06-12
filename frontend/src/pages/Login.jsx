@@ -10,7 +10,7 @@ function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false); // Com useDisclousure não estava funcionando.
     const navigate = useNavigate();
-    const {token, setToken} = useAuth();
+    const {token, setToken, setUserName} = useAuth();
     const form = useForm({
         mode: "uncontrolled",
         
@@ -30,6 +30,7 @@ function Login() {
         axios.post(`/admins/login`, values)
             .then(res => {
                 setToken(res.data.token);
+                setUserName(values.username);
                 navigate('/admin');
             })
             .catch(err => {
