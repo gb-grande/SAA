@@ -1,17 +1,18 @@
-import {Stack} from '@mantine/core'
+import {Stack, Text} from '@mantine/core'
 import MenuButton from "../../components/MenuButton.jsx";
 import axios from 'axios';
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
 function AdmMenu () {
-    const {setToken} = useAuth();
+    const {userName, clearAuth} = useAuth();
 
     const logOut = () => {
-        setToken();
+        clearAuth();
     } 
 
     return(
         <Stack align='center' h='100%' justify='center' gap='xl'>
+            <Text>Olá, {userName}!</Text>
             <MenuButton
                 link='/admin/gerenciarcadastro'
                 text='Gerenciar Administradores'

@@ -5,10 +5,18 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
     const [token, setToken_] = useState('');
+    const [userName, setUserName_] = useState('');
 
-    const setToken = (newToken) => {
+    const setAuth = (newToken, newUserName) => {
         localStorage.setItem('token', newToken);
         setToken_(newToken);
+        setUserName_(newUserName);
+    }
+
+    const clearAuth = () => {
+        localStorage.setItem('token', '');
+        setToken_('');
+        setUserName_('');
     }
 
     useEffect(() => {
@@ -16,8 +24,8 @@ const AuthProvider = ({children}) => {
         if (tokenLocal) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${tokenLocal}`;
             axios.get('/api/auth')
-                .then(_ => {
-                    setToken(tokenLocal);
+                .then(res => {
+                    setAuth(tokenLocal, res.data.user.sub);
                 })
                 .catch(err => {
                     console.error("Erro:", err);
@@ -33,9 +41,11 @@ const AuthProvider = ({children}) => {
     const contextValue = useMemo(
         () => ({
             token,
-            setToken,
+            userName,
+            setAuth,
+            clearAuth,
         }),
-        [token]
+        [token, userName]
     );
 
     return (

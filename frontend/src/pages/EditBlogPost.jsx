@@ -14,10 +14,12 @@ import axios from "axios";
 import { isNotEmpty, useForm } from "@mantine/form";
 import {notifications} from "@mantine/notifications";
 import classes from "./EditBlogPost.module.css"
+import { useAuth } from '../providers/AuthProvider.jsx';
 
 function EditBlogPost() {
     let navigate = useNavigate();
     const { id } = useParams();
+    const { userName } = useAuth();
     const location = useLocation();
     const isBlog = location.pathname.includes('/blog');
     const route = isBlog ? 'blog' : 'bazar';
@@ -77,7 +79,7 @@ function EditBlogPost() {
 
         if (id === undefined) {
             values.isBlog = isBlog;
-            values.posterUsername = 'TEMP'; // TODO insert username
+            values.posterUsername = userName; // TODO insert username
             axios.postForm('api/posts/', values)
                 .then(res => navigate(`/${route}/${res.data.id}`))
                 .catch(err => {

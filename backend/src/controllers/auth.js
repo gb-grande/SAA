@@ -9,6 +9,6 @@ export async function authenticateToken(req, res) {
         if (err) {
             return res.status(401).send({message: "Token inválido."});
         }
-        res.status(200).send({message: "Token válido."});
+        res.status(200).send({message: "Token válido.", user: sub});
     });
 }
