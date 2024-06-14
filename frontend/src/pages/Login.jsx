@@ -30,7 +30,7 @@ function Login() {
         axios.post(`/admins/login`, values)
             .then(res => {
                 setToken(res.data.token);
-                setUserName(values.username);
+                setUserName(values.user);
                 navigate('/admin');
             })
             .catch(err => {

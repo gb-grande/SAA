@@ -13,7 +13,7 @@ function AdmMenu () {
 
     return(
         <Stack align='center' h='100%' justify='center' gap='xl'>
-            <Text>{userName}</Text>
+            <Text>Olá, {userName}!</Text>
             <MenuButton
                 link='/admin/cadastro'
                 text='Cadastro de Administrador'
