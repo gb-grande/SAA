@@ -1,4 +1,4 @@
-import { TextInput, Group, Button, FileButton, Text, Center } from "@mantine/core"
+import {TextInput, Group, Button, FileButton, Text, Center, Image, Stack} from "@mantine/core"
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { RichTextEditor, Link } from '@mantine/tiptap';
 import { useEditor } from '@tiptap/react';
@@ -12,6 +12,8 @@ import { useState, useEffect } from "react";
 import { modals } from "@mantine/modals";
 import axios from "axios";
 import { isNotEmpty, useForm } from "@mantine/form";
+import {notifications} from "@mantine/notifications";
+import classes from "./EditBlogPost.module.css"
 
 function EditBlogPost() {
     let navigate = useNavigate();
@@ -19,22 +21,21 @@ function EditBlogPost() {
     const location = useLocation();
     const isBlog = location.pathname.includes('/blog');
     const route = isBlog ? 'blog' : 'bazar';
-
-    //TODO store image before setting form value
     const [file, setFile] = useState(null);
-
     const form = useForm({
         mode: "controlled",
         initialValues: {
             title: '',
             content: '',
-            image: null
+            imageUrl: ''
         },
         validate: {
             title: isNotEmpty('O título não pode estar vazio.'),
             content: isNotEmpty('O conteúdo não pode estar vazio.')
         }
-    })
+    });
+    //To make sure we can keep track of whether we have deleted the image, or never had an image to begin with.
+    const [imageDeleted, setImageDeleted] = useState(false);
 
     const editor = useEditor({
         extensions: [
@@ -58,7 +59,7 @@ function EditBlogPost() {
                 form.initialize({
                     title: res.data.title,
                     content: res.data.content,
-                    image: res.data.imageUrl
+                    imageUrl: res.data.imageUrl
                 });
                 editor.commands.setContent(res.data.content);
             })
@@ -69,14 +70,15 @@ function EditBlogPost() {
     }, [id, editor]);
 
     function onSubmit(values){
+        //If a file is sent, the imageUrl will be overwritten in the middleware.
+        //If no file and no imageUrl is sent, the image will be deleted.
+        values.image = file;
+        if (imageDeleted) values.imageUrl = '';
+
         if (id === undefined) {
-            axios.post('api/posts/', {
-                isBlog: isBlog,
-                posterUsername: 'TEMP', //TODO send stored current user
-                title: values.title,
-                imageId: null, //TODO first upload image and then set id
-                content: values.content
-            })
+            values.isBlog = isBlog;
+            values.posterUsername = 'TEMP'; // TODO insert username
+            axios.postForm('api/posts/', values)
                 .then(res => navigate(`/${route}/${res.data.id}`))
                 .catch(err => {
                     if (err.response.data.validationErrors){
@@ -84,20 +86,16 @@ function EditBlogPost() {
                     }
                     else {
                         console.error("Unhandled error when creating post.", err);
-                        //TODO notification to notify error to user
+                        notifications.show({message: "Erro ao salvar post.", color: 'red'});
                     }
                 });
         }
         else {
-            axios.put(`api/posts/${id}`, {
-                title: values.title,
-                imageId: null, //TODO first upload image and then set id
-                content: values.content
-            })
-                .then(res => navigate(`/${route}/${id}`))
+            axios.putForm(`api/posts/${id}`, values)
+                .then(res => navigate(`/blog/${res.data.id}`))
                 .catch(err => {
-                    console.error("Unhandled error when creating post.", err);
-                    //TODO notification to notify error to user
+                    console.error("Unhandled error when updating post.", err);
+                    notifications.show({message: "Erro ao salvar post.", color: 'red'});
                 });
         }
     }
@@ -118,6 +116,18 @@ function EditBlogPost() {
         })
     }
 
+    let imageUrl = imageDeleted ? null : form.values.imageUrl;
+    if (file) imageUrl = URL.createObjectURL(file);
+
+    let imageRevertButtonLabel;
+    if (imageDeleted || file) imageRevertButtonLabel = 'Reverter Imagem';
+    else if (form.values.imageUrl) imageRevertButtonLabel = 'Remover Imagem';
+
+    let imageRevertButtonFunction;
+    if (imageDeleted) imageRevertButtonFunction = () => setImageDeleted(false);
+    else if (file) imageRevertButtonFunction = () => setFile(null);
+    else if (form.values.imageUrl) imageRevertButtonFunction = () => setImageDeleted(true);
+
     return (
         <form onSubmit={form.onSubmit(onSubmit)}>
             <Group m="md" justify="space-between">
@@ -128,9 +138,9 @@ function EditBlogPost() {
                     {...form.getInputProps('title')}
                 />
                 <div>
-                    <Button type="submit" mr="md" bg='aprai-purple.5' radius="lg" fz="xl" disabled={!form.values.content}>Salvar</Button>
-                    
-                    <Button bg='red' radius="lg" fz="xl" onClick={onCancel}>Cancelar</Button>
+                    <Button type="submit" className={classes.customButton} disabled={!form.values.content}>Salvar</Button>
+
+                    <Button bg='red' className={classes.customButton} onClick={onCancel}>Cancelar</Button>
                 </div>
             </Group>
 
@@ -183,15 +193,22 @@ function EditBlogPost() {
             </RichTextEditor>
 
             <Center>
-                <FileButton onChange={setFile} accept="image/png,image/jpeg">
-                    {(props) => <Button bg='aprai-purple.5' radius="lg" fz="xl" {...props}>Carregar Imagem</Button>}
-                </FileButton>
+                <Stack w={{lg: 350, md:300, sm: 250, base: 200}}>
+                    <FileButton onChange={setFile} accept="image/png,image/jpeg">
+                        {(props) => <Button className={classes.customButton} {...props}>Carregar Imagem</Button>}
+                    </FileButton>
+
+                    {imageRevertButtonLabel &&
+                        <Button className={classes.customButton} onClick={imageRevertButtonFunction}>
+                            {imageRevertButtonLabel}
+                        </Button>
+                    }
+
+                    {imageUrl &&
+                        <Image radius="xl" src={imageUrl} />
+                    }
+                </Stack>
             </Center>
-            {form.values.image && (
-                <Text size="sm" ta="center" mt="sm">
-                Arquivo selecionado: {form.values.image.name}
-                </Text>
-            )}
         </form>
     )
 }

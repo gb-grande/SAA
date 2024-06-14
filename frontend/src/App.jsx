@@ -13,6 +13,7 @@ import Login from "./pages/Login.jsx";
 import axios from "axios";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ManageAdmInfos from "./pages/adm/ManageAdmInfos.jsx";
+import AuthProvider from "./providers/AuthProvider.jsx";
 
 if (import.meta.env.VITE_BACKEND_URL)
     axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
@@ -21,6 +22,7 @@ else
 
 function App() {
     return (
+        <AuthProvider>
         <Routes>
             <Route path="/" element={<Layout/>}>
                 <Route index element={<LandingPage/>}/>
@@ -48,6 +50,7 @@ function App() {
             </Route>
 
         </Routes>
+        </AuthProvider>
     );
 }
 

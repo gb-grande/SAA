@@ -4,12 +4,13 @@ import ColoredInputBars from "../components/ColoredInputBars.jsx";
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import Cookies from 'js-cookie'
+import { useAuth } from '../providers/AuthProvider.jsx';
 
 function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const {token, setToken} = useAuth();
     const form = useForm({
         mode: "uncontrolled",
         
@@ -19,13 +20,16 @@ function Login() {
         }
     });
 
+    if (token) {
+        navigate('/admin');
+    }
+
     function onSubmit(values){
         setLoading(true);
         setError('');
         axios.post(`/admins/login`, values)
-            .then(_ => {
-                // TODO: do proper authentication
-                Cookies.set('logged', 'true', {sameSite: 'Lax', Secure: true});
+            .then(res => {
+                setToken(res.data.token);
                 navigate('/admin');
             })
             .catch(err => {
@@ -33,10 +37,6 @@ function Login() {
                 console.error("Erro:", err.response.data.message);
                 setError(err.response.data.message);
             });
-    }
-    // TODO: do proper authentication
-    if (Cookies.get('logged')) {
-        Cookies.remove('logged', {sameSite: 'Lax'} /* this some how removes a warning */);
     }
 
     return (
