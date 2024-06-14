@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
 function AdmMenu () {
-    const {setToken, setUserName} = useAuth();
+    const {userName, setToken, setUserName} = useAuth();
 
     const logOut = () => {
         setToken();
@@ -13,6 +13,7 @@ function AdmMenu () {
 
     return(
         <Stack align='center' h='100%' justify='center' gap='xl'>
+            <Text>{userName}</Text>
             <MenuButton
                 link='/admin/cadastro'
                 text='Cadastro de Administrador'
