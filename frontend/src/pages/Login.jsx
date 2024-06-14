@@ -9,7 +9,7 @@ import { Navigate } from 'react-router-dom';
 
 function Login() {
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false); // Com useDisclousure não estava funcionando.
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const {token, setAuth} = useAuth();
     const form = useForm({
@@ -58,7 +58,7 @@ function Login() {
                 >
                 <Text ta="center"  fz={{base: "30px", xs: "40px"}} c='white' mb='lg'>
                     Login
-                </Text>
+                </Text> 
 
                 <Stack align='center' justify='center' gap={'xs'} component={'form'} onSubmit={form.onSubmit(onSubmit)}>
                     
