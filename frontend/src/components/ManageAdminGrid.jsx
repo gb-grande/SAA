@@ -9,9 +9,7 @@ function ManageAdminGrid({data = [], containerWidth}){
     const cardWidth = isMobile ? 272 : 450;
     const cardHeight = isMobile ? 70 : 70;
     const cards = data.map((admin, index) => (
-        <div>
-            <ManageAdminCard key={index} admin={admin} h={cardHeight} radius='xl' light={true} imgHPct={0.5}/>
-        </div>
+        <ManageAdminCard key={index} admin={admin} h={cardHeight} radius='xl' light={true} imgHPct={0.5}/>
     ));
 
     const cardSpacing = 10;

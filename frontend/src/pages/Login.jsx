@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Paper, Text, Button, Center, Stack, Switch} from '@mantine/core';
+import { useState } from 'react';
+import { Paper, Text, Button, Center, Stack} from '@mantine/core';
 import ColoredInputBars from "../components/ColoredInputBars.jsx";
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
@@ -8,7 +8,7 @@ import Cookies from 'js-cookie'
 
 function Login() {
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false); // Com useDisclousure não estava funcionando.
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const form = useForm({
         mode: "uncontrolled",

@@ -59,15 +59,9 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
             oldPassword: oldPassword,
             newPassword: newPassword
         }).then(_ => {
-            notifications.show({message: 'Informação atualizada com sucesso.'})
+            notifications.show({message: 'Informação atualizada com sucesso.'});
         }).catch(err => {
-            if (err.response.data.validationErrors){
-                form.setErrors(err.response.data.validationErrors);
-            }
-            else {
-                console.error("Unhandled error when saving admin info.", err);
-                notifications.show({message: 'Erro ao atualizar admin.', color: 'red'})
-            }
+            notifications.show({message: `Erro: ${err.response.data.message}`});
         })
         modals.closeAll()
     }

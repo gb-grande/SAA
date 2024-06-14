@@ -45,7 +45,7 @@ export async function deleteAdmin(req, res) {
         const {user} = req.params
         const adm_deletado = await Admin.findOneAndDelete({user: user});
         if(!adm_deletado) {
-            return res.status(401).send({message: 'Admin não existe.'});
+            return res.status(404).send({message: 'Administrador não existe.'});
         }
 
         return res.status(200).send({message: `${adm_deletado} foi removido.`});
