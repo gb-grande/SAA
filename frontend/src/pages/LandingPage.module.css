@@ -1,0 +1,23 @@
+.topQuote {
+    margin: 0;
+    color: var(--mantine-color-aprai-purple-9);
+    text-align: center;
+    font-size: 30px;
+    font-family: "Just Me Again Down Here", serif;
+    @media (min-width: $mantine-breakpoint-md) {
+        font-size: 3vw;
+    }
+}
+
+.paragraphText {
+    text-align: justify;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.contactValueText {
+    margin: 0;
+    text-align: center;
+    font-size: var(--mantine-font-size-lg);
+    font-weight: 500;
+}

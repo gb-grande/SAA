@@ -1,44 +1,30 @@
-import {useDisclosure} from "@mantine/hooks";
-import {AppShell, Burger, Group, Anchor, Center, Stack} from "@mantine/core";
+import {Box, Flex} from "@mantine/core";
 import {Outlet} from "react-router-dom";
+import Banner from "../components/Layout/Banner.jsx";
+import Header from "../components/Layout/Header.jsx";
+import Footer from "../components/Layout/Footer.jsx";
+
 
 function Layout() {
-    const [opened, {toggle}] = useDisclosure();
-
-    const links = [
-        {label: "Blog", link: "/blog"},
-        {label: "test", link: "/test"}
-    ];
-
-    const linkButtons =
-        links.map(l => <Anchor href={l.link}>{l.label}</Anchor>);
-
-    let headerHeight = 60;
-    if (opened) headerHeight += 30 * links.length;
-
     return (
-        <AppShell
-            header={{ height: headerHeight }}
-            padding="md"
-        >
-            <AppShell.Header>
-                <Center h="100%" px="md">
-                    <Stack hiddenFrom="sm">
-                        {opened && linkButtons}
-                        <Burger opened={opened} onClick={toggle} size="sm" />
-                    </Stack>
-                    <Group ml="xl" visibleFrom="sm">
-                        {linkButtons}
-                    </Group>
-                </Center>
-            </AppShell.Header>
+        <Flex h="100vh" direction="column" justify='flex-start'>
+        {/*<div style={{*/}
+        {/*    w: '100vw',*/}
+        {/*    h: '100vh',*/}
+        {/*    display: 'flex',*/}
+        {/*    flexDirection: 'column',*/}
+        {/*    justifyContent: 'flex-start',*/}
+        {/*}}>*/}
+            <Banner/>
+            <Header/>
 
-
-
-            <AppShell.Main>
+            <Box p='md' style={{flex:1}}>
                 <Outlet/>
-            </AppShell.Main>
-        </AppShell>
+            </Box>
+
+            <Footer/>
+        {/*</div>*/}
+        </Flex>
     );
 }
 
