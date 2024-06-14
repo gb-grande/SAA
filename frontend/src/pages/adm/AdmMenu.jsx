@@ -1,4 +1,4 @@
-import {Stack} from '@mantine/core'
+import {Stack, Text} from '@mantine/core'
 import MenuButton from "../../components/MenuButton.jsx";
 import axios from 'axios';
 import { useAuth } from '../../providers/AuthProvider.jsx';
