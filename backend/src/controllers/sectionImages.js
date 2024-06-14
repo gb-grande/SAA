@@ -4,7 +4,7 @@ import * as url from "url";
 import multer from 'multer';
 import * as path from "path";
 
-const imageFolderDir = 'images/';
+const imageFolderDir = './images/';
 
 //Finds the path of an existing file based on the section id, or null if no image is present.
 async function getImagePath(id){
