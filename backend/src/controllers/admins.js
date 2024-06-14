@@ -40,6 +40,21 @@ export async function getAdmins(req, res) {
     }
 }
 
+export async function deleteAdmin(req, res) {
+    try{
+        const {user} = req.params
+        const adm_deletado = await Admin.findOneAndDelete({user: user});
+        if(!adm_deletado) {
+            return res.status(404).send({message: 'Administrador não existe.'});
+        }
+
+        return res.status(200).send({message: `${adm_deletado} foi removido.`});
+    }catch(e){
+        console.error(('Unhandled error deleting admin.', e.response))
+        return res.status(500).send({message: 'Erro ao deletar administrador'});
+    }
+}
+
 export async function editPassword(req, res) {
     try {
         if (!req.body.oldPassword || !req.body.newPassword)

@@ -12,6 +12,7 @@ import BazarPage from "./pages/BazarPage.jsx";
 import Login from "./pages/Login.jsx";
 import axios from "axios";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ManageAdmInfos from "./pages/adm/ManageAdmInfos.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
 
 if (import.meta.env.VITE_BACKEND_URL)
@@ -44,6 +45,7 @@ function App() {
                 <Route path="bazar/:id?" element={<EditBlogPost/>}/>
 
                 <Route path="editarcontato" element={<EditContact/>}/>
+                <Route path="gerenciarcadastro" element={<ManageAdmInfos/>}/>
                 <Route path="cadastro" element={<RegisterAdm/>}/>
             </Route>
 

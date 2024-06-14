@@ -13,8 +13,8 @@ function AdmMenu () {
     return(
         <Stack align='center' h='100%' justify='center' gap='xl'>
             <MenuButton
-                link='/admin/cadastro'
-                text='Cadastro de Administrador'
+                link='/admin/gerenciarcadastro'
+                text='Gerenciar Administradores'
             />
             <MenuButton
                 link='/blog'
