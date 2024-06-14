@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Paper, Text, Button, Center, Stack, Switch} from '@mantine/core';
+import { Paper, Text, Button, Center, Stack} from '@mantine/core';
 import ColoredInputBars from "../components/ColoredInputBars.jsx";
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import { useAuth } from '../providers/AuthProvider.jsx';
+import { Navigate } from 'react-router-dom';
 
 function Login() {
     const [error, setError] = useState('');
@@ -21,7 +22,7 @@ function Login() {
     });
 
     if (token) {
-        navigate('/admin');
+        return <Navigate to='/admin' replace />
     }
 
     function onSubmit(values){
