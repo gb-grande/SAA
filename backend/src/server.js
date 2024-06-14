@@ -27,7 +27,7 @@ app.delete('/api/*', authMidd);
 app.use('/api/infoTexts', infoTexts);
 app.use('/api/contactInfos', contactInfos);
 app.use('/admins/login', adminLogin);
-app.use('/api/admins', admins);
+app.use('/api/admins', authMidd, admins);
 app.use('/api/sectionImages', sectionImages);
 app.use('/api/posts', posts);
 app.use('/api/auth', auth);
