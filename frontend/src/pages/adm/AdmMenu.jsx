@@ -4,11 +4,10 @@ import axios from 'axios';
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
 function AdmMenu () {
-    const {userName, setToken, setUserName} = useAuth();
+    const {userName, clearAuth} = useAuth();
 
     const logOut = () => {
-        setToken();
-        setUserName();
+        clearAuth();
     } 
 
     return(
