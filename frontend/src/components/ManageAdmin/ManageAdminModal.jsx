@@ -7,6 +7,7 @@ import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
 function ManageAdminModal({admin}){
+    const {user} = admin;
     const [opened, {toggle}] = useDisclosure();
     const [loading, setLoading] = useState(false);
 
@@ -33,8 +34,8 @@ function ManageAdminModal({admin}){
 
     function onSubmit(values){
         setLoading(true);
-        axios.put(`api/admins/${admin}`, {
-            user: admin,
+        axios.put(`api/admins/${user}`, {
+            user: user,
             oldPassword: values.oldPassword,
             newPassword: values.newPassword
         }).then(_ => {

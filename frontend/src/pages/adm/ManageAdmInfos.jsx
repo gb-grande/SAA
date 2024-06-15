@@ -16,9 +16,14 @@ function ManageAdmInfos(){
     const [currentPage, setCurrentPage] = useState(1);
     const {width} = useViewportSize();
 
-    const {result: admins} = useFetch('api/admins', {
+    const {result: admins, reFetch} = useFetch('api/admins', {
         defaultValue: []
     });
+
+    function onAdminDeleted(admin){
+        // setAdmins(admins.filter(x => x !== admin));
+        reFetch();
+    }
     
     const cardsPerPage = 12;
     const pages = [...yieldPages(admins, cardsPerPage)];
@@ -30,7 +35,7 @@ function ManageAdmInfos(){
                   <Button component={HashLink} to={'/admin/cadastro/'}>Criar</Button>
               </ProtectedComponent>
           </Group>
-             <ManageAdminGrid data={pages[currentPage - 1]} containerWidth={width}/>
+             <ManageAdminGrid data={pages[currentPage - 1]} containerWidth={width} onAdminDeleted={onAdminDeleted}/>
           <Center>
               <Pagination m='lg' radius='md' withEdges
                   total={pages.length} value={currentPage} onChange={setCurrentPage}/>

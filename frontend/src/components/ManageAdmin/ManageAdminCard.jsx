@@ -1,32 +1,33 @@
-import {Card, Button, Text, Title, Flex, Space} from "@mantine/core";
+import {Button, Text, Title, Flex, Space, Paper, LoadingOverlay} from "@mantine/core";
 import {modals} from "@mantine/modals"
 import axios from "axios";
 import { notifications } from "@mantine/notifications";
 import ManageAdminModal from "./ManageAdminModal.jsx";
+import {useState} from "react";
 
 // TODO !! prohibit users from deleting themselves!!
 
-export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
-    const bgColor = light ? "aprai-purple.3" : "aprai-purple.9";
-    const textColor = light ? "aprai-purple.9" : "white";
-
+function ManageAdminCard({admin, h, w, onAdminDeleted, ...others}) {
+    const {user} = admin;
+    const [loading, setLoading] = useState(false);
     function openModal () {
         modals.open({
-            title:`Atualizar senha de ${admin}`,
+            title:`Atualizar senha de ${user}`,
             children: <ManageAdminModal admin={admin}/>
         })
     }
 
     function onConfirmDeletion() {
-        console.log(`quero deletar user: ${admin}`);
-        axios.delete(`api/admins/${admin}`)
-            .then(
-                notifications.show({message: 'Usuário deletado com sucesso.'})
-            )
+        setLoading(true);
+        axios.delete(`api/admins/${user}`)
+            .then(_ => {
+                    notifications.show({message: 'Usuário deletado com sucesso.'})
+                    onAdminDeleted(admin);
+            })
             .catch(err => {
                 console.error("Unhandled error when deleting admin.", err);
-                notifications.show({message: 'Erro ao deletar admin.', color: 'red'});
-            });
+                notifications.show({message: 'Erro ao deletar administrador.', color: 'red'});
+            }).finally(() => setLoading(false));
     }
 
     function modalDelete (){
@@ -35,7 +36,7 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
             centered: true,
             children: (
               <Text size="sm">
-                Você quer deletar a conta {admin}? Essa ação é irreversível.
+                Você quer deletar a conta {user}? Essa ação é irreversível.
               </Text>
             ),
             labels: { confirm: 'Deletar Conta', cancel: "Cancelar" },
@@ -45,35 +46,34 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
     }
     
     return (
-
-        <Card
-            radius={0} shadow={"md"}
-            h={h} w={w}
-            bg={bgColor}
+        <Paper
+            radius={0} shadow="md"
+            h={h} w={w} p="sm"
+            bg="aprai-purple.3"
             {...others}
         >
-            <Card.Section p='sm' >
-                <Space h = "3px"/>
-                <Flex justify = 'space-between' align = 'center'>
-                    <Title order={4} lineClamp={2} c={textColor} style={{ marginRight: '10px' }}>
-                        {admin}
-                    </Title>
+            <LoadingOverlay visible={loading}/>
+            <Space h = "3px"/>
+            <Flex justify='space-between' align='center'>
+                <Title order={4} lineClamp={2} c='aprai-purple.9' style={{ marginRight: '10px' }}>
+                    {user}
+                </Title>
 
-                    <div>
-                    <   Flex justify = 'space-between' align = 'center'>
-                            <Button onClick={openModal}>
-                                Editar
-                            </Button>
+                <div>
+                    <Flex justify = 'space-between' align = 'center'>
+                        <Button onClick={openModal}>
+                            Editar
+                        </Button>
 
-                            <Space w = "xs"/>
+                        <Space w = "xs"/>
 
-                            <Button onClick={modalDelete} bg = "red" >
-                                Deletar
-                            </Button>
-                        </Flex>
-                    </div>
-                </Flex>
-            </Card.Section>
-        </Card>
+                        <Button onClick={modalDelete} bg = "red" >
+                            Deletar
+                        </Button>
+                    </Flex>
+                </div>
+            </Flex>
+        </Paper>
     )
 }
+export default ManageAdminCard;
