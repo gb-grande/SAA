@@ -21,12 +21,13 @@ const AuthProvider = ({children}) => {
 
     //Logout whenever there's an authentication error.
     useEffect(() => {
-        axios.interceptors.response.use(res => res, err => {
+        const useId = axios.interceptors.response.use(res => res, err => {
             if (err.response?.status === 401 && token){
                 clearAuth();
             }
             throw err;
         });
+        return () => axios.interceptors.response.eject(useId);
     }, []);
 
     //Verify token whenever it is changed.
