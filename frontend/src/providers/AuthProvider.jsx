@@ -19,6 +19,17 @@ const AuthProvider = ({children}) => {
         setUserName_('');
     }
 
+    //Logout whenever there's an authentication error.
+    useEffect(() => {
+        axios.interceptors.response.use(res => res, err => {
+            if (err.response?.status === 401 && token){
+                clearAuth();
+            }
+            throw err;
+        });
+    }, []);
+
+    //Verify token whenever it is changed.
     useEffect(() => {
         const tokenLocal = localStorage.getItem('token');
         if (tokenLocal) {
