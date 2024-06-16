@@ -22,7 +22,7 @@ const AuthProvider = ({children}) => {
     //Logout whenever there's an authentication error.
     useEffect(() => {
         const useId = axios.interceptors.response.use(res => res, err => {
-            if (err.response?.status === 401 && token){
+            if (err.response?.data?.invalidToken){
                 clearAuth();
             }
             throw err;
