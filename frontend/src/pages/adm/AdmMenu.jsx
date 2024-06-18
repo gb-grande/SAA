@@ -1,6 +1,5 @@
 import {Stack, Text} from '@mantine/core'
 import MenuButton from "../../components/MenuButton.jsx";
-import axios from 'axios';
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
 function AdmMenu () {
@@ -8,7 +7,7 @@ function AdmMenu () {
 
     const logOut = () => {
         clearAuth();
-    } 
+    }
 
     return(
         <Stack align='center' h='100%' justify='center' gap='xl'>
