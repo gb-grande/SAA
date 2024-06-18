@@ -18,7 +18,8 @@ const donationsSchema = new mongoose.Schema({
     },
     amount: {
         type: Number,
-        required: [true, 'A quantidade é obrigatória']
+        required: [true, 'A quantidade é obrigatória'],
+        min: 0
     }
 });
 

@@ -11,6 +11,7 @@ import admins from "./routes/admins.js";
 import auth from "./routes/auth.js";
 import sectionImages from "./routes/sectionImages.js";
 import posts from "./routes/posts.js";
+import donations from "./routes/donations.js"
 import authMidd from "./middleware/auth.js";
 import './config.js'
 
@@ -31,7 +32,7 @@ app.use('/api/admins', authMidd, admins);
 app.use('/api/sectionImages', sectionImages);
 app.use('/api/posts', posts);
 app.use('/api/auth', auth);
-
+app.use('/api/donations', donations)
 //Serve static files
 app.use('/images', express.static('images'), );
 
