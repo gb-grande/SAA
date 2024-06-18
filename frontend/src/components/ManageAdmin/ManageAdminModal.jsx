@@ -6,7 +6,7 @@ import {modals} from "@mantine/modals";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
-function ManageAdminModal({admin}){
+function ManageAdminModal({admin, onAdminEdited}){
     const {user} = admin;
     const [opened, {toggle}] = useDisclosure();
     const [loading, setLoading] = useState(false);
@@ -41,6 +41,7 @@ function ManageAdminModal({admin}){
         }).then(_ => {
             notifications.show({message: 'Informação atualizada com sucesso.'});
             modals.closeAll();
+            if (onAdminEdited) onAdminEdited(admin);
         }).catch(err => {
             if (err.response?.data?.validationErrors){
                 form.setErrors(err.response.data.validationErrors);

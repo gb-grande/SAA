@@ -4,16 +4,28 @@ import axios from "axios";
 import { notifications } from "@mantine/notifications";
 import ManageAdminModal from "./ManageAdminModal.jsx";
 import {useState} from "react";
-
-// TODO !! prohibit users from deleting themselves!!
+import {useAuth} from "../../providers/AuthProvider.jsx";
 
 function ManageAdminCard({admin, h, w, onAdminDeleted, ...others}) {
     const {user} = admin;
     const [loading, setLoading] = useState(false);
-    function openModal () {
+
+    const { userName, clearAuth } = useAuth();
+    const logOutAfterChanging = (admin) => {
+        if (admin.user === user)
+            clearAuth();
+    }
+
+    function openEditModal() {
+        // Checking who is userName
+        if (userName === user) {
+            notifications.show({message: 'Você será deslogado se modificar sua senha.',
+                color: 'yellow',
+                autoClose: false,});
+        }
         modals.open({
             title:`Atualizar senha de ${user}`,
-            children: <ManageAdminModal admin={admin}/>
+            children: <ManageAdminModal admin={admin} onAdminEdited={logOutAfterChanging}/>
         })
     }
 
@@ -21,8 +33,9 @@ function ManageAdminCard({admin, h, w, onAdminDeleted, ...others}) {
         setLoading(true);
         axios.delete(`api/admins/${user}`)
             .then(_ => {
-                    notifications.show({message: 'Usuário deletado com sucesso.'})
-                    onAdminDeleted(admin);
+                notifications.show({message: 'Usuário deletado com sucesso.'})
+                if (onAdminDeleted) onAdminDeleted(admin);
+                logOutAfterChanging(admin);
             })
             .catch(err => {
                 console.error("Unhandled error when deleting admin.", err);
@@ -30,7 +43,12 @@ function ManageAdminCard({admin, h, w, onAdminDeleted, ...others}) {
             }).finally(() => setLoading(false));
     }
 
-    function modalDelete (){
+    function openDeleteModal(){
+        if (userName === user) {
+            notifications.show({message: 'Você será deslogado se deletar a si mesmo.',
+                color: 'yellow',
+                autoClose: false});
+        }
         modals.openConfirmModal({
             title: 'Deletar conta de administrador',
             centered: true,
@@ -61,13 +79,13 @@ function ManageAdminCard({admin, h, w, onAdminDeleted, ...others}) {
 
                 <div>
                     <Flex justify = 'space-between' align = 'center'>
-                        <Button onClick={openModal}>
+                        <Button onClick={openEditModal}>
                             Editar
                         </Button>
 
                         <Space w = "xs"/>
 
-                        <Button onClick={modalDelete} bg = "red" >
+                        <Button onClick={openDeleteModal} bg = "red" >
                             Deletar
                         </Button>
                     </Flex>
