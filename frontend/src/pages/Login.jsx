@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Paper, Text, Button, Center, Stack} from '@mantine/core';
 import ColoredInputBars from "../components/ColoredInputBars.jsx";
 import {isNotEmpty, useForm} from "@mantine/form";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import { useAuth } from '../providers/AuthProvider.jsx';
 import { Navigate } from 'react-router-dom';
@@ -11,7 +10,7 @@ function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const {token, setAuth} = useAuth();
+    const {token, tryLogin} = useAuth();
     const form = useForm({
         mode: "uncontrolled",
         
@@ -28,14 +27,15 @@ function Login() {
     function onSubmit(values){
         setLoading(true);
         setError('');
-        axios.post(`/admins/login`, values)
-            .then(res => {
-                setAuth(res.data.token, values.user);
-                navigate('/admin');
+        tryLogin(values)
+            .then(_ => {
+                navigate('/admin')
             })
             .catch(err => {
                 setLoading(false);
-                console.error("Erro:", err.response.data.message);
+                if (err.response?.status !== 401){
+                    console.error("Login error:", err.response.data.message);
+                }
                 setError(err.response.data.message);
             });
     }

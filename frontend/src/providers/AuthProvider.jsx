@@ -6,12 +6,7 @@ const AuthContext = createContext();
 const AuthProvider = ({children}) => {
     const [token, setToken_] = useState('');
     const [userName, setUserName_] = useState('');
-
-    const setAuth = (newToken, newUserName) => {
-        localStorage.setItem('token', newToken);
-        setToken_(newToken);
-        setUserName_(newUserName);
-    }
+    const [loading, setLoading] = useState(false);
 
     const clearAuth = () => {
         localStorage.setItem('token', '');
@@ -19,45 +14,76 @@ const AuthProvider = ({children}) => {
         setUserName_('');
     }
 
-    //Logout whenever there's an authentication error.
-    useEffect(() => {
-        const useId = axios.interceptors.response.use(res => res, err => {
-            if (err.response?.data?.invalidToken){
-                clearAuth();
-            }
-            throw err;
-        });
-        return () => axios.interceptors.response.eject(useId);
-    }, []);
+    const tryLogin = async (values) => {
+        const res = await axios.post(`/admins/login`, values);
+        localStorage.setItem('token', res.data.token);
+        await updateContextFromStorage();
+    }
 
-    //Verify token whenever it is changed.
-    useEffect(() => {
+    const updateContextFromStorage = async () => {
         const tokenLocal = localStorage.getItem('token');
-        if (tokenLocal) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${tokenLocal}`;
-            axios.get('/api/auth')
-                .then(res => {
-                    setAuth(tokenLocal, res.data.user.sub);
-                })
-                .catch(err => {
-                    console.error("Erro:", err);
-                    delete axios.defaults.headers.common['Authorization'];
-                    localStorage.removeItem('token');
-                })
-        } else {
-            delete axios.defaults.headers.common['Authorization'];
-            localStorage.removeItem('token');
+        if (!tokenLocal){
+            clearAuth();
+            return;
         }
-    }, [token]);
+
+        setLoading(true);
+        try{
+            const res = await axios.get('/api/auth');
+            setToken_(tokenLocal);
+            setUserName_(res.data.user);
+        } catch (err){
+            localStorage.removeItem('token');
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        // Logout whenever there's an authentication error.
+        const logoutInterceptorId = axios.interceptors.response.use(
+            res => res,
+                err => {
+                if (err.response?.data?.invalidToken){
+                    console.log("Auth error, clearing token.")
+                    clearAuth();
+                }
+                throw err;
+            }
+        );
+
+        // Insert jwt into header dynamically from LocalStorage
+        const tokenInterceptorId = axios.interceptors.request.use(
+            config => {
+                const tokenLocal = localStorage.getItem('token');
+                if (tokenLocal){
+                    console.log("insert token into header", tokenLocal);
+                    config.headers.Authorization = `Bearer ${tokenLocal}`;
+                } else console.log("no token to insert!");
+                return config;
+            },
+            err => err
+        );
+
+        //Verify jwt if was already logged
+        updateContextFromStorage();
+
+        //Cleanup interceptors
+        return () => {
+            axios.interceptors.response.eject(logoutInterceptorId);
+            axios.interceptors.request.eject(tokenInterceptorId);
+        };
+    }, []);
 
     const contextValue = useMemo(
         () => ({
             token,
             userName,
-            setAuth,
+            loading,
             clearAuth,
+            tryLogin
         }),
-        [token, userName]
+        [token, userName, loading]
     );
 
     return (
