@@ -1,10 +1,10 @@
-import Donation from "../models/Donation";
+import Donations from "../models/Donations.js";
 import mongoose from "mongoose";
 
 
 export async function registerDonation(req, res) {
     try{
-        const newDonation = new Donation(req.body);
+        const newDonation = new Donations(req.body);
         const savedDonation = await newDonation.save();
         return res.status(201).send({id: savedDonation._id});
     } catch(e){
@@ -19,7 +19,7 @@ export async function registerDonation(req, res) {
 
 export async function getDonations(req, res) {
     try {
-        const donations = await Donation.find(null, null, {sort: {date: -1}});
+        const donations = await Donations.find(null, null, {sort: {date: -1}});
         return res.status(200).send(donations);
     } catch (e){
         return res.status(400).send({ error: e.message });
@@ -30,7 +30,7 @@ export async function getDonations(req, res) {
 export async function getDonation(req, res) {
     try {
 
-        const donation = await Donation.findById(req.params.id);
+        const donation = await Donations.findById(req.params.id);
         return (donation) 
             ? res.status(200).send(donation)
             : res.status(404).send({message: 'Doação não existe'});
@@ -49,7 +49,7 @@ export async function deleteDonation(req, res) {
             return res.status(400).send({message: 'ID do post é inválido.'});
         }
 
-        const result = await Donation.findByIdAndDelete(id);
+        const result = await Donations.findByIdAndDelete(id);
 
         if (result == null) {
             return res.status(404).send({message: 'A doação não foi encontrada.'});
