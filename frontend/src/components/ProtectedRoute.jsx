@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAuth } from '../providers/AuthProvider.jsx';
 
 function ProtectedRoute({children}){
