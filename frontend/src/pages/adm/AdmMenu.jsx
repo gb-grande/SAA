@@ -1,6 +1,5 @@
 import {Stack, Text} from '@mantine/core'
 import MenuButton from "../../components/MenuButton.jsx";
-import axios from 'axios';
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
 function AdmMenu () {
@@ -32,6 +31,7 @@ function AdmMenu () {
             <MenuButton
                 link='/login'
                 text='Sair'
+                bg='red'
                 onClick={logOut}
             >
 

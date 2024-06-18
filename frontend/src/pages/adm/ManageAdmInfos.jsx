@@ -30,7 +30,7 @@ function ManageAdmInfos(){
     return (
       <>
           <Group>
-              <Title mb='sm'>Cadastro de Administradores</Title>
+              <Title mb='sm'>Gerência de Administradores</Title>
               <ProtectedComponent>
                   <Button component={HashLink} to={'/admin/cadastro/'}>Criar</Button>
               </ProtectedComponent>
