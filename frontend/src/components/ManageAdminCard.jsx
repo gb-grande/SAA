@@ -61,6 +61,7 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
             newPassword: newPassword
         }).then(_ => {
             notifications.show({message: 'Informação atualizada com sucesso.'});
+            if (userName === user) logOut();
         }).catch(err => {
             notifications.show({message: `Erro: ${err.response.data.message}`, color: 'red'});
         })
@@ -72,7 +73,7 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
         if (userName === user) {
             notifications.show({message: 'Você será deslogado se modificar sua senha.', 
                                 color: 'yellow',
-                                autoClose: false});
+                                autoClose: false,});
         }
         modals.open({
             title:`Atualizar senha de ${user}`,
@@ -93,9 +94,10 @@ export function ManageAdminCard({admin, h, w, light=false, showDate=true, imgHPc
 
     function onDelete() {
         axios.delete(`api/admins/${user}`)
-            .then(
-                notifications.show({message: 'Usuário deletado com sucesso.'})
-            )
+            .then(_ => {
+                notifications.show({message: 'Usuário deletado com sucesso.'});
+                if (userName === user) logOut();
+            })
             .catch(err => {
                 console.error("Unhandled error when deleting admin.", err);
                 notifications.show({message: 'Erro ao deletar admin.', color: 'red'});
