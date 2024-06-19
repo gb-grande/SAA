@@ -4,8 +4,10 @@ import useFetch from "../hooks/useFetch.jsx";
 
 /**
  * @param media Either 'facebook' or 'instagram'.
+ * @param variant Either 'filled' or 'subtle'.
+ * @param others Other params.
  */
-function SocialMediaIcon({media}){
+function SocialMediaIcon({media, variant = 'filled', ...others}){
     const {result, error} = useFetch('api/contactInfos', {
         defaultValue: {
             instagram: '',
@@ -32,14 +34,17 @@ function SocialMediaIcon({media}){
         default: return (<></>);
     }
 
+    if (variant === 'subtle') color = 'white';
+
     return (
         <ActionIcon 
-            variant="filled" 
+            variant={variant}
             color={color} 
             size="lg"
             radius="xl" 
             component="a" 
             href={url}
+            {...others}
         >
             {icon}
         </ActionIcon>

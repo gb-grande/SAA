@@ -7,7 +7,7 @@ function AdmMenu () {
 
     const logOut = () => {
         clearAuth();
-    }
+    } 
 
     return(
         <Stack align='center' h='100%' justify='center' gap='xl'>
@@ -31,6 +31,7 @@ function AdmMenu () {
             <MenuButton
                 link='/login'
                 text='Sair'
+                bg='red'
                 onClick={logOut}
             >
 

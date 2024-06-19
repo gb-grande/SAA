@@ -1,5 +1,5 @@
 import {ActionIcon, Group, Stack, Text} from "@mantine/core";
-import {IconBrandFacebook, IconBrandInstagram} from "@tabler/icons-react";
+import SocialMediaIcon from "../SocialMediaIcon.jsx";
 
 
 function Footer(){
@@ -10,12 +10,8 @@ function Footer(){
                 <Text fz="h4">Associação de Proteção aos Animais de Indaiatuba</Text>
             </Stack>
             <ActionIcon.Group p='sm'>
-                <ActionIcon variant="subtle" color="white" size="xl" component="a" href="https://www.instagram.com/aprai.indaiatuba/" mr='sm'>
-                    <IconBrandInstagram style={{width: '100%', height: '100%'}}></IconBrandInstagram>
-                </ActionIcon>
-                <ActionIcon variant="subtle" color="white" size="xl" component="a" href="https://www.facebook.com/people/Aprai-Indaiatuba/100090048881690/">
-                    <IconBrandFacebook style={{width: '100%', height: '100%'}}></IconBrandFacebook>
-                </ActionIcon>
+                <SocialMediaIcon media={'instagram'} variant='subtle' size="xl" component="a" mr='sm'/>
+                <SocialMediaIcon media={'facebook'} variant='subtle' size="xl" component="a"/>
             </ActionIcon.Group>
         </Group>
     )

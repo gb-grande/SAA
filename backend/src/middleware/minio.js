@@ -8,7 +8,7 @@ function getFileName(){
 }
 
 const bucket = "blog-images";
-function getMinioUrl(filename){
+function getMinioUrl(filename = ''){
     return `http://${process.env.MINIO_ENDPOINT}:${process.env.MINIO_PORT}/${bucket}/${filename}`;
 }
 
