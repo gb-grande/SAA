@@ -71,7 +71,10 @@ function BlogPost() {
                 </ProtectedComponent>
             </Group>
             {post.date?.toLocaleDateString &&
-                <Text c="aprai-purple.9">{post.date.toLocaleDateString()}</Text>
+                <Text c="aprai-purple.9">
+                    {post.date.toLocaleDateString('pt-BR', 
+                        { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                </Text>
             }
             <Center>
                 <Image m="md" w={{lg: 350, md:300, sm: 250, base: 200}} radius="xl" src={post.imageUrl} />

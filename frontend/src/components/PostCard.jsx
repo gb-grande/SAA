@@ -28,8 +28,11 @@ export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, .
             }
 
             <Card.Section p='sm' pt={imageUrl ? 0 : 'sm'}>
-                {showDate && post.date?.toLocaleDateString &&
-                    <Text size='xs' c={textColor}>{post.date.toLocaleDateString()}</Text>
+                {showDate && post.date &&
+                    <Text size='xs' c={textColor}>
+                        {new Date(post.date).toLocaleDateString('pt-BR', 
+                            { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                    </Text>
                 }
                 <Title order={4} lineClamp={2} c={textColor}>{title}</Title>
                 <Text c={textColor} lineClamp={lineCount} dangerouslySetInnerHTML={{__html: content}}/>
