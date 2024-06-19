@@ -25,6 +25,10 @@ function Login() {
     }
 
     function onSubmit(values){
+        values ={
+            user: values.user.trim(),
+            password: values.password
+        }
         setLoading(true);
         setError('');
         tryLogin(values)

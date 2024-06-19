@@ -12,7 +12,7 @@ export async function registerAdmin(req, res){
         const saltRounds = parseInt(process.env.BCRYPT_SALT_ROUNDS);
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
         const admin = new Admin({
-            user: req.body.user,
+            user: req.body.user.trim(),
             password: hashedPassword
         });
         await admin.save();

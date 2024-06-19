@@ -28,7 +28,7 @@ function RegisterAdm () {
     function onSubmit(values){
         setLoading(true);
         values = {
-            user: values.user,
+            user: values.user.trim(),
             password: values.password
         }
         axios.post('api/admins', values).then(_ => {
