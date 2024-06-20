@@ -24,6 +24,7 @@ app.use(cookieParser());
 app.post('/api/*', authMidd);
 app.put('/api/*', authMidd);
 app.delete('/api/*', authMidd);
+app.get('/api/donations/*', authMidd);
 
 app.use('/api/infoTexts', infoTexts);
 app.use('/api/contactInfos', contactInfos);
