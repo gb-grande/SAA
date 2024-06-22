@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {IconAt} from "@tabler/icons-react";
 import {IMaskInput} from "react-imask";
 import {notifications} from "@mantine/notifications";
+import AddressInput from "../../components/AddressInput.jsx";
 
 function EditContact () {
     //TODO validate fields and make explicit if should input social media link or handle
@@ -16,9 +17,13 @@ function EditContact () {
         mode: "uncontrolled",
         initialValues: {
             phone: '',
-            address: '',
+            address: {
+                label: '',
+                lat: 0,
+                lon: 0
+            },
             instagram: '',
-            facebook: ''
+            facebook: '',
         },
         validate: {
             phone: isNotEmpty('Obrigatório'),
@@ -75,10 +80,12 @@ function EditContact () {
                 {...form.getInputProps('phone')}
             />
 
-            <ContactInput
+            <AddressInput
                 label='Endereço'
                 placeholder=''
-                {...form.getInputProps('address')}
+                {...form.getInputProps('address.label')}
+                value={{label: form.values.address, lat: form.values.address.lat, lon: form.values.address.lon}}
+                setValue={value => form.setFieldValue('address', value)}
             />
 
             <ContactInput
