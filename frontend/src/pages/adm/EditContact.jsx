@@ -83,7 +83,7 @@ function EditContact () {
             <AddressInput
                 label='Endereço'
                 placeholder=''
-                {...form.getInputProps('address.label')}
+                error={form.errors.address && form.errors.address[0]}
                 value={form.values.address}
                 setValue={value => form.setFieldValue('address', value)}
             />
