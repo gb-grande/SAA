@@ -14,7 +14,7 @@ function EditContact () {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const form = useForm({
-        mode: "uncontrolled",
+        mode: "controlled",
         initialValues: {
             phone: '',
             address: {
@@ -84,7 +84,7 @@ function EditContact () {
                 label='Endereço'
                 placeholder=''
                 {...form.getInputProps('address.label')}
-                value={{label: form.values.address, lat: form.values.address.lat, lon: form.values.address.lon}}
+                value={form.values.address}
                 setValue={value => form.setFieldValue('address', value)}
             />
 

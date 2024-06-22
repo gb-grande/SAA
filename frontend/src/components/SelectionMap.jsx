@@ -44,7 +44,7 @@ function SearchControl({value, setValue}){
 }
 
 function SelectionMap({value, setValue}) {
-    const coords = value ? {coords: [value.lat, value. lon]} : {};
+    const coords = value ? {defaultCoords: [value.lat, value.lon]} : {};
     return (
         <Map {...coords}>
             <SearchControl value={value} setValue={setValue}/>

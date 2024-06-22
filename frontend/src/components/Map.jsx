@@ -3,6 +3,8 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-geosearch/dist/geosearch.css"
 
 function Map({defaultCoords = [-23.0881, -47.208], defaultZoom = 40, containerStyle = {height: '400px'}, children, ...others}){
+    console.log(`oky ${defaultCoords} === ${[0,0]} = ${defaultCoords === [0,0]}`)
+
     return (
         <MapContainer
             center={defaultCoords} zoom={defaultZoom}
