@@ -63,11 +63,11 @@ function Login() {
                 <Stack align='center' justify='center' gap={'xs'} component={'form'} onSubmit={form.onSubmit(onSubmit)}>
                     
                     <ColoredInputBars 
-                        texto = "Usuário"
+                        placeholder = "Usuário"
                         {...form.getInputProps('user')}
                     />
                     <ColoredInputBars 
-                        texto = "Senha"
+                        placeholder = "Senha"
                         type='password'
                         {...form.getInputProps('password')}    
                     />

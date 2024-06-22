@@ -1,16 +1,7 @@
 import { useMantineTheme, Text, Space } from '@mantine/core';
 import {IconDog, IconDogBowl, IconAlertTriangle, IconStethoscope} from "@tabler/icons-react";
 import EditableSectionText from "./EditableSectionText.jsx";
-import classes from "./Circle.module.css"
-
-// Exemplo:
-//
-//  <Circle
-//      icon='dog' // use 'dog' 'food' 'alert' or 'vet'
-//      number='+100'
-//      description='Cachorros resgatados'
-//      />
-//
+import classes from "./Circle.module.css";
 
 function getIcon(icon, props){
     switch (icon){
@@ -22,6 +13,15 @@ function getIcon(icon, props){
     }
 }
 
+/**
+ * A Circle component used for showing info stats.
+ * 
+ * @param {string} number The stat value.
+ * @param {string} numberSection The number section.
+ * @param {string} description The stat description.
+ * @param {string} icon The circle icon. Use: 'dog', 'food', 'alert' or 'vet'.
+ * @returns The Circle component.
+ */
 function Circle({number, numberSection, description, icon}) {
     const theme = useMantineTheme();
 

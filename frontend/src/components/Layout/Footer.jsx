@@ -1,7 +1,11 @@
 import {ActionIcon, Group, Stack, Text} from "@mantine/core";
 import SocialMediaIcon from "../SocialMediaIcon.jsx";
 
-
+/**
+ * Footer component renders the footer layout section.
+ * 
+ * @returns The Footer component.
+ */
 function Footer(){
     return (
         <Group justify="space-between" bg={'aprai-purple.9'} ff={'Karla'} c={'white'} p="md">

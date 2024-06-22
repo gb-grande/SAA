@@ -2,6 +2,13 @@ import {PostCard} from "./PostCard.jsx";
 import {SimpleGrid, useMantineTheme} from "@mantine/core";
 import {useMediaQuery} from "@mantine/hooks";
 
+/**
+ * A PostGrid component to display a grid of posts.
+ * 
+ * @param {Array} data The array of posts to display in the grid.
+ * @param {string} containerWidth The width of the grid container.
+ * @returns The PostGrid component.
+ */
 function PostGrid({data = [], containerWidth}){
     //This might be over-engineered.
     //Maybe it would be better to simply use breakpoints to set col count.

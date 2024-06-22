@@ -1,6 +1,13 @@
 import { Button, Center } from '@mantine/core';
 import { HashLink } from "react-router-hash-link";
 
+/**
+ * A Menu Button component that renders a button linking to a specified URL.
+ * 
+ * @param {string} link - The URL to which the button will navigate.
+ * @param {string} text - The text to be displayed on the button.
+ * @returns The MenuButton component.
+ */
 function MenuButton ({link, text, ...others}) {
 
     return(

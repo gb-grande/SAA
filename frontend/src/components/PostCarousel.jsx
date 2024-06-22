@@ -6,6 +6,13 @@ import {IconCaretRightFilled, IconCaretLeftFilled} from "@tabler/icons-react";
 import classes from './PostCarousel.module.css'
 import useFetch from "../hooks/useFetch.jsx";
 
+/**
+ * A Post Carousel component to display a carousel of posts.
+ * 
+ * @param {object} slideGap The gap between slides at different breakpoints. Default: {base: "xs", sm: "md"}.
+ * @param {object} cardData The dimensions of each card in the carousel. Default: {h: 100, w: 100}.
+ * @returns The PostCarousel component.
+ */
 function PostCarousel({slideGap = {base: "xs", sm: "md"}, cardData = {h: 100, w: 100}, ...others}){
     const theme = useMantineTheme();
     const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
