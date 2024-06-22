@@ -8,6 +8,7 @@ import EditableSectionText from "../components/EditableSectionText.jsx";
 import classes from "./LandingPage.module.css"
 import useFetch from "../hooks/useFetch.jsx";
 import EditableSectionImage from "../components/EditableSectionImage.jsx";
+import Map from "../components/Map.jsx";
 
 function formatTelephone(number){
     if (!number) return '';
@@ -23,13 +24,27 @@ function formatTelephone(number){
     return number;
 }
 
+function formatAddress(address){
+    if (!address) return '';
+
+    try{
+        const split = address.split(',');
+        return [split[0], split[1], split[2], split[3], split[split.length - 2]].join(',');
+    } catch{
+        return address;
+    }
+}
+
 function LandingPage(){
     const {result: contactInfo, error: contactInfoErr} = useFetch('api/contactInfos',  {
         defaultValue: {
             phone: '',
-            address: '',
+            address: null,
             instagram: '',
-            facebook: ''
+            facebook: '',
+        }, postProcessFunc: val => {
+            console.log(val);
+            return val;
         }
     });
     if (contactInfoErr) console.error('Could not load contact info in landing page.', contactInfoErr);
@@ -131,7 +146,7 @@ function LandingPage(){
                         Endereço
                     </Text>
                     <Text className={classes.contactValueText}>
-                        {contactInfo.address}
+                        {formatAddress(contactInfo.address?.label)}
                     </Text>
                     <Space h="xl" />
                     <Text ta="center" size="xl" fw={500}>
@@ -152,7 +167,7 @@ function LandingPage(){
                     </Anchor>
                 </Stack>
                 <div>
-                    <EditableSectionImage section="contactInfo" radius="xl"/>
+                    {contactInfo.address && <Map defaultCoords={[contactInfo.address.lat, contactInfo.address.lon]}/>}
                 </div>
             </SimpleGrid>
         </>

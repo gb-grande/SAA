@@ -12,7 +12,7 @@ function AddressInput({value, setValue, ...others}){
     }
 
     return (
-        <ContactInput type='text' readOnly {...others} onClick={openMapModal}/>
+        <ContactInput type='text' readOnly {...others} onClick={openMapModal} value={value.label}/>
     )
 }
 export default AddressInput;
