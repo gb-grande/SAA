@@ -16,17 +16,10 @@ export async function getContactInfo(req, res){
 }
 
 export async function setContactInfo(req, res){
-    //Project into only the target fields to avoid writing other data from req.body into the .json
-    const info = {
-        'phone': req.body.phone,
-        'address': req.body.address,
-        'instagram': req.body.instagram,
-        'facebook': req.body.facebook
-    };
-
+    const info = new ContactInfo(req.body);
     try {
-        await ContactInfo.validate(info);
-        await fs.writeFile(fileDir, JSON.stringify(info, null, 2), {encoding: "utf8"});
+        await info.validate();
+        await fs.writeFile(fileDir, JSON.stringify(info.toObject(), null, 2), {encoding: "utf8"});
         return res.status(200).send();
     } catch (e) {
         if (e instanceof mongoose.Error.ValidationError){

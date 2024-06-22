@@ -1,6 +1,11 @@
 {
-  "phone":"+551938357134",
-  "address":"Rua Onze de Junho, 684 - Centro, Indaiatuba - SP, 13330-050",
-  "instagram":"aprai.indaiatuba",
-  "facebook":"https://www.facebook.com/indaiatuba.aprai/"
+  "phone": "+551938357134",
+  "address": {
+    "label": "Rua Onze de Junho, 684 - Centro, Indaiatuba - SP, 13330-050",
+    "lat": -22.0123,
+    "lon": -47.8908
+  },
+  "instagram": "aprai.indaiatuba",
+  "facebook": "https://www.facebook.com/indaiatuba.aprai/",
+  "_id": "6676690841bd56cdc58e229c"
 }

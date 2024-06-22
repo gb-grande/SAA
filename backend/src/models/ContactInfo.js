@@ -7,8 +7,18 @@ const schema = new mongoose.Schema({
         validate: [/^\+55[0-9]{2}9?[0-9]{8}$/, 'Número de telefone inválido.']
     },
     address: {
-        type: String,
-        required: [true, 'Endereço é obrigatório.']
+        label: {
+            type: String,
+            required: [true, 'Endereço é obrigatório.']
+        },
+        lat: {
+            type: Number,
+            required: [true, 'Latitude é obrigatória.']
+        },
+        lon: {
+            type: Number,
+            required: [true, 'Longitude é obrigatória.']
+        }
     },
     instagram: {
         type: String,
