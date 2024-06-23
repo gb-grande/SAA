@@ -1,44 +1,11 @@
 import PDFDocument from "pdfkit";
 import { createWriteStream } from "fs";
 
-
-const items = [
-    {
-        srcDest: "São Paulo",
-        type: "gato",
-        amount: 5.2,
-        date: new Date('2024-06-20'),
-        flow: "received"
-    },
-    {
-        srcDest: "Porto Alegre",
-        type: "gatoaff",
-        amount: 3,
-        date: new Date('2024-06-21'),
-        flow: "sent"
-    },
-    {
-        srcDest: "Salvador",
-        type: "gato",
-        amount: 2,
-        date: new Date('2024-06-22'),
-        flow: "received"
-    },
-    {
-        srcDest: "Brasília",
-        type: "cacho",
-        amount: 4,
-        date: new Date('2024-06-23'),
-        flow: "sent"
-    },
-    {
-        srcDest: "Fortaleza",
-        type: "gato",
-        amount: 1,
-        date: new Date('2024-06-24'),
-        flow: "received"
-    }
-];
+//return date string to BR format
+function getDateBR(date){
+    const dateFormatted = ("0" + date.getDate()).slice(-2) + "/" + ("0" + String(date.getMonth() + 1)).slice(-2)  + "/" + String((1900 + date.getYear()));
+    return dateFormatted;
+}
 
 
 //class to summarize donation info and split into two arrays 
@@ -49,6 +16,8 @@ class DonationsInfo {
         this.totalReceived = 0;
         this.totalSent = 0;
         for (let donation of allDonations) {
+                //converts to date and not timestamp
+                donation.date = new Date(donation.date);
             if (donation.flow == 'received') {
                 this.donationIn.push(donation);
                 this.totalReceived += donation.amount
@@ -60,10 +29,10 @@ class DonationsInfo {
         }
     }
 }
-const donationPlaceholder = new DonationsInfo(items);
 
 function buildEmptyReport(startDate, endDate){
     const doc = new PDFDocument({size: 'A4'});
+    doc.font("Courier");
     //add header
     doc.fontSize(22);
     doc.text("RELATÓRIO DE DOAÇÕES - APRAI", {
@@ -73,11 +42,11 @@ function buildEmptyReport(startDate, endDate){
     //add current date
     const today = new Date(Date.now());
     doc.fontSize(10);
-    doc.text(`Gerado em: ${("0" + today.getDate()).slice(-2)}/${("0" + today.getMonth()).slice(-2) }/${1900 + today.getYear()}`);
+    doc.text(`Gerado em: ${getDateBR(today)}`);
     doc.moveDown(2);
     //add start and end date
-    doc.fontSize(14);
-    doc.text(`Data inicial: ${startDate}      Data final: ${endDate}`, {
+    doc.fontSize(12);
+    doc.text(`Data inicial: ${getDateBR(startDate)}      Data final: ${getDateBR(endDate)}`, {
         align: "left",
     });
     doc.moveDown();
@@ -85,7 +54,7 @@ function buildEmptyReport(startDate, endDate){
 }
 
 function insertSummary(doc, donationsInfo){
-    doc.fontSize(14);
+    doc.fontSize(12);
     doc.text(`Total recebido: ${donationsInfo.totalReceived.toFixed(1)}kgs`);
     doc.text(`Total enviado: ${donationsInfo.totalSent.toFixed(1)}kgs`);
     doc.text(`Variação do estoque: ${(donationsInfo.totalReceived - donationsInfo.totalSent).toFixed(1)}kgs`)
@@ -102,14 +71,14 @@ function insertSummary(doc, donationsInfo){
  }
 
 function insertTableHeaders(doc, isReceived){
-    doc.fontSize(14);
-    let outputString = `Data                 Tipo                            Quantidade  ${isReceived ? "Origem" : "Destino"}`;
-    doc.font("Helvetica-Bold");
+    doc.fontSize(12);
+    let outputString = `Data       Quantidade Tipo                ${isReceived ? "Origem" : "Destino"}`;
+    doc.font("Courier-Bold");
     doc.text(outputString, {
         width: 600,
         align: "left"
     })
-    doc.font("Helvetica");
+    doc.font("Courier");
 
 
 
@@ -117,16 +86,15 @@ function insertTableHeaders(doc, isReceived){
 
 //Inserts row of data into table
 function insertRow(doc, entry){
-    doc.fontSize(14);
+    doc.fontSize(12);
     let {srcDest, type, amount, date} = entry
     //adding space so it can be properly printed aligned
-    const dateString = ( "0" + date.getDate()).slice(-2) + "/" + ( "0" + date.getMonth()).slice(-2) + "/" + String((1900 + date.getYear()));
-    const dateWithSpace = dateString + " ".repeat(7);
-    const typeWithSpace = (type + " ".repeat(40)).slice(0, 32);
-    const amountWithSpace = (amount.toFixed(2) + " ".repeat(16)).slice(0, 18);
-    const outputString = dateWithSpace + typeWithSpace + amountWithSpace + srcDest;
+    const dateString = getDateBR(date);
+    const dateWithSpace = dateString + " ";
+    const amountWithSpace = (amount.toFixed(2) + " ".repeat(11)).slice(0, 11);
+    const typeWithSpace = (type + " ".repeat(20)).slice(0, 20);
+    const outputString = dateWithSpace + amountWithSpace + typeWithSpace  + srcDest;
     //srcDest doesn't need padding because it's the last one
-    console.log(outputString);
     doc.text(outputString, {
         align: "left"
     })
@@ -134,21 +102,12 @@ function insertRow(doc, entry){
 }
 
 
-//writes to disk and end pdf
-function endDoc(doc){
-    doc.pipe(createWriteStream("output.pdf"));
-    doc.end();
-
-
-}
-
-
-//function that generates final pdf
-function generatePdf(startDateString, endDateString, allDonations){
+//function that generates final pdf and return it
+export default function generatePdf(startDate, endDate, allDonations, path){
     const donationInfo = new DonationsInfo(allDonations);
-    let report = buildEmptyReport(startDateString, endDateString);
+    let report = buildEmptyReport(startDate, endDate);
     insertSectionHeader(report, "Métricas Gerais")
-    insertSummary(report, donationPlaceholder);
+    insertSummary(report, donationInfo);
     report.moveDown(1);
     //received section
     insertSectionHeader(report, "Recebidos")
@@ -167,10 +126,6 @@ function generatePdf(startDateString, endDateString, allDonations){
     for (let s of donationInfo.donationOut) {
         insertRow(report, s);
     }
-    endDoc(report)
-
-
+    return report;
 
 }
-
-generatePdf("01/01/2001", "05/09/2023", items);
