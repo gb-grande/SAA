@@ -20,6 +20,10 @@ const donationsSchema = new mongoose.Schema({
         type: Number,
         required: [true, 'A quantidade é obrigatória'],
         min: 0
+    },
+    date: {
+        type: Date,
+        required : [true, "A data é obrigatória"]
     }
 });
 
