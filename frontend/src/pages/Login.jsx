@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Paper, Text, Button, Center, Stack} from '@mantine/core';
 import ColoredInputBars from "../components/ColoredInputBars.jsx";
 import {isNotEmpty, useForm} from "@mantine/form";
@@ -6,6 +6,12 @@ import {useNavigate} from "react-router-dom";
 import { useAuth } from '../providers/AuthProvider.jsx';
 import { Navigate } from 'react-router-dom';
 
+/**
+ * The Login page renders the user login interface, allowing admins to authenticate
+ * themselves into the application.
+ * 
+ * @returns The Login page.
+ */
 function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);

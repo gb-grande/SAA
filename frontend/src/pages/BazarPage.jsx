@@ -6,13 +6,18 @@ import ProtectedComponent from "../components/ProtectedComponent.jsx";
 import {HashLink} from "react-router-hash-link";
 import useFetch from "../hooks/useFetch.jsx";
 
-function* yieldPages(data, pageSize){
+function* yieldPages(data, pageSize) {
     for (let i = 0; i < data.length; i += pageSize){
         yield data.slice(i, i + pageSize);
     }
 }
 
-function BazarPage(){
+/**
+ * The BazarPage component displays the Bazar section of the website.
+ * 
+ * @returns The Bazar Page itself.
+ */
+function BazarPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const {result: posts} = useFetch('api/posts?type=bazar', {
         defaultValue: []

@@ -7,7 +7,11 @@ import useFetch from "../hooks/useFetch.jsx";
 import {notifications} from "@mantine/notifications";
 import {HashLink} from "react-router-hash-link";
 
-
+/**
+ * The BlogPost displays an individual blog post page based on the ID from URL.
+ * 
+ * @returns The BlogPost page.
+ */
 function BlogPost() {
     const navigate = useNavigate();
     const {id} = useParams();

@@ -6,10 +6,15 @@ import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {notifications} from "@mantine/notifications";
 
-function RegisterAdm () {
+/**
+ * The RegisterAdm page provides a form for registering new administrators.
+ * 
+ * @returns The RegisterAdm page.
+ */
+function RegisterAdm() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    //TODO proper password validation
+    
     const form = useForm({
         mode: "uncontrolled",
         initialValues: {
