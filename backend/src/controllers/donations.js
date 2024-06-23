@@ -1,7 +1,8 @@
 import Donations from "../models/Donations.js";
 import mongoose from "mongoose";
-
-
+import generatePdf from "../services/donationReportGen.js";
+import {unlink} from "fs"
+import path from "node:path"
 export async function registerDonation(req, res) {
     try{
         const newDonation = new Donations(req.body);
@@ -29,7 +30,6 @@ export async function getDonations(req, res) {
 
 export async function getDonation(req, res) {
     try {
-
         const donation = await Donations.findById(req.params.id);
         return (donation) 
             ? res.status(200).send(donation)
@@ -38,7 +38,30 @@ export async function getDonation(req, res) {
         return res.status(400).send({ error: e.message });
     }
 }
+//receives in json start date and end date
+export async function getReport(req, res) {
+    try {
+        let {startDate, endDate} = req.body;
+        const validDonations = await Donations.find({
+            date : {
+                $gte : startDate,
+                $lte : endDate
+            }
+        }).sort({date: 1});
+        //must convert to date so generatePdf can be used
+        startDate = new Date(startDate);
+        endDate = new Date(endDate);
+        res.contentType("application/pdf");
+        const doc = generatePdf(startDate, endDate, validDonations, "temp/report.pdf");
+        doc.pipe(res);
+        doc.end();
+        return res.status(200);
+    } catch (e){
+        return res.status(400).send({ error: e.message });
+    }
 
+
+}
 
 export async function deleteDonation(req, res) {
     try {
