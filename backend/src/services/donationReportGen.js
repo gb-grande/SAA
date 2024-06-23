@@ -16,6 +16,8 @@ class DonationsInfo {
         this.totalReceived = 0;
         this.totalSent = 0;
         for (let donation of allDonations) {
+                //converts to date and not timestamp
+                donation.date = new Date(donation.date);
             if (donation.flow == 'received') {
                 this.donationIn.push(donation);
                 this.totalReceived += donation.amount
@@ -27,7 +29,6 @@ class DonationsInfo {
         }
     }
 }
-const donationPlaceholder = new DonationsInfo(items);
 
 function buildEmptyReport(startDate, endDate){
     const doc = new PDFDocument({size: 'A4'});
@@ -94,7 +95,6 @@ function insertRow(doc, entry){
     const typeWithSpace = (type + " ".repeat(20)).slice(0, 20);
     const outputString = dateWithSpace + amountWithSpace + typeWithSpace  + srcDest;
     //srcDest doesn't need padding because it's the last one
-    console.log(outputString);
     doc.text(outputString, {
         align: "left"
     })
@@ -102,21 +102,12 @@ function insertRow(doc, entry){
 }
 
 
-//writes to disk and end pdf
-function endDoc(doc, path){
-    doc.pipe(createWriteStream(path));
-    doc.end();
-
-
-}
-
-
-//function that generates final pdf
+//function that generates final pdf and return it
 export default function generatePdf(startDate, endDate, allDonations, path){
     const donationInfo = new DonationsInfo(allDonations);
     let report = buildEmptyReport(startDate, endDate);
     insertSectionHeader(report, "Métricas Gerais")
-    insertSummary(report, donationPlaceholder);
+    insertSummary(report, donationInfo);
     report.moveDown(1);
     //received section
     insertSectionHeader(report, "Recebidos")
@@ -135,6 +126,6 @@ export default function generatePdf(startDate, endDate, allDonations, path){
     for (let s of donationInfo.donationOut) {
         insertRow(report, s);
     }
-    endDoc(report)
+    return report;
 
 }
