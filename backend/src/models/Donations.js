@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const donationsSchema = new mongoose.Schema({
-    admin_username: {
-        type: String,
-        required: [true, 'O administrador que preencheu é obrigatório.'],
-    },
     srcDest: {
         type: String,
         required: [true, 'A origem/destino da doação é obrigatória.']
