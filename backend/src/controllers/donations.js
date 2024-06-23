@@ -44,8 +44,8 @@ export async function getReport(req, res) {
         let {startDate, endDate} = req.body;
         const validDonations = await Donations.find({
             date : {
-                $gt : startDate,
-                $lt : endDate
+                $gte : startDate,
+                $lte : endDate
             }
         }).sort({date: 1});
         //must convert to date so generatePdf can be used
