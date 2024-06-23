@@ -5,13 +5,10 @@ const donationsSchema = new mongoose.Schema({
         type: String,
         required: [true, 'O administrador que preencheu é obrigatório.'],
     },
-    source: {
+    srcDest: {
         type: String,
-        required: [true, 'A origem da doação é obrigatória.']
+        required: [true, 'A origem/destino da doação é obrigatória.']
     }, 
-    destination: {
-        type : String
-    },
     type: {
         type: String,
         required: [true, 'O tipo é obrigatório']
@@ -24,6 +21,11 @@ const donationsSchema = new mongoose.Schema({
     date: {
         type: Date,
         required : [true, "A data é obrigatória"]
+    },
+    flow: {
+        type: String,
+        required: [true, "É necessário informar se foi recebido ou enviada"],
+        enum: ["received", "sent"]
     }
 });
 
