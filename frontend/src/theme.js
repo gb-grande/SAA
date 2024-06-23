@@ -59,11 +59,6 @@ export default createTheme({
                 c: 'aprai-purple.8'
             }
         },
-        Text: {
-            defaultProps: {
-                fw: 500,
-            }
-        },
         Button: {
             //I think we should configure this with primary-color
             // defaultProps: {

@@ -114,7 +114,12 @@ function LandingPage(){
                         icon="vet"
                         number="552"
                         numberSection="numConsulta"
-                        description="Consultas realizadas"
+                        description= {
+                        <>
+                            Consultas<br />
+                            Realizadas
+                        </>
+                        }
                     />
                 </SimpleGrid>
             </Center>
