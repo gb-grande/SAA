@@ -55,7 +55,12 @@ export async function getDonation(req, res) {
         return res.status(400).send({ error: e.message });
     }
 }
-//receives in json start date and end date
+/**
+ * Generates a pdf file contaning a donations report between a start date and an end date.
+ * 
+ * @param {object} req - The request object, containing the start date and end date of the donations.
+ * @param {object} res - The response object, used to send back status and the pdf file.
+ */
 export async function getReport(req, res) {
     try {
         let {startDate, endDate} = req.body;
