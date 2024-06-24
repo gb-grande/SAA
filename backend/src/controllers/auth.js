@@ -1,5 +1,12 @@
 import jwt from 'jsonwebtoken'
 
+/**
+ * Authenticates a token.
+ * This function verifies the JWT token provided in the request headers. 
+ * 
+ * @param {object} req The request object.
+ * @param {object} res The response object.
+ */
 export async function authenticateToken(req, res) {
     const tokenHead = req.header('Authorization');
     const token = tokenHead && tokenHead.split(' ')[1];

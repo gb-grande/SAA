@@ -1,6 +1,12 @@
 import Post from "../models/Post.js";
 import mongoose from "mongoose";
 
+/**
+ * Creates a new post in the database.
+ * 
+ * @param {object} req - The request object, containing the post in body.
+ * @param {object} res - The response object, used to send back the status and post ID.
+ */
 export async function createPost(req, res) {
     try {
         const blog = new Post(req.body);
@@ -16,29 +22,47 @@ export async function createPost(req, res) {
     }
 }
 
+/**
+ * Retrieves a list of posts from the database.
+ * 
+ * @param {object} req - The request object, type is defined by query (blog or bazar).
+ * @param {object} res - The response object, used to send back status and list of posts.
+ */
 export async function getPosts(req, res) {
     try {
         const { type } = req.query;
         const filter = type === 'blog' ? { isBlog: true } : type === 'bazar' ? { isBlog: false } : {};
         const posts = await Post.find(filter, null, {sort: {date: -1}});
         return res.status(200).send(posts);
-    } catch (e){
+    } catch (e) {
         return res.status(400).send({ error: e.message });
     }
 }
 
+/**
+ * Retrieves a specific post from the database based on the provided ID.
+ * 
+ * @param {object} req - The request object, containing the post ID as parameter.
+ * @param {object} res - The response object, used to send back the status and post.
+ */
 export async function getPost(req, res) {
     try {
         const post = await Post.findById(req.params.id);
         return (post) 
             ? res.status(200).send(post)
             : res.status(404).send({message: 'Post não existente'});
-    } catch (e){
+    } catch (e) {
         console.log(e);
         return res.status(400).json({ e: e.message });
     }
 }
 
+/**
+ * Updates an existing post in the database based on the provided ID.
+ * 
+ * @param {object} req - The request object, containing the post ID as parameter and post details in body.
+ * @param {object} res - The response object, used to send back the status and updated post.
+ */
 export async function updatePost(req, res) {
     try {
         const { id } = req.params;
@@ -63,6 +87,12 @@ export async function updatePost(req, res) {
     }
 }
 
+/**
+ * Deletes a post from the database based on the provided ID.
+ * 
+ * @param {object} req - The request object, containing the post ID as parameter.
+ * @param {object} res - The response object, used to send back status and message.
+ */
 export async function deletePost(req, res) {
     try {
         const { id } = req.params;
