@@ -44,7 +44,7 @@ MINIO_ACCESS_KEY= #Insira a chave de acesso gerada no browser do MinIO.
 MINIO_SECRET_KEY= #Insira a chave secreta gerada no browser do MinIO.
 ```
 
-Em seguida podemos hospedar o backend. Abra uma instância de terminal na pasta */backend/*. Execute o comando `npm install para garantir que os pacotes necessários estão instalados. Execute o comando node *./src/server.js* para hospedar o backend na porta escolhida no .env. Espere as mensagens de confirmação no terminal.
+Em seguida podemos hospedar o backend. Abra uma instância de terminal no diretório */backend/*. Execute o comando `npm install` para garantir que os pacotes necessários estão instalados. Execute o comando `node ./src/server.js` para hospedar o backend na porta escolhida no .env. Aguarde as mensagens de confirmação no terminal.
 
 
 ### Frontend
@@ -53,6 +53,6 @@ Crie um arquivo **.env** no diretório */frontend/* com os seguintes valores:
 VITE_BACKEND_URL= Insira o url do backend. Ex: http://localhost:8080
 ```
 
-Em seguida, podemos hospedar o frontend. Abra uma instância de terminal na pasta */frontend/*. Execute o comando `npm install` para garantir que os pacotes necessários estão instalados. Execute o comando npm run dev para hospedar o frontend na porta 5173.
+Em seguida, podemos hospedar o frontend. Abra uma instância de terminal na pasta */frontend/*. Execute o comando `npm install` para garantir que os pacotes necessários estão instalados. Execute o comando `npm run dev` para hospedar o frontend na porta 5173.
 
 Agora é possível acessar a página na url **http://localhost:5173** 
