@@ -53,7 +53,7 @@ function FlipCard({buttonText, normalizedImgW = .5, style = {},
                     }
                     <Stack justify='flex-center'>
                         <Space style={{flex: 1}}/>
-                        <Text ta='center' c='black' fz="xl" fw="600">{textFront}</Text>
+                        <Text ta='center' c='black' fz="xl">{textFront}</Text>
                         <Button w={"100%"} h={40} bg='aprai-purple.5' onClick={toggle} radius="lg" fz="xl">{buttonText}</Button>
                         <Space style={{flex: 1}}/>
                     </Stack>
