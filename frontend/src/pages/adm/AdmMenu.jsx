@@ -2,7 +2,12 @@ import {Stack, Text} from '@mantine/core'
 import MenuButton from "../../components/MenuButton.jsx";
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
-function AdmMenu () {
+/**
+ * This is a admin menu page, with navigation to administrative sections.
+ * 
+ * @returns The AdmMenu page.
+ */
+function AdmMenu() {
     const {userName, clearAuth} = useAuth();
 
     const logOut = () => {

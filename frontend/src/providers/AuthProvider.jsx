@@ -3,23 +3,31 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const AuthContext = createContext();
 
+/**
+ * AuthProvider component manages authentication state and provides authentication-related functions.
+ * 
+ * @param {ReactNode} props.children The child components to be wrapped by the AuthProvider.
+ */
 const AuthProvider = ({children}) => {
     const [token, setToken_] = useState('');
     const [userName, setUserName_] = useState('');
     const [loading, setLoading] = useState(false);
 
+    // Clears authentication data from local storage and resets state.
     const clearAuth = () => {
         localStorage.setItem('token', '');
         setToken_('');
         setUserName_('');
     }
 
+    // Attempts to log in with the provided credentials.
     const tryLogin = async (values) => {
         const res = await axios.post(`/admins/login`, values);
         localStorage.setItem('token', res.data.token);
         await updateContextFromStorage();
     }
 
+    // Gets auth token and user information from local storage and updates state.
     const updateContextFromStorage = async () => {
         const tokenLocal = localStorage.getItem('token');
         if (!tokenLocal){
@@ -65,10 +73,10 @@ const AuthProvider = ({children}) => {
             err => err
         );
 
-        //Verify jwt if was already logged
+        // Verify jwt if was already logged
         updateContextFromStorage();
 
-        //Cleanup interceptors
+        // Cleanup interceptors
         return () => {
             axios.interceptors.response.eject(logoutInterceptorId);
             axios.interceptors.request.eject(tokenInterceptorId);

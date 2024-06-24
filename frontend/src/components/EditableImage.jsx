@@ -3,6 +3,13 @@ import {useState} from "react";
 import ProtectedComponent from "./ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 
+/**
+ * An Editable Image component, used by EditableSectionImage component.
+ * 
+ * @param {string} url The image url.
+ * @param {function} onSave The onSave function.
+ * @returns The EditableImage component.
+ */
 function EditableImage({url, onSave, ...others}){
     const [editing, setEditing] = useState(false);
     const [file, setFile] = useState(null);

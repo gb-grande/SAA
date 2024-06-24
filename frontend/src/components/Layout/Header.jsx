@@ -3,7 +3,11 @@ import {Anchor, Center, Group, Stack} from "@mantine/core";
 import {IconChevronDown, IconChevronUp} from "@tabler/icons-react";
 import {HashLink} from "react-router-hash-link";
 
-
+/**
+ * Header component renders the header layout section.
+ * 
+ * @returns The Header component displaying navigation links.
+ */
 function Header(){
     const [opened, {toggle}] = useDisclosure();
 

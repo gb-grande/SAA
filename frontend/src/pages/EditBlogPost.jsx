@@ -16,6 +16,13 @@ import {notifications} from "@mantine/notifications";
 import classes from "./EditBlogPost.module.css"
 import { useAuth } from '../providers/AuthProvider.jsx';
 
+/**
+ * The EditBlogPost page allows admins for editing a blog post.
+ * It loads the blog post based on the ID from the URL, 
+ * and provides a form for updating the post's content, title, and image.
+ * 
+ * @returns The EditBlogPost page.
+ */
 function EditBlogPost() {
     let navigate = useNavigate();
     const { id } = useParams();
@@ -36,7 +43,8 @@ function EditBlogPost() {
             content: isNotEmpty('O conteúdo não pode estar vazio.')
         }
     });
-    //To make sure we can keep track of whether we have deleted the image, or never had an image to begin with.
+
+    // To make sure we can keep track of whether we have deleted the image, or never had an image to begin with.
     const [imageDeleted, setImageDeleted] = useState(false);
 
     const editor = useEditor({
@@ -72,14 +80,14 @@ function EditBlogPost() {
     }, [id, editor]);
 
     function onSubmit(values){
-        //If a file is sent, the imageUrl will be overwritten in the middleware.
-        //If no file and no imageUrl is sent, the image will be deleted.
+        // If a file is sent, the imageUrl will be overwritten in the middleware.
+        // If no file and no imageUrl is sent, the image will be deleted.
         values.image = file;
         if (imageDeleted) values.imageUrl = '';
 
         if (id === undefined) {
             values.isBlog = isBlog;
-            values.posterUsername = userName; // TODO insert username
+            values.posterUsername = userName;
             axios.postForm('api/posts/', values)
                 .then(res => navigate(`/${route}/${res.data.id}`))
                 .catch(err => {

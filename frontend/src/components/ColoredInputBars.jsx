@@ -1,18 +1,24 @@
-import React from 'react';
-import { TextInput, Paper, Text, Space, PasswordInput } from '@mantine/core';
+import { TextInput, PasswordInput } from '@mantine/core';
 import { useViewportSize } from '@mantine/hooks';
 
 function getWidth() {
     const { width } = useViewportSize();
     return width;
-  }
+}
 
-function ColoredInputBars({texto, type="text", ...others}){
+/**
+ * A Colored Input Bar component, for text or password input.
+ * 
+ * @param {string} placeholder The input placeholder.
+ * @param {string} type The input type. Use: 'text' or 'password'.
+ * @returns The ColoredInputBars component.
+ */
+function ColoredInputBars({placeholder, type="text", ...others}){
     const s = getWidth() < 575 ? 'sm' : 'lg';
 
     const props = {
         classNames: { input: 'custom-input' ,innerInput: 'custom-input' },
-        placeholder: texto,
+        placeholder: placeholder,
         size: s,
         w: { base: 150, xs: 250 },
         variant: "filled",

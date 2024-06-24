@@ -1,6 +1,17 @@
 import {Card, Image, Text, Title} from "@mantine/core";
 import {HashLink} from "react-router-hash-link";
 
+/**
+ * A Post Card component that renders a card representing a post with optional image and date.
+ * 
+ * @param {object} post - The post data to be displayed in the card.
+ * @param {number} h - The height of the card.
+ * @param {number} w - The width of the card.
+ * @param {boolean} light - A flag to apply a light theme to the card. Default: false.
+ * @param {boolean} showDate - A flag to show or hide the post date. Default: true.
+ * @param {number} imgHPct - The height percentage of the image relative to the card height. Default: 0.6.
+ * @returns The PostCard component.
+ */
 export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
     const {isBlog, title, content, imageUrl} = post;
     

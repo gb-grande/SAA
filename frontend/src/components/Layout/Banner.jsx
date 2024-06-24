@@ -3,7 +3,11 @@ import logo from "../../assets/logo.jpeg";
 import {HashLink} from "react-router-hash-link";
 import SocialMediaIcon from "../SocialMediaIcon.jsx";
 
-
+/**
+ * Banner component renders layout banner.
+ * 
+ * @returns The Banner component.
+ */
 function Banner(){
     return (
         <Box pos="relative">

@@ -6,6 +6,15 @@ import ManageAdminModal from "./ManageAdminModal.jsx";
 import {useState} from "react";
 import {useAuth} from "../../providers/AuthProvider.jsx";
 
+/**
+ * ManageAdminCard component displays information about an admin user and allows update/deletion.
+ * 
+ * @param {object} admin The admin user object.
+ * @param {number} h The height of the card.
+ * @param {number} w The width of the card.
+ * @param {function} onAdminDeleted Callback function invoked when the admin is deleted.
+ * @returns The ManageAdminCard component.
+ */
 function ManageAdminCard({admin, h, w, onAdminDeleted, ...others}) {
     const {user} = admin;
     const [loading, setLoading] = useState(false);

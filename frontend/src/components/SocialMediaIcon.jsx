@@ -3,9 +3,11 @@ import {ActionIcon} from "@mantine/core";
 import useFetch from "../hooks/useFetch.jsx";
 
 /**
- * @param media Either 'facebook' or 'instagram'.
- * @param variant Either 'filled' or 'subtle'.
- * @param others Other params.
+ * A SocialMediaIcon component that renders an icon for a specific social media platform.
+ * 
+ * @param {string} media - The name or identifier of the social media platform. Either 'facebook' or 'instagram'.
+ * @param {string} variant - The variant of the icon. Either 'filled' or 'subtle'.
+ * @returns The SocialMediaIcon component.
  */
 function SocialMediaIcon({media, variant = 'filled', ...others}){
     const {result, error} = useFetch('api/contactInfos', {

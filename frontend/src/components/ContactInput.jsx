@@ -1,5 +1,13 @@
 import {PasswordInput, TextInput} from '@mantine/core'
 
+/**
+ * A Contact Input component, for contact info inputs.
+ * 
+ * @param {string} label The input label.
+ * @param {string} placeholder The input placeholder.
+ * @param {string} type The input type. Use 'text' or 'password'.
+ * @returns The ContactInput component.
+ */
 function ContactInput({label, placeholder, type="text", ...others}) {
 
     const props = {

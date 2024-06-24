@@ -3,6 +3,12 @@ import useFetch from "../hooks/useFetch.jsx";
 import axios from "axios";
 import {notifications} from "@mantine/notifications";
 
+/**
+ * An Editable Section Image component, for editing images of some landing page section.
+ * 
+ * @param {string} section The landing page section name. 
+ * @returns The EditableSectionImage component.
+ */
 function EditableSectionImage({section, ...others}){
     const {result: {imageUrl}, setResult: setUrl, error} = useFetch(
         `api/sectionImages/${section}`,  {
