@@ -11,7 +11,7 @@ function getWidth() {
  * 
  * @param {string} placeholder The input placeholder.
  * @param {string} type The input type. Use: 'text' or 'password'.
- * @returns The ColoredInputBars component.
+ * @returns {JSX.Element} The ColoredInputBars component.
  */
 function ColoredInputBars({placeholder, type="text", ...others}){
     const s = getWidth() < 575 ? 'sm' : 'lg';

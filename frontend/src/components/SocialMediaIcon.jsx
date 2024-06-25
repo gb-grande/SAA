@@ -7,7 +7,7 @@ import useFetch from "../hooks/useFetch.jsx";
  * 
  * @param {string} media - The name or identifier of the social media platform. Either 'facebook' or 'instagram'.
  * @param {string} variant - The variant of the icon. Either 'filled' or 'subtle'.
- * @returns The SocialMediaIcon component.
+ * @returns {JSX.Element} The SocialMediaIcon component.
  */
 function SocialMediaIcon({media, variant = 'filled', ...others}){
     const {result, error} = useFetch('api/contactInfos', {

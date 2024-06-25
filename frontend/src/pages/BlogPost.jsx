@@ -10,7 +10,7 @@ import {HashLink} from "react-router-hash-link";
 /**
  * The BlogPost displays an individual blog post page based on the ID from URL.
  * 
- * @returns The BlogPost page.
+ * @returns {JSX.Element} The BlogPost page.
  */
 function BlogPost() {
     const navigate = useNavigate();

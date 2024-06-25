@@ -8,7 +8,7 @@ import {Skeleton} from "@mantine/core";
  * An Editable Section Image component, for editing images of some landing page section.
  * 
  * @param {string} section The landing page section name. 
- * @returns The EditableSectionImage component.
+ * @returns {JSX.Element} The EditableSectionImage component.
  */
 function EditableSectionImage({section, ...others}){
     const {result: {imageUrl}, setResult: setUrl, error, loading} = useFetch(

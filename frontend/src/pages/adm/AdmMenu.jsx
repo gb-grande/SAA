@@ -5,7 +5,7 @@ import { useAuth } from '../../providers/AuthProvider.jsx';
 /**
  * This is a admin menu page, with navigation to administrative sections.
  * 
- * @returns The AdmMenu page.
+ * @returns {JSX.Element} The AdmMenu page.
  */
 function AdmMenu() {
     const {userName, clearAuth} = useAuth();

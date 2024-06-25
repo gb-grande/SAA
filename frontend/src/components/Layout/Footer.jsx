@@ -4,7 +4,7 @@ import logo_icmc from "../../assets/logo_icmc.png";
 /**
  * Footer component renders the footer layout section.
  * 
- * @returns The Footer component.
+ * @returns {JSX.Element} The Footer component.
  */
 function Footer(){
     return (

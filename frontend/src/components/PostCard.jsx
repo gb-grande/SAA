@@ -10,7 +10,7 @@ import {HashLink} from "react-router-hash-link";
  * @param {boolean} light - A flag to apply a light theme to the card. Default: false.
  * @param {boolean} showDate - A flag to show or hide the post date. Default: true.
  * @param {number} imgHPct - The height percentage of the image relative to the card height. Default: 0.6.
- * @returns The PostCard component.
+ * @returns {JSX.Element} The PostCard component.
  */
 export function PostCard({post, h, w, light=false, showDate=true, imgHPct=0.6, ...others}) {
     const {isBlog, title, content, imageUrl} = post;

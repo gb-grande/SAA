@@ -7,7 +7,7 @@ import {useMediaQuery} from "@mantine/hooks";
  * 
  * @param {Array} data The array of posts to display in the grid.
  * @param {string} containerWidth The width of the grid container.
- * @returns The PostGrid component.
+ * @returns {JSX.Element} The PostGrid component.
  */
 function PostGrid({data = [], containerWidth}){
     //This might be over-engineered.

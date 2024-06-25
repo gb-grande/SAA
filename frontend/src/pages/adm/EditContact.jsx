@@ -11,7 +11,7 @@ import {notifications} from "@mantine/notifications";
 /**
  * The EditContact page allows the admin to edit contact information.
  * 
- * @returns The EditContact page.
+ * @returns {JSX.Element} The EditContact page.
  */
 function EditContact() {
     const navigate = useNavigate();

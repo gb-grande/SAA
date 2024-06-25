@@ -9,7 +9,7 @@ import {notifications} from "@mantine/notifications";
 /**
  * The RegisterAdm page provides a form for registering new administrators.
  * 
- * @returns The RegisterAdm page.
+ * @returns {JSX.Element} The RegisterAdm page.
  */
 function RegisterAdm() {
     const navigate = useNavigate();

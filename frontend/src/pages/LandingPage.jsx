@@ -27,7 +27,7 @@ function formatTelephone(number){
  * The LandingPage component represents the main page of the application.
  * It includes sections and components to provide an app overview.
  * 
- * @returns The Landing Page itself.
+ * @returns {JSX.Element} The Landing Page itself.
  */
 function LandingPage() {
     const {result: contactInfo, error: contactInfoErr} = useFetch('api/contactInfos',  {

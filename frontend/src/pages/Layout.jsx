@@ -8,7 +8,7 @@ import Footer from "../components/Layout/Footer.jsx";
  * The Layout serves as the overall layout structure for the application.
  * It includes banner, header and footer structure and navigation across different pages.
  * 
- * @returns The Layout itself.
+ * @returns {JSX.Element} The Layout itself.
  */
 function Layout() {
     return (

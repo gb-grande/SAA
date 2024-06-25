@@ -11,7 +11,7 @@ import useFetch from "../hooks/useFetch.jsx";
  * 
  * @param {object} slideGap The gap between slides at different breakpoints. Default: {base: "xs", sm: "md"}.
  * @param {object} cardData The dimensions of each card in the carousel. Default: {h: 100, w: 100}.
- * @returns The PostCarousel component.
+ * @returns {JSX.Element} The PostCarousel component.
  */
 function PostCarousel({slideGap = {base: "xs", sm: "md"}, cardData = {h: 100, w: 100}, ...others}){
     const theme = useMantineTheme();

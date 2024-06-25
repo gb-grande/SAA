@@ -10,7 +10,7 @@ import { Navigate } from 'react-router-dom';
  * The Login page renders the user login interface, allowing admins to authenticate
  * themselves into the application.
  * 
- * @returns The Login page.
+ * @returns {JSX.Element} The Login page.
  */
 function Login() {
     const [error, setError] = useState('');

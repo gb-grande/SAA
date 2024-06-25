@@ -13,7 +13,7 @@ import {useAuth} from "../../providers/AuthProvider.jsx";
  * @param {number} h The height of the card.
  * @param {number} w The width of the card.
  * @param {function} onAdminDeleted Callback function invoked when the admin is deleted.
- * @returns The ManageAdminCard component.
+ * @returns {JSX.Element} The ManageAdminCard component.
  */
 function ManageAdminCard({admin, h, w, onAdminDeleted, ...others}) {
     const {user} = admin;
