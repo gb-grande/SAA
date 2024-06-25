@@ -21,11 +21,18 @@ function GenerateReportModal() {
 
     function onSubmit(){
         setLoading(true);
-        console.log("will generate for "+value[0] + ' -> ' + value[1]);
+
+        //beginning of the startDate's day
+        const startDate = value[0];
+        if (startDate) startDate.setHours(0, 0, 0);
+        //end of the endDate's day
+        const endDate = value[1] ?? value[0];
+        if (endDate) endDate.setHours(23,59,59);
+
         axios.get('api/donations/report', {
             params: {
-                startDate: value[0],
-                endDate: value[1] ?? value[0]
+                startDate: startDate,
+                endDate: endDate
             },
             responseType: "blob"
         }).then(res => {
