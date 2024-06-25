@@ -22,7 +22,7 @@ try {
         secretKey: process.env.MINIO_SECRET_KEY,
         useSSL: false //TODO this obviously shouldn't be false in production.
     });
-    //Verifying connection
+    // Verifying connection
     await client.listBuckets();
     console.log(`Connected to minio at ${getMinioUrl()}`);
 
@@ -51,7 +51,7 @@ export function uploadImageMiddleware(req, res, next){
         }
 
         if (req.file){
-            //TODO this only works for localhost I think
+            // TODO this only works for localhost I think
             req.body.imageUrl = getMinioUrl(req.file.filename);
         }
         return next();

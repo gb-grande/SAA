@@ -23,7 +23,13 @@ function formatTelephone(number){
     return number;
 }
 
-function LandingPage(){
+/**
+ * The LandingPage component represents the main page of the application.
+ * It includes sections and components to provide an app overview.
+ * 
+ * @returns The Landing Page itself.
+ */
+function LandingPage() {
     const {result: contactInfo, error: contactInfoErr} = useFetch('api/contactInfos',  {
         defaultValue: {
             phone: '',
@@ -36,7 +42,11 @@ function LandingPage(){
 
     return (
         <>
-            <EditableSectionText section="topQuote" containerStyle={{width: "100%"}} textClassName={classes.topQuote} />
+            <EditableSectionText
+                section="topQuote"
+                containerStyle={{width: "100%"}}
+                inputContainerStyle={{height: "75px"}}
+                textClassName={classes.topQuote} />
 
             <SimpleGrid w="100%" cols={{base: 1, sm: 2}} spacing={{base: 'xs', sm: 'lg'}} mt="md" mb="xl">
                 <FlipCard
@@ -45,16 +55,14 @@ function LandingPage(){
                     textBack="Informações da Doação"
                     editableBackTextSection="cardDoacao"
                     buttonText="DOE AGORA"
-                    editableImageTextSection="cardDoacao"
-                    imageAlt="Gato (Siri)"/>
+                    editableImageTextSection="cardDoacao"/>
 
                 <FlipCard
                     h={{lg: 350, md:300, sm: 250, base: 200}}
                     textFront="Maus tratos? DENUNCIE!"
                     editableBackTextSection="cardDenuncia"
                     buttonText="DENUNCIE AQUI"
-                    editableImageTextSection="cardDenuncia"
-                    imageAlt="Gato Triste"/>
+                    editableImageTextSection="cardDenuncia"/>
             </SimpleGrid>
             
 
@@ -114,7 +122,12 @@ function LandingPage(){
                         icon="vet"
                         number="552"
                         numberSection="numConsulta"
-                        description="Consultas realizadas"
+                        description= {
+                        <>
+                            Consultas<br />
+                            Realizadas
+                        </>
+                        }
                     />
                 </SimpleGrid>
             </Center>
@@ -152,7 +165,7 @@ function LandingPage(){
                     </Anchor>
                 </Stack>
                 <div>
-                    <EditableSectionImage section="contactInfo" radius="xl"/>
+                    <EditableSectionImage section="contactInfo" radius="xl" h={370}/>
                 </div>
             </SimpleGrid>
         </>

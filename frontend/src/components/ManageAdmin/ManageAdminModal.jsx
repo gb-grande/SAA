@@ -6,6 +6,13 @@ import {modals} from "@mantine/modals";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
+/**
+ * ManageAdminModal component displays a modal for editing admin user details.
+ * 
+ * @param {object} admin The admin user object to be edited.
+ * @param {function} onAdminEdited Callback function invoked when admin details are edited.
+ * @returns The ManageAdminModal component.
+ */
 function ManageAdminModal({admin, onAdminEdited}){
     const {user} = admin;
     const [opened, {toggle}] = useDisclosure();

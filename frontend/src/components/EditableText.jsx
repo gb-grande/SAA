@@ -4,7 +4,7 @@ import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
-//Split text so any URLs in the text are clickable.
+// Splits text so any URLs in the text are clickable.
 const urlRegex = /((?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9@:%._+~#=]{2,256}(?:\.[a-z]{2,6})+\b(?:\.?[-a-zA-Z0-9@:%_+~#?&/=])*)/g
 function splitText(text){
     if (text === undefined || text === null) return;
@@ -22,6 +22,19 @@ function splitText(text){
     return parts;
 }
 
+/**
+ * An Editable Text component, used by EditableSectionText.
+ * 
+ * @param {string} text - The text to be displayed and edited.
+ * @param {function} onSave - The function to call when the text is saved.
+ * @param {object} containerStyle - Custom styles to apply to the outer container.
+ * @param {object} textContainerStyle - Custom styles to apply to the text container.
+ * @param {object} inputContainerStyle - Custom styles to apply to the input container.
+ * @param {object} inputStyle - Custom styles to apply to the input element.
+ * @param {string} textClassName - Custom class name to apply to the text element.
+ * @param {number} maxLen - The maximum length of the text.
+ * @returns The EditableText component.
+ */
 function EditableText({text, onSave, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
     const [editText, setEditText] = useState("");
     const [editing, {open, close}] = useDisclosure();

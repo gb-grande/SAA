@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+/**
+ * A MongoDB shema for representing admin users.
+ * They have an unique username and a password.
+ */
 const adminSchema = new mongoose.Schema({
     user: {
         type: String,

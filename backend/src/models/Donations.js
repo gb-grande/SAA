@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
+/**
+ * A MongoDB schema for representing pet food donations.
+ * Includes: the username for admin that registered donation,
+ * donation source, destination, type, amount and date.
+ */
 const donationsSchema = new mongoose.Schema({
     srcDest: {
         type: String,

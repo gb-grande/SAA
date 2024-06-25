@@ -15,17 +15,20 @@ import donations from "./routes/donations.js"
 import authMidd from "./middleware/auth.js";
 import './config.js'
 
+// Using express
 const app = express();
 app.use(helmet());
 app.use(cors({origin: true, credentials: true}));
 app.use(express.json());
 app.use(cookieParser());
 
+// Auth middleware 
 app.post('/api/*', authMidd);
 app.put('/api/*', authMidd);
 app.delete('/api/*', authMidd);
 app.get('/api/donations*', authMidd);
 
+// App endpoints
 app.use('/api/infoTexts', infoTexts);
 app.use('/api/contactInfos', contactInfos);
 app.use('/admins/login', adminLogin);
@@ -34,11 +37,12 @@ app.use('/api/sectionImages', sectionImages);
 app.use('/api/posts', posts);
 app.use('/api/auth', auth);
 app.use('/api/donations', donations)
-//Serve static files
+// Serve static files
 app.use('/images', express.static('images'), );
 
 const server = http.createServer(app);
 
+// Connecting to database
 const uri = process.env.DB_URI;
 async function connect(){
     try{
@@ -50,6 +54,7 @@ async function connect(){
 }
 connect();
 
+// Starting server
 const port = process.env.PORT || 4000;
 server.listen(port, () => {
     console.log(`Server running in port ${port}`);

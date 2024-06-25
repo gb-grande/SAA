@@ -1,13 +1,20 @@
 import Donations from "../models/Donations.js";
 import mongoose from "mongoose";
 import generatePdf from "../services/donationReportGen.js";
+import {unlink} from "fs"
 
+/**
+ * Registers a new donation.
+ * 
+ * @param {object} req - The request object, containing donation details in the body.
+ * @param {object} res - The response object.
+ */
 export async function registerDonation(req, res) {
-    try{
+    try {
         const newDonation = new Donations(req.body);
         const savedDonation = await newDonation.save();
         return res.status(201).send({id: savedDonation._id});
-    } catch(e){
+    } catch(e) {
         if (e instanceof mongoose.Error.ValidationError){
             const errors = Object.values(e.errors).map(e => ({[e.path]: e.message}));
             return res.status(400).send({validationErrors: Object.assign({}, ...errors)});
@@ -17,6 +24,12 @@ export async function registerDonation(req, res) {
     }
 }
 
+/**
+ * Fetches all donations.
+ * 
+ * @param {object} req - The request object.
+ * @param {object} res - The response object, used to send back status and data.
+ */
 export async function getDonations(req, res) {
     try {
         const donations = await Donations.find(null, null, {sort: {date: -1}});
@@ -26,18 +39,28 @@ export async function getDonations(req, res) {
     }
 }
 
-
+/**
+ * Retrieves a single donation by ID.
+ * 
+ * @param {object} req - The request object, containing the donation ID as parameter.
+ * @param {object} res - The response object, used to send back status and data.
+ */
 export async function getDonation(req, res) {
     try {
         const donation = await Donations.findById(req.params.id);
         return (donation) 
             ? res.status(200).send(donation)
             : res.status(404).send({message: 'Doação não existe'});
-    } catch (e){
+    } catch (e) {
         return res.status(400).send({ error: e.message });
     }
 }
-//receives in json start date and end date
+/**
+ * Generates a pdf file contaning a donations report between a start date and an end date.
+ * 
+ * @param {object} req - The request object, containing the start date and end date of the donations.
+ * @param {object} res - The response object, used to send back status and the pdf file.
+ */
 export async function getReport(req, res) {
     try {
         const {startDateStr, endDateStr} = req.query;
@@ -70,7 +93,12 @@ export async function getReport(req, res) {
 
 
 }
-
+/**
+ * Deletes a single donation by ID.
+ * 
+ * @param {object} req - The request object, containing the donation ID as a parameter.
+ * @param {object} res - The response object, used to send back status.
+ */
 export async function deleteDonation(req, res) {
     try {
         const { id } = req.params;

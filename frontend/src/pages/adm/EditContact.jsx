@@ -8,8 +8,12 @@ import {IconAt} from "@tabler/icons-react";
 import {IMaskInput} from "react-imask";
 import {notifications} from "@mantine/notifications";
 
-function EditContact () {
-    //TODO validate fields and make explicit if should input social media link or handle
+/**
+ * The EditContact page allows the admin to edit contact information.
+ * 
+ * @returns The EditContact page.
+ */
+function EditContact() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const form = useForm({

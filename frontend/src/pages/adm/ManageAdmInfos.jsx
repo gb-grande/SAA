@@ -12,6 +12,11 @@ function* yieldPages(data, pageSize){
     }
 }
 
+/**
+ * The ManageAdmInfos page allows administrators to manage admins and their passwords.
+ * 
+ * @returns The ManageAdmInfos page.
+ */
 function ManageAdmInfos(){
     const [currentPage, setCurrentPage] = useState(1);
     const {width} = useViewportSize();

@@ -6,13 +6,18 @@ import ProtectedComponent from "../components/ProtectedComponent.jsx";
 import useFetch from "../hooks/useFetch.jsx";
 import {HashLink} from "react-router-hash-link";
 
-function* yieldPages(data, pageSize){
+function* yieldPages(data, pageSize) {
     for (let i = 0; i < data.length; i += pageSize){
         yield data.slice(i, i + pageSize);
     }
 }
 
-function BlogPage(){
+/**
+ * The BlogPage component displays the Blog section of the website.
+ * 
+ * @returns The Blog Page itself.
+ */
+function BlogPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const {result: posts} = useFetch('api/posts?type=blog', {
         defaultValue: []

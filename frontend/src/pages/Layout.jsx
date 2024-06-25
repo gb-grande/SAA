@@ -4,17 +4,15 @@ import Banner from "../components/Layout/Banner.jsx";
 import Header from "../components/Layout/Header.jsx";
 import Footer from "../components/Layout/Footer.jsx";
 
-
+/**
+ * The Layout serves as the overall layout structure for the application.
+ * It includes banner, header and footer structure and navigation across different pages.
+ * 
+ * @returns The Layout itself.
+ */
 function Layout() {
     return (
         <Flex h="100vh" direction="column" justify='flex-start'>
-        {/*<div style={{*/}
-        {/*    w: '100vw',*/}
-        {/*    h: '100vh',*/}
-        {/*    display: 'flex',*/}
-        {/*    flexDirection: 'column',*/}
-        {/*    justifyContent: 'flex-start',*/}
-        {/*}}>*/}
             <Banner/>
             <Header/>
 
@@ -23,7 +21,6 @@ function Layout() {
             </Box>
 
             <Footer/>
-        {/*</div>*/}
         </Flex>
     );
 }
