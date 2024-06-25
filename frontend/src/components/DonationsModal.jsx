@@ -1,5 +1,5 @@
 import {Button, LoadingOverlay, TextInput, Stack, Select} from "@mantine/core";
-import {DateInput} from '@mantine/dates';
+import {DateInput, DatePicker} from '@mantine/dates';
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {notifications} from "@mantine/notifications";
@@ -7,10 +7,12 @@ import {modals} from "@mantine/modals";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
-function RegisterDonationsModal() {
+function RegisterDonationsModal({ onDonationCreated }) {
+    const [opened, { toggle }] = useDisclosure();
     const [loading, setLoading] = useState(false);
 
     const form = useForm({
+        mode: "uncontrolled",
         initialValues: {
             date: '',
             amount: '',
@@ -21,18 +23,22 @@ function RegisterDonationsModal() {
     });
 
     function onSubmit(values) {
+        setLoading(true);
+
         const mappedValues = {
             ...values,
             flow: values.flow === 'enviado' ? 'sent' : 'received'
         };
 
-        setLoading(true);
         axios.post('api/donations', mappedValues)
             .then(_ => {
                 notifications.show({ message: 'Registro criado com sucesso.' });
                 modals.closeAll();
+                if (onDonationCreated) {
+                    onDonationCreated();
+                }
             }).catch(err => {
-                if (err.response && err.response.data && err.response.data.validationErrors) {
+                if (err.response?.data?.validationErrors) {
                     form.setErrors(err.response.data.validationErrors);
                 } else {
                     console.error("Unhandled error when creating donation registro.", err);
@@ -48,17 +54,9 @@ function RegisterDonationsModal() {
             <TextInput label="Quantidade" placeholder='' {...form.getInputProps('amount')} />
             <TextInput label="Tipo" placeholder='' {...form.getInputProps('type')} />
             <TextInput label="Origem/Destino" placeholder='' {...form.getInputProps('srcDest')} />
-            <Select 
-                label="Enviado/Recebido" 
-                placeholder="" 
-                data={[
-                    { value: 'enviado', label: 'Enviado' },
-                    { value: 'recebido', label: 'Recebido' }
-                ]} 
-                {...form.getInputProps('flow')}
-            />
+            <Select label="Enviado/Recebido" placeholder="" data={['enviado', 'recebido']} {...form.getInputProps('flow')} />
             <Button fullWidth type='submit' mt="md">
-                Criar Registro
+                Criar
             </Button>
         </Stack>
     );
@@ -102,8 +100,7 @@ function GenerateReport({admin, onAdminEdited}){
     return (
         <Stack component='form'  >
             <LoadingOverlay visible={loading}/>
-            <TextInput label="Data Início" placeholder='' visible={opened} onVisibilityChange={toggle}  {...form.getInputProps('startdate')} />
-            <TextInput label="Data Fim" placeholder='' visible={opened} onVisibilityChange={toggle} {...form.getInputProps('enddate')}/>
+            <DatePicker type = "range"  placeholder="" {...form.getInputProps('date')} />
             <Button fullWidth type='submit' mt="md">
                 Gerar
             </Button>
