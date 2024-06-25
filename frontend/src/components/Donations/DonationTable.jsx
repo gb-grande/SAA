@@ -83,16 +83,13 @@ function DonationTable() {
 
     const rows = pages[currentPage - 1].map((element, index) => (
         <Table.Tr key={index}>
-            <Table.Td>{element.date}</Table.Td>
-            <Space w="120px"/>
+            <Table.Td>
+                {element.date}
+            </Table.Td>
             <Table.Td>{element.amount}</Table.Td>
-            <Space w="120px"/>
             <Table.Td>{element.type}</Table.Td>
-            <Space w="120px"/>
             <Table.Td>{element.srcDest}</Table.Td>
-            <Space w="150px"/>
             <Table.Td>{element.flow === 'received' ? 'Recebido' : 'Enviado'}</Table.Td>
-            <Space w="120px"/>
             <Table.Td>
                 <Button bg="red" onClick={() => handleDeleteClicked(element)}>Deletar</Button>
             </Table.Td>
@@ -111,13 +108,9 @@ function DonationTable() {
                 <Table.Thead>
                     <Table.Tr>
                         <Table.Th>Data</Table.Th>
-                        <Space w="120px"/>
                         <Table.Th>Quantidade</Table.Th>
-                        <Space w="120px"/>
                         <Table.Th>Tipo</Table.Th>
-                        <Space w="120px"/>
                         <Table.Th>Origem/Destino</Table.Th>
-                        <Space w="120px"/>
                         <Table.Th>Recebido/Enviado</Table.Th>
                     </Table.Tr>
                 </Table.Thead>
