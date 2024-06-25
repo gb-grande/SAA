@@ -3,14 +3,14 @@ import { Table, Button, Space, Pagination, Flex, Text} from '@mantine/core';
 import {useState} from "react";
 import useFetch from "../hooks/useFetch.jsx";
 import {modals} from "@mantine/modals";
-import {DonationsModal, GenerateReport} from "./DonationsModal.jsx";
+import {RegisterDonationsModal, GenerateReport} from "./DonationsModal.jsx";
 import {useParams} from 'react-router-dom';
 
 
 function openCreateModal() {
   modals.open({
       title:`Criar novo registro de doação`,
-      children: <DonationsModal/>
+      children: <RegisterDonationsModal/>
   })
 }
 function openGenerateReportModal() {
@@ -41,7 +41,7 @@ function DonationTable() {
     const pages = [...yieldPages(elements, cardsPerPage)];
 
     const rows = pages[currentPage-1].map((element) => (
-      <Table.Tr key={element.name}>
+      <Table.Tr>
         <Table.Td>{element.date}</Table.Td>
         <Space w = "120px"/>
         <Table.Td>{element.amount}</Table.Td>
@@ -50,7 +50,7 @@ function DonationTable() {
         <Space w = "120px"/>
         <Table.Td>{element.srcDest}</Table.Td>
         <Space w = "150px"/>
-        <Table.Td>{element.flow}</Table.Td>
+        <Table.Td>{element.flow === 'received' ? 'Recebido' : 'Enviado'}</Table.Td>
         <Space w = "120px"/>
 
         <Table.Td> 
@@ -63,7 +63,7 @@ function DonationTable() {
     return (
       <>
       <Flex  align = 'center'>
-        <Button onClick={openCreateModal}>Criar Novo Registro</Button>
+        <Button onClick={openCreateModal}>Novo Registro</Button>
         <Space w = "xs"/>
         <Button onClick={openGenerateReportModal}>Gerar Relatório</Button>
       </Flex>
