@@ -17,8 +17,8 @@ import {Skeleton} from "@mantine/core";
  * @returns The EditableSectionText component.
  */
 function EditableSectionText({section, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
-    const {result: text, setResult: setText, error, loading} = useFetch(`api/infoTexts/${section}`, {
-        defaultValue: ''
+    const {result: {text}, setResult: setText, error, loading} = useFetch(`api/infoTexts/${section}`, {
+        defaultValue: {text: ''}
     });
     if (error){
         console.error(`Couldn't load '${section}' info.`, error);
