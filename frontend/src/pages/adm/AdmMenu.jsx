@@ -34,6 +34,10 @@ function AdmMenu() {
                 text='Editar Informações de Contato'
             />
             <MenuButton
+                link='/admin/registrardoacoes'
+                text='Gerenciar Doações'
+            />
+            <MenuButton
                 link='/login'
                 text='Sair'
                 bg='red'

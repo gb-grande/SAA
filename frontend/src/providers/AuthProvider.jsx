@@ -65,9 +65,8 @@ const AuthProvider = ({children}) => {
             config => {
                 const tokenLocal = localStorage.getItem('token');
                 if (tokenLocal){
-                    console.log("insert token into header", tokenLocal);
                     config.headers.Authorization = `Bearer ${tokenLocal}`;
-                } else console.log("no token to insert!");
+                };
                 return config;
             },
             err => err
