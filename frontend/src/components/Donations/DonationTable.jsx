@@ -36,7 +36,8 @@ function* yieldPages(data, pageSize) {
 function DonationTable() {
     const [currentPage, setCurrentPage] = useState(1);
     const {result: elements, reFetch, error, loading, setLoading} = useFetch('api/donations', {
-        defaultValue: []
+        defaultValue: [],
+        postProcessFunc: data => data.map(el => ({...el, date: new Date(el.date)}))
     });
     if (error){
         console.error("Error when fetching donations.", error);
@@ -84,7 +85,7 @@ function DonationTable() {
     const rows = pages[currentPage - 1].map((element, index) => (
         <Table.Tr key={index}>
             <Table.Td>
-                {element.date}
+                {element.date?.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
             </Table.Td>
             <Table.Td>{element.amount}</Table.Td>
             <Table.Td>{element.type}</Table.Td>
