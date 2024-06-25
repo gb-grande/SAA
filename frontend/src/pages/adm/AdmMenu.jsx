@@ -30,7 +30,7 @@ function AdmMenu () {
             />
             <MenuButton
                 link='/admin/registrardoacoes'
-                text='Registro Doações'
+                text='Gerenciar Doações'
             />
             <MenuButton
                 link='/login'

@@ -1,50 +1,53 @@
 import {useState} from "react";
-import {useForm} from "@mantine/form";
 import {Button, LoadingOverlay, Stack} from "@mantine/core";
 import {DatePicker} from "@mantine/dates";
+import {notifications} from "@mantine/notifications";
+import {modals} from "@mantine/modals";
+import axios from "axios";
+
+function initiateDownload(blob){
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'relatorio.pdf';
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+}
 
 function GenerateReportModal() {
     const [loading, setLoading] = useState(false);
+    const [value, setValue] = useState([new Date(), new Date()]);
 
-    const form = useForm({
-        mode: "uncontrolled",
-
-        initialValues: {
-            startdate: '',
-            enddate: ''
-        },
-    });
-
-    /*function onSubmit(values){
+    function onSubmit(){
         setLoading(true);
-        axios.put(`api/admins/${user}`, {
-            user: user,
-            oldPassword: values.oldPassword,
-            newPassword: values.newPassword
-        }).then(_ => {
-            notifications.show({message: 'Informação atualizada com sucesso.'});
+        console.log("will generate for "+value[0] + ' -> ' + value[1]);
+        axios.get('api/donations/report', {
+            params: {
+                startDate: value[0],
+                endDate: value[1] ?? value[0]
+            },
+            responseType: "blob"
+        }).then(res => {
+            initiateDownload(res.data);
+            notifications.show({message: 'Relatório gerado, iniciando download.'});
             modals.closeAll();
-            if (onAdminEdited) onAdminEdited(admin);
         }).catch(err => {
-            if (err.response?.data?.validationErrors){
-                form.setErrors(err.response.data.validationErrors);
-            } else if (err.response?.status === 401){
-                form.setFieldError('oldPassword', 'Senha incorreta.')
-            } else {
-                console.error("Unhandled error when editing admin.", err);
-                notifications.show({message: "Erro ao editar senha.", color: 'red'});
-            }
+            console.error('Unhandled error when generating report.', err);
+            notifications.show({message: 'Erro ao gerar relatório.', color: 'red'});
         }).finally(() => setLoading(false));
-    }*/
+    }
 
     return (
-        <Stack component='form'>
+        <>
             <LoadingOverlay visible={loading}/>
-            <DatePicker type="range" placeholder="" {...form.getInputProps('date')} />
-            <Button fullWidth type='submit' mt="md">
-                Gerar
-            </Button>
-        </Stack>
+            <Stack>
+                <DatePicker type="range" allowSingleDateInRange value={value} onChange={setValue}/>
+                <Button fullWidth type='submit' mt="md" onClick={onSubmit}>
+                    Gerar
+                </Button>
+            </Stack>
+        </>
     )
 }
 
