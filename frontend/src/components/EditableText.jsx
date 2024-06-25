@@ -4,11 +4,20 @@ import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";
 
-// Splits text so any URLs in the text are clickable.
 const urlRegex = /((?:https?:\/\/)?(?:www\.)?[a-zA-Z0-9@:%._+~#=]{2,256}(?:\.[a-z]{2,6})+\b(?:\.?[-a-zA-Z0-9@:%_+~#?&/=])*)/g
+// Splits text into <span>, <a> and <br> so linebreaks work and  URLs are clickable.
 function splitText(text){
     if (text === undefined || text === null) return;
     if (typeof(text) != "string") text = String(text);
+
+    //Split linebreaks
+    if (text.includes('\n')){
+        return text.split('\n')
+            .flatMap((p, i) => [splitText(p), <br key={i+'a'}/>])
+            .slice(0,-1);
+    }
+
+    //Split urls into anchors
     const parts = text.split(urlRegex);
     for (let i = 0; i < parts.length; i++){
         if (parts[i].match(urlRegex)) {

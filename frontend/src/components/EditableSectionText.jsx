@@ -38,14 +38,14 @@ function EditableSectionText({section, containerStyle, textContainerStyle, input
             });
     }
 
-    if (loading) return <Skeleton style={inputContainerStyle}/>
+    if (loading) return (<Skeleton style={inputContainerStyle}/>);
 
     return (
         <EditableText inputStyle={inputStyle} containerStyle={containerStyle}
                       textContainerStyle={textContainerStyle} inputContainerStyle={inputContainerStyle}
                       textClassName={textClassName} text={text} onSave={onSave} maxLen={maxLen}
         />
-    )
+    );
 }
 
 export default EditableSectionText;
