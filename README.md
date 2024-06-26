@@ -46,7 +46,6 @@ MINIO_SECRET_KEY= #Insira a chave secreta gerada no browser do MinIO.
 
 Em seguida podemos hospedar o backend. Abra uma instância de terminal no diretório */backend/*. Execute o comando `npm install` para garantir que os pacotes necessários estão instalados. Execute o comando `node ./src/server.js` para hospedar o backend na porta escolhida no .env. Aguarde as mensagens de confirmação no terminal.
 
-
 ### Frontend
 Crie um arquivo **.env** no diretório */frontend/* com os seguintes valores:
 ```
