@@ -14,7 +14,7 @@ export async function getInfoText(req, res) {
         const json = await fs.readFile(fileDir, {encoding: "utf8"});
         const info = JSON.parse(json);
         return (req.params.id in info)
-            ? res.status(200).json(info[req.params.id])
+            ? res.status(200).json({text: info[req.params.id]})
             : res.status(404).send({message: 'Texto não encontrado.'});
     } catch (e) {
         console.log('Unhandled error when getting info texts:', e);

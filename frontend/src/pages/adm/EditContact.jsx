@@ -39,9 +39,8 @@ function EditContact() {
             //Remove the +55 from the phone number
             data.phone = data.phone.slice(3);
             form.initialize(data);
-            console.log("Data loaded: ", res.data);
         }).catch(err => {
-            console.log("Failed loading data.", err);
+            console.error("Failed loading data.", err);
         }).finally(() => {
             setLoading(false);
         });

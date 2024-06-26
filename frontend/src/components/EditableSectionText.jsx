@@ -17,8 +17,8 @@ import {Skeleton} from "@mantine/core";
  * @returns {JSX.Element} The EditableSectionText component.
  */
 function EditableSectionText({section, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
-    const {result: text, setResult: setText, error, loading} = useFetch(`api/infoTexts/${section}`, {
-        defaultValue: ''
+    const {result: {text}, setResult: setText, error, loading} = useFetch(`api/infoTexts/${section}`, {
+        defaultValue: {text: ''}
     });
     if (error){
         console.error(`Couldn't load '${section}' info.`, error);
@@ -38,14 +38,14 @@ function EditableSectionText({section, containerStyle, textContainerStyle, input
             });
     }
 
-    if (loading) return <Skeleton style={inputContainerStyle}/>
+    if (loading) return (<Skeleton style={inputContainerStyle}/>);
 
     return (
         <EditableText inputStyle={inputStyle} containerStyle={containerStyle}
                       textContainerStyle={textContainerStyle} inputContainerStyle={inputContainerStyle}
                       textClassName={textClassName} text={text} onSave={onSave} maxLen={maxLen}
         />
-    )
+    );
 }
 
 export default EditableSectionText;

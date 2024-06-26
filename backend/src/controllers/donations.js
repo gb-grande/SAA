@@ -1,7 +1,6 @@
 import Donations from "../models/Donations.js";
 import mongoose from "mongoose";
 import generatePdf from "../services/donationReportGen.js";
-import {unlink} from "fs"
 
 /**
  * Registers a new donation.
@@ -63,23 +62,32 @@ export async function getDonation(req, res) {
  */
 export async function getReport(req, res) {
     try {
-        let {startDate, endDate} = req.body;
+        let {startDate, endDate} = req.query;
+        if (!startDate || !endDate){
+            return res.status(400).send({message: 'Datas inválidas.'});
+        }
+
+        startDate = new Date(startDate);
+        endDate = new Date(endDate);
+        if (startDate.getTime() > endDate.getTime()){
+            return res.status(400).send({message: 'Datas inválidas.'});
+        }
+
         const validDonations = await Donations.find({
             date : {
                 $gte : startDate,
                 $lte : endDate
             }
         }).sort({date: 1});
-        //must convert to date so generatePdf can be used
-        startDate = new Date(startDate);
-        endDate = new Date(endDate);
-        res.contentType("application/pdf");
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename="relatorio.pdf"');
         const doc = generatePdf(startDate, endDate, validDonations, "temp/report.pdf");
         doc.pipe(res);
         doc.end();
         return res.status(200);
     } catch (e){
-        return res.status(400).send({ error: e.message });
+        return res.status(500).send({ error: e.message });
     }
 
 

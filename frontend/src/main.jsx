@@ -11,6 +11,7 @@ import '@mantine/tiptap/styles.css';
 import '@mantine/notifications/styles.css';
 import './index.css';
 import {Notifications} from "@mantine/notifications";
+import '@mantine/dates/styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

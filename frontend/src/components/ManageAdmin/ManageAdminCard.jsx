@@ -21,7 +21,7 @@ function ManageAdminCard({admin, h, w, onAdminDeleted, ...others}) {
 
     const { userName, clearAuth } = useAuth();
     const logOutAfterChanging = (admin) => {
-        if (admin.user === user)
+        if (user === userName)
             clearAuth();
     }
 

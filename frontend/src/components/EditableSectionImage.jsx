@@ -11,7 +11,7 @@ import {Skeleton} from "@mantine/core";
  * @returns {JSX.Element} The EditableSectionImage component.
  */
 function EditableSectionImage({section, ...others}){
-    const {result: {imageUrl}, setResult: setUrl, error, loading} = useFetch(
+    const {result: {imageUrl}, error, reFetch} = useFetch(
         `api/sectionImages/${section}`,  {
             defaultValue: {
                 imageUrl: ''
@@ -27,10 +27,10 @@ function EditableSectionImage({section, ...others}){
         if (!file) return;
 
         axios.putForm(`api/sectionImages/${section}`,{image: file})
-            .then(res => {
-                setUrl(res.data.imageUrl);
+            .then(_ => {
                 notifications.show({message: 'Imagem salva.'});
                 endEditing();
+                reFetch();
             })
             .catch(err => {
                 console.error('Error when saving image: ', err.response);
@@ -38,7 +38,7 @@ function EditableSectionImage({section, ...others}){
             });
     }
 
-    if (loading || !imageUrl){
+    if (!imageUrl){
         return (<Skeleton {...others}/>);
     }
 

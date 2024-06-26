@@ -14,6 +14,7 @@ import axios from "axios";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ManageAdmInfos from "./pages/adm/ManageAdmInfos.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
+import Donations from "./pages/adm/Donations.jsx";
 
 if (import.meta.env.VITE_BACKEND_URL)
     axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
@@ -47,6 +48,7 @@ function App() {
                 <Route path="editarcontato" element={<EditContact/>}/>
                 <Route path="gerenciarcadastro" element={<ManageAdmInfos/>}/>
                 <Route path="cadastro" element={<RegisterAdm/>}/>
+               <Route path="registrardoacoes" element={<Donations/>}/>
             </Route>
 
         </Routes>
