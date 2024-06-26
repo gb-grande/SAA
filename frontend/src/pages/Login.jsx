@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Paper, Text, Button, Center, Stack} from '@mantine/core';
-import ColoredInputBars from "../components/ColoredInputBars.jsx";
+import ColoredInputBars from "../components/customInputs/ColoredInputBars.jsx";
 import {isNotEmpty, useForm} from "@mantine/form";
 import {useNavigate} from "react-router-dom";
 import { useAuth } from '../providers/AuthProvider.jsx';

@@ -2,8 +2,8 @@ import ReactCardFlip from 'react-card-flip';
 import {Image, Text, Button, Stack, Center, Paper, SimpleGrid, Space, Box} from "@mantine/core"
 import {useDisclosure} from "@mantine/hooks";
 import classes from "./FlipCard.module.css"
-import EditableSectionText from "./EditableSectionText.jsx";
-import EditableSectionImage from "./EditableSectionImage.jsx";
+import EditableSectionText from "../editables/EditableSectionText.jsx";
+import EditableSectionImage from "../editables/EditableSectionImage.jsx";
 
 /**
  * A Flip Card component that displays a card with a front and back side.

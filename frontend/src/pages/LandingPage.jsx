@@ -1,13 +1,13 @@
 import {
     Paper, Title, Text, Space, Center, SimpleGrid, Anchor, Stack
 } from "@mantine/core"
-import FlipCard from "../components/FlipCard.jsx";
-import PostCarousel from "../components/PostCarousel.jsx";
-import Circle from "../components/Circle.jsx";
-import EditableSectionText from "../components/EditableSectionText.jsx";
+import FlipCard from "../components/landingPage/FlipCard.jsx";
+import PostCarousel from "../components/posts/PostCarousel.jsx";
+import Circle from "../components/landingPage/Circle.jsx";
+import EditableSectionText from "../components/editables/EditableSectionText.jsx";
 import classes from "./LandingPage.module.css"
 import useFetch from "../hooks/useFetch.jsx";
-import EditableSectionImage from "../components/EditableSectionImage.jsx";
+import EditableSectionImage from "../components/editables/EditableSectionImage.jsx";
 
 function formatTelephone(number){
     if (!number) return '';

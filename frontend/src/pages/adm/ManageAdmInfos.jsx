@@ -1,6 +1,6 @@
 import {Pagination, Title, Center, Group, Button} from "@mantine/core";
 import {useState} from "react";
-import ManageAdminGrid from "../../components/ManageAdmin/ManageAdminGrid.jsx";
+import ManageAdminGrid from "../../components/manageAdmin/ManageAdminGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
 import ProtectedComponent from "../../components/ProtectedComponent.jsx";
 import useFetch from "../../hooks/useFetch.jsx";

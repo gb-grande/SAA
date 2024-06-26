@@ -1,10 +1,10 @@
 import {Pagination, Title, Center, Group, Button} from "@mantine/core";
 import {useState} from "react";
-import PostGrid from "../components/PostGrid.jsx";
+import PostGrid from "../../components/posts/PostGrid.jsx";
 import {useViewportSize} from "@mantine/hooks";
-import ProtectedComponent from "../components/ProtectedComponent.jsx";
-import useFetch from "../hooks/useFetch.jsx";
+import ProtectedComponent from "../../components/ProtectedComponent.jsx";
 import {HashLink} from "react-router-hash-link";
+import useFetch from "../../hooks/useFetch.jsx";
 
 function* yieldPages(data, pageSize) {
     for (let i = 0; i < data.length; i += pageSize){
@@ -13,26 +13,25 @@ function* yieldPages(data, pageSize) {
 }
 
 /**
- * The BlogPage component displays the Blog section of the website.
+ * The BazarPage component displays the Bazar section of the website.
  * 
- * @returns {JSX.Element} The Blog Page itself.
+ * @returns {JSX.Element} The Bazar Page itself.
  */
-function BlogPage() {
+function BazarPage() {
     const [currentPage, setCurrentPage] = useState(1);
-    const {result: posts} = useFetch('api/posts?type=blog', {
+    const {result: posts} = useFetch('api/posts?type=bazar', {
         defaultValue: []
     });
     const {width} = useViewportSize();
     const cardsPerPage = 12;
 
     const pages = [...yieldPages(posts, cardsPerPage)];
-    
     return (
       <>
           <Group>
-              <Title mb='sm'>Blog</Title>
+              <Title mb='sm'>Bazar</Title>
               <ProtectedComponent>
-                  <Button component={HashLink} to={'/admin/blog/'}>Criar</Button>
+                  <Button component={HashLink} to={'/admin/bazar/'}>Criar</Button>
               </ProtectedComponent>
           </Group>
           <PostGrid data={pages[currentPage - 1]} containerWidth={width}/>
@@ -44,4 +43,4 @@ function BlogPage() {
     );
 }
 
-export default BlogPage
+export default BazarPage

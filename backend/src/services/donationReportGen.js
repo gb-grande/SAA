@@ -1,5 +1,4 @@
 import PDFDocument from "pdfkit";
-import { createWriteStream } from "fs";
 
 //return date string to BR format
 function getDateBR(date){
@@ -16,9 +15,9 @@ class DonationsInfo {
         this.totalReceived = 0;
         this.totalSent = 0;
         for (let donation of allDonations) {
-                //converts to date and not timestamp
-                donation.date = new Date(donation.date);
-            if (donation.flow == 'received') {
+            //converts to date and not timestamp
+            donation.date = new Date(donation.date);
+            if (donation.flow === 'received') {
                 this.donationIn.push(donation);
                 this.totalReceived += donation.amount
             }
@@ -103,7 +102,7 @@ function insertRow(doc, entry){
 
 
 //function that generates final pdf and return it
-export default function generatePdf(startDate, endDate, allDonations, path){
+export default function generatePdf(startDate, endDate, allDonations){
     const donationInfo = new DonationsInfo(allDonations);
     let report = buildEmptyReport(startDate, endDate);
     insertSectionHeader(report, "Métricas Gerais")

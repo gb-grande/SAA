@@ -31,7 +31,7 @@ function ColoredInputBars({placeholder, type="text", ...others}){
         ...others
     }
 
-    if (type == 'password') {
+    if (type === 'password') {
         return (<PasswordInput {...props}/>)
     }
     return (<TextInput {...props}/>)

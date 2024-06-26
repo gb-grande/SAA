@@ -1,9 +1,9 @@
 import {Title, Text, Image, Center, Group, Button, LoadingOverlay} from "@mantine/core"
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
-import ProtectedComponent from "../components/ProtectedComponent.jsx";
+import ProtectedComponent from "../../components/ProtectedComponent.jsx";
 import { modals } from "@mantine/modals";
 import axios from "axios";
-import useFetch from "../hooks/useFetch.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
 import {notifications} from "@mantine/notifications";
 import {HashLink} from "react-router-hash-link";
 

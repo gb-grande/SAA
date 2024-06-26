@@ -1,5 +1,5 @@
 import {Stack, Button, LoadingOverlay} from '@mantine/core'
-import ContactInput from '../../components/ContactInput.jsx';
+import ContactInput from '../../components/customInputs/ContactInput.jsx';
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";

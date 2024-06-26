@@ -1,5 +1,5 @@
 import {ActionIcon, Button, Center, FocusTrap, Group} from "@mantine/core";
-import ProtectedComponent from "./ProtectedComponent.jsx";
+import ProtectedComponent from "../ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 import {useDisclosure} from "@mantine/hooks";
 import {useState} from "react";

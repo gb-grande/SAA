@@ -1,7 +1,7 @@
 import {Center, Group, Image, Box} from "@mantine/core";
 import logo from "../../assets/logo.jpeg";
 import {HashLink} from "react-router-hash-link";
-import SocialMediaIcon from "../SocialMediaIcon.jsx";
+import SocialMediaIcon from "./SocialMediaIcon.jsx";
 
 /**
  * Banner component renders layout banner.

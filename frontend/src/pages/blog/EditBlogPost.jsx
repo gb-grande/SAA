@@ -14,7 +14,7 @@ import axios from "axios";
 import { isNotEmpty, useForm } from "@mantine/form";
 import {notifications} from "@mantine/notifications";
 import classes from "./EditBlogPost.module.css"
-import { useAuth } from '../providers/AuthProvider.jsx';
+import { useAuth } from '../../providers/AuthProvider.jsx';
 
 /**
  * The EditBlogPost page allows admins for editing a blog post.
