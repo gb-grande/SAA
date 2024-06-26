@@ -6,7 +6,7 @@ import { useAuth } from '../providers/AuthProvider.jsx';
  * If not authenticated, redirects to login page.
  * 
  * @param {object} children - The child elements or component to render conditionally.
- * @returns The ProtectedRoute, rendering children if user is authenticated.
+ * @returns {JSX.Element} The ProtectedRoute, rendering children if user is authenticated.
  */
 function ProtectedRoute({children}){
     const { token } = useAuth();

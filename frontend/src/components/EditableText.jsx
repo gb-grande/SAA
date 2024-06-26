@@ -42,7 +42,7 @@ function splitText(text){
  * @param {object} inputStyle - Custom styles to apply to the input element.
  * @param {string} textClassName - Custom class name to apply to the text element.
  * @param {number} maxLen - The maximum length of the text.
- * @returns The EditableText component.
+ * @returns {JSX.Element} The EditableText component.
  */
 function EditableText({text, onSave, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
     const [editText, setEditText] = useState("");

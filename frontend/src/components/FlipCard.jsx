@@ -20,7 +20,7 @@ import EditableSectionImage from "./EditableSectionImage.jsx";
  * @param {string} image - The URL of the image displayed on the front side of the card.
  * @param {string} imageAlt - The alt text for the image.
  * @param {string} editableImageSection - The image section name for querying text the image url from the backend.
- * @returns The FlipCard component.
+ * @returns {JSX.Element} The FlipCard component.
  */
 function FlipCard({buttonText, normalizedImgW = .5, style = {},
                       textFront, editableFrontTextSection, textBack, editableBackTextSection,

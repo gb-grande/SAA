@@ -14,7 +14,7 @@ import {Skeleton} from "@mantine/core";
  * @param {object} inputStyle - Custom styles to apply to the input element.
  * @param {string} textClassName - Custom class name to apply to the text element.
  * @param {number} maxLen - The maximum length of the text.
- * @returns The EditableSectionText component.
+ * @returns {JSX.Element} The EditableSectionText component.
  */
 function EditableSectionText({section, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
     const {result: {text}, setResult: setText, error, loading} = useFetch(`api/infoTexts/${section}`, {

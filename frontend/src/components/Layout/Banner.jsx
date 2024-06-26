@@ -6,7 +6,7 @@ import SocialMediaIcon from "../SocialMediaIcon.jsx";
 /**
  * Banner component renders layout banner.
  * 
- * @returns The Banner component.
+ * @returns {JSX.Element} The Banner component.
  */
 function Banner(){
     return (

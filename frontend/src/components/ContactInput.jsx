@@ -6,7 +6,7 @@ import {PasswordInput, TextInput} from '@mantine/core'
  * @param {string} label The input label.
  * @param {string} placeholder The input placeholder.
  * @param {string} type The input type. Use 'text' or 'password'.
- * @returns The ContactInput component.
+ * @returns {JSX.Element} The ContactInput component.
  */
 function ContactInput({label, placeholder, type="text", ...others}) {
 

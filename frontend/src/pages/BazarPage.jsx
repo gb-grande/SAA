@@ -15,7 +15,7 @@ function* yieldPages(data, pageSize) {
 /**
  * The BazarPage component displays the Bazar section of the website.
  * 
- * @returns The Bazar Page itself.
+ * @returns {JSX.Element} The Bazar Page itself.
  */
 function BazarPage() {
     const [currentPage, setCurrentPage] = useState(1);

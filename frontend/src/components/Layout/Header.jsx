@@ -6,7 +6,7 @@ import {HashLink} from "react-router-hash-link";
 /**
  * Header component renders the header layout section.
  * 
- * @returns The Header component displaying navigation links.
+ * @returns {JSX.Element} The Header component displaying navigation links.
  */
 function Header(){
     const [opened, {toggle}] = useDisclosure();

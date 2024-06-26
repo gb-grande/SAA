@@ -15,7 +15,7 @@ function* yieldPages(data, pageSize) {
 /**
  * The BlogPage component displays the Blog section of the website.
  * 
- * @returns The Blog Page itself.
+ * @returns {JSX.Element} The Blog Page itself.
  */
 function BlogPage() {
     const [currentPage, setCurrentPage] = useState(1);

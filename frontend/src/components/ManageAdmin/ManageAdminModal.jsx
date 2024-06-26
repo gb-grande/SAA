@@ -11,7 +11,7 @@ import {useState} from "react";
  * 
  * @param {object} admin The admin user object to be edited.
  * @param {function} onAdminEdited Callback function invoked when admin details are edited.
- * @returns The ManageAdminModal component.
+ * @returns {JSX.Element} The ManageAdminModal component.
  */
 function ManageAdminModal({admin, onAdminEdited}){
     const {user} = admin;

@@ -21,7 +21,7 @@ import { useAuth } from '../providers/AuthProvider.jsx';
  * It loads the blog post based on the ID from the URL, 
  * and provides a form for updating the post's content, title, and image.
  * 
- * @returns The EditBlogPost page.
+ * @returns {JSX.Element} The EditBlogPost page.
  */
 function EditBlogPost() {
     let navigate = useNavigate();

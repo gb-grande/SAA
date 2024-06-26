@@ -8,7 +8,7 @@ import {useMediaQuery} from "@mantine/hooks";
  * @param {Array} data An array of admin user objects to be displayed in the grid.
  * @param {function} onAdminDeleted Callback function invoked when an admin is deleted.
  * @param {string} containerWidth Optional width of the container for the grid.
- * @returns The ManageAdminGrid component.
+ * @returns {JSX.Element} The ManageAdminGrid component.
  */
 function ManageAdminGrid({data = [], onAdminDeleted, containerWidth}){
     const theme = useMantineTheme();

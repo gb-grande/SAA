@@ -20,7 +20,7 @@ function getIcon(icon, props){
  * @param {string} numberSection The number section.
  * @param {string} description The stat description.
  * @param {string} icon The circle icon. Use: 'dog', 'food', 'alert' or 'vet'.
- * @returns The Circle component.
+ * @returns {JSX.Element} The Circle component.
  */
 function Circle({number, numberSection, description, icon}) {
     const theme = useMantineTheme();

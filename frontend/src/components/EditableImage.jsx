@@ -8,7 +8,7 @@ import {IconPencil} from "@tabler/icons-react";
  * 
  * @param {string} url The image url.
  * @param {function} onSave The onSave function.
- * @returns The EditableImage component.
+ * @returns {JSX.Element} The EditableImage component.
  */
 function EditableImage({url, onSave, ...others}){
     const [editing, setEditing] = useState(false);
