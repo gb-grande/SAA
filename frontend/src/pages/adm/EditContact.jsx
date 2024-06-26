@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Stack, Button, LoadingOverlay} from '@mantine/core'
-import ContactInput from '../../components/ContactInput.jsx';
+import ContactInput from '../../components/customInputs/ContactInput.jsx';
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
@@ -8,8 +8,12 @@ import {IconAt} from "@tabler/icons-react";
 import {IMaskInput} from "react-imask";
 import {notifications} from "@mantine/notifications";
 
-function EditContact () {
-    //TODO validate fields and make explicit if should input social media link or handle
+/**
+ * The EditContact page allows the admin to edit contact information.
+ * 
+ * @returns {JSX.Element} The EditContact page.
+ */
+function EditContact() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const form = useForm({
@@ -35,9 +39,8 @@ function EditContact () {
             //Remove the +55 from the phone number
             data.phone = data.phone.slice(3);
             form.initialize(data);
-            console.log("Data loaded: ", res.data);
         }).catch(err => {
-            console.log("Failed loading data.", err);
+            console.error("Failed loading data.", err);
         }).finally(() => {
             setLoading(false);
         });

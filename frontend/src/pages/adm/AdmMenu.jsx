@@ -1,9 +1,13 @@
 import {Stack, Text} from '@mantine/core'
-import MenuButton from "../../components/MenuButton.jsx";
-import axios from 'axios';
+import MenuButton from "../../components/customInputs/MenuButton.jsx";
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
-function AdmMenu () {
+/**
+ * This is a admin menu page, with navigation to administrative sections.
+ * 
+ * @returns {JSX.Element} The AdmMenu page.
+ */
+function AdmMenu() {
     const {userName, clearAuth} = useAuth();
 
     const logOut = () => {
@@ -30,8 +34,13 @@ function AdmMenu () {
                 text='Editar Informações de Contato'
             />
             <MenuButton
+                link='/admin/registrardoacoes'
+                text='Gerenciar Doações'
+            />
+            <MenuButton
                 link='/login'
                 text='Sair'
+                bg='red'
                 onClick={logOut}
             >
 

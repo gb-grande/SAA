@@ -1,0 +1,4 @@
+.cardText{
+    text-align: center;
+    font-size: var(--mantine-font-size-xl);
+}

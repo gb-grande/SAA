@@ -1,20 +1,18 @@
 import {Box, Flex} from "@mantine/core";
 import {Outlet} from "react-router-dom";
-import Banner from "../components/Layout/Banner.jsx";
-import Header from "../components/Layout/Header.jsx";
-import Footer from "../components/Layout/Footer.jsx";
+import Banner from "../components/layout/Banner.jsx";
+import Header from "../components/layout/Header.jsx";
+import Footer from "../components/layout/Footer.jsx";
 
-
+/**
+ * The Layout serves as the overall layout structure for the application.
+ * It includes banner, header and footer structure and navigation across different pages.
+ * 
+ * @returns {JSX.Element} The Layout itself.
+ */
 function Layout() {
     return (
         <Flex h="100vh" direction="column" justify='flex-start'>
-        {/*<div style={{*/}
-        {/*    w: '100vw',*/}
-        {/*    h: '100vh',*/}
-        {/*    display: 'flex',*/}
-        {/*    flexDirection: 'column',*/}
-        {/*    justifyContent: 'flex-start',*/}
-        {/*}}>*/}
             <Banner/>
             <Header/>
 
@@ -23,7 +21,6 @@ function Layout() {
             </Box>
 
             <Footer/>
-        {/*</div>*/}
         </Flex>
     );
 }

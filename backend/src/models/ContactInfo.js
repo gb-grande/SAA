@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 
+/**
+ * A MongoDB schema for representing contact information.
+ * Includes: phone number, address, instagram user, facebook url.
+ */
 const schema = new mongoose.Schema({
     phone: {
         type: String,

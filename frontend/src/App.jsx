@@ -2,18 +2,19 @@ import {Routes, Route } from "react-router-dom";
 import Layout from "./pages/Layout.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import BlogPage from "./pages/BlogPage.jsx";
+import BlogPage from "./pages/blog/BlogPage.jsx";
 import AdmMenu from "./pages/adm/AdmMenu.jsx";
 import EditContact from "./pages/adm/EditContact.jsx";
-import BlogPost from "./pages/BlogPost.jsx";
-import EditBlogPost from "./pages/EditBlogPost.jsx";
+import BlogPost from "./pages/blog/BlogPost.jsx";
+import EditBlogPost from "./pages/blog/EditBlogPost.jsx";
 import RegisterAdm from "./pages/adm/RegisterAdm.jsx";
-import BazarPage from "./pages/BazarPage.jsx";
+import BazarPage from "./pages/blog/BazarPage.jsx";
 import Login from "./pages/Login.jsx";
 import axios from "axios";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ManageAdmInfos from "./pages/adm/ManageAdmInfos.jsx";
 import AuthProvider from "./providers/AuthProvider.jsx";
+import Donations from "./pages/adm/Donations.jsx";
 
 if (import.meta.env.VITE_BACKEND_URL)
     axios.defaults.baseURL = import.meta.env.VITE_BACKEND_URL;
@@ -47,6 +48,7 @@ function App() {
                 <Route path="editarcontato" element={<EditContact/>}/>
                 <Route path="gerenciarcadastro" element={<ManageAdmInfos/>}/>
                 <Route path="cadastro" element={<RegisterAdm/>}/>
+               <Route path="registrardoacoes" element={<Donations/>}/>
             </Route>
 
         </Routes>

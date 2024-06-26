@@ -11,32 +11,38 @@ import admins from "./routes/admins.js";
 import auth from "./routes/auth.js";
 import sectionImages from "./routes/sectionImages.js";
 import posts from "./routes/posts.js";
+import donations from "./routes/donations.js"
 import authMidd from "./middleware/auth.js";
 import './config.js'
 
+// Using express
 const app = express();
 app.use(helmet());
 app.use(cors({origin: true, credentials: true}));
 app.use(express.json());
 app.use(cookieParser());
 
+// Auth middleware 
 app.post('/api/*', authMidd);
 app.put('/api/*', authMidd);
 app.delete('/api/*', authMidd);
+app.get('/api/donations*', authMidd);
 
+// App endpoints
 app.use('/api/infoTexts', infoTexts);
 app.use('/api/contactInfos', contactInfos);
 app.use('/admins/login', adminLogin);
-app.use('/api/admins', admins);
+app.use('/api/admins', authMidd, admins);
 app.use('/api/sectionImages', sectionImages);
 app.use('/api/posts', posts);
 app.use('/api/auth', auth);
-
-//Serve static files
+app.use('/api/donations', donations)
+// Serve static files
 app.use('/images', express.static('images'), );
 
 const server = http.createServer(app);
 
+// Connecting to database
 const uri = process.env.DB_URI;
 async function connect(){
     try{
@@ -48,6 +54,7 @@ async function connect(){
 }
 connect();
 
+// Starting server
 const port = process.env.PORT || 4000;
 server.listen(port, () => {
     console.log(`Server running in port ${port}`);

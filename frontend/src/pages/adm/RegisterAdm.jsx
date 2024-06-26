@@ -1,15 +1,20 @@
 import {Stack, Button, LoadingOverlay} from '@mantine/core'
-import ContactInput from '../../components/ContactInput.jsx';
+import ContactInput from '../../components/customInputs/ContactInput.jsx';
 import {isNotEmpty, useForm} from "@mantine/form";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {notifications} from "@mantine/notifications";
 
-function RegisterAdm () {
+/**
+ * The RegisterAdm page provides a form for registering new administrators.
+ * 
+ * @returns {JSX.Element} The RegisterAdm page.
+ */
+function RegisterAdm() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    //TODO proper password validation
+    
     const form = useForm({
         mode: "uncontrolled",
         initialValues: {
@@ -28,7 +33,7 @@ function RegisterAdm () {
     function onSubmit(values){
         setLoading(true);
         values = {
-            user: values.user,
+            user: values.user.trim(),
             password: values.password
         }
         axios.post('api/admins', values).then(_ => {

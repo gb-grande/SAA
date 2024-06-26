@@ -1,13 +1,13 @@
 import {
     Paper, Title, Text, Space, Center, SimpleGrid, Anchor, Stack
 } from "@mantine/core"
-import FlipCard from "../components/FlipCard.jsx";
-import PostCarousel from "../components/PostCarousel.jsx";
-import Circle from "../components/Circle.jsx";
-import EditableSectionText from "../components/EditableSectionText.jsx";
+import FlipCard from "../components/landingPage/FlipCard.jsx";
+import PostCarousel from "../components/posts/PostCarousel.jsx";
+import Circle from "../components/landingPage/Circle.jsx";
+import EditableSectionText from "../components/editables/EditableSectionText.jsx";
 import classes from "./LandingPage.module.css"
 import useFetch from "../hooks/useFetch.jsx";
-import EditableSectionImage from "../components/EditableSectionImage.jsx";
+import EditableSectionImage from "../components/editables/EditableSectionImage.jsx";
 
 function formatTelephone(number){
     if (!number) return '';
@@ -23,7 +23,13 @@ function formatTelephone(number){
     return number;
 }
 
-function LandingPage(){
+/**
+ * The LandingPage component represents the main page of the application.
+ * It includes sections and components to provide an app overview.
+ * 
+ * @returns {JSX.Element} The Landing Page itself.
+ */
+function LandingPage() {
     const {result: contactInfo, error: contactInfoErr} = useFetch('api/contactInfos',  {
         defaultValue: {
             phone: '',
@@ -36,25 +42,29 @@ function LandingPage(){
 
     return (
         <>
-            <EditableSectionText section="topQuote" containerStyle={{width: "100%"}} textClassName={classes.topQuote} />
+            <EditableSectionText
+                section="topQuote"
+                containerStyle={{width: "100%"}}
+                inputContainerStyle={{height: "75px"}}
+                textClassName={classes.topQuote} />
 
             <SimpleGrid w="100%" cols={{base: 1, sm: 2}} spacing={{base: 'xs', sm: 'lg'}} mt="md" mb="xl">
                 <FlipCard
                     h={{lg: 350, md:300, sm: 250, base: 200}}
-                    textFront="Nos ajude com a sua doação."
+                    textFront="Ajude-nos a ajudar."
+                    editableFrontTextSection="cardDoacaoFront"
                     textBack="Informações da Doação"
                     editableBackTextSection="cardDoacao"
                     buttonText="DOE AGORA"
-                    editableImageTextSection="cardDoacao"
-                    imageAlt="Gato (Siri)"/>
+                    editableImageSection="cardDoacao"/>
 
                 <FlipCard
                     h={{lg: 350, md:300, sm: 250, base: 200}}
-                    textFront="Maus tratos? DENUNCIE!"
+                    textFront="Presenciou situações de maus tratos? Não hesite:"
+                    editableFrontTextSection="cardDenunciaFront"
                     editableBackTextSection="cardDenuncia"
-                    buttonText="DENUNCIE AQUI"
-                    editableImageTextSection="cardDenuncia"
-                    imageAlt="Gato Triste"/>
+                    buttonText="DENUNCIE."
+                    editableImageSection="cardDenuncia"/>
             </SimpleGrid>
             
 
@@ -114,7 +124,12 @@ function LandingPage(){
                         icon="vet"
                         number="552"
                         numberSection="numConsulta"
-                        description="Consultas realizadas"
+                        description= {
+                        <>
+                            Consultas<br />
+                            Realizadas
+                        </>
+                        }
                     />
                 </SimpleGrid>
             </Center>
@@ -152,7 +167,7 @@ function LandingPage(){
                     </Anchor>
                 </Stack>
                 <div>
-                    <EditableSectionImage section="contactInfo" radius="xl"/>
+                    <EditableSectionImage section="contactInfo" radius="xl" h={370}/>
                 </div>
             </SimpleGrid>
         </>
