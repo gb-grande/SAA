@@ -21,7 +21,7 @@ function EditableImage({url, onSave, ...others}){
     return (
         <div>
             <ProtectedComponent>
-                <FileButton onChange={setFile}>
+                <FileButton onChange={setFile} accept="image/png,image/jpeg">
                     {
                         ({onClick}) => (
                             <ActionIcon onClick={() => {
