@@ -1,5 +1,5 @@
 import EditableImage from "./EditableImage.jsx";
-import useFetch from "../hooks/useFetch.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
 import axios from "axios";
 import {notifications} from "@mantine/notifications";
 import {Skeleton} from "@mantine/core";

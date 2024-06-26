@@ -1,8 +1,8 @@
 import {Box, Flex} from "@mantine/core";
 import {Outlet} from "react-router-dom";
-import Banner from "../components/Layout/Banner.jsx";
-import Header from "../components/Layout/Header.jsx";
-import Footer from "../components/Layout/Footer.jsx";
+import Banner from "../components/layout/Banner.jsx";
+import Header from "../components/layout/Header.jsx";
+import Footer from "../components/layout/Footer.jsx";
 
 /**
  * The Layout serves as the overall layout structure for the application.

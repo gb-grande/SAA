@@ -1,5 +1,5 @@
 import {Stack, Text} from '@mantine/core'
-import MenuButton from "../../components/MenuButton.jsx";
+import MenuButton from "../../components/customInputs/MenuButton.jsx";
 import { useAuth } from '../../providers/AuthProvider.jsx';
 
 /**

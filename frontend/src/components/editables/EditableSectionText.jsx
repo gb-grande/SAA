@@ -1,6 +1,6 @@
 import EditableText from "./EditableText.jsx";
 import axios from "axios";
-import useFetch from "../hooks/useFetch.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
 import {notifications} from "@mantine/notifications";
 import {Skeleton} from "@mantine/core";
 

@@ -1,5 +1,5 @@
 
-import DonationTable from "../../components/Donations/DonationTable.jsx";
+import DonationTable from "../../components/donations/DonationTable.jsx";
 
 function Donations () {
     return(

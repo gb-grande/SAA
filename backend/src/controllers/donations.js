@@ -82,7 +82,7 @@ export async function getReport(req, res) {
 
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'attachment; filename="relatorio.pdf"');
-        const doc = generatePdf(startDate, endDate, validDonations, "temp/report.pdf");
+        const doc = generatePdf(startDate, endDate, validDonations);
         doc.pipe(res);
         doc.end();
         return res.status(200);

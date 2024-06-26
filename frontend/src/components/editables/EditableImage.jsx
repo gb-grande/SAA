@@ -1,6 +1,6 @@
 import {ActionIcon, Button, FileButton, Group, Image} from "@mantine/core";
 import {useState} from "react";
-import ProtectedComponent from "./ProtectedComponent.jsx";
+import ProtectedComponent from "../ProtectedComponent.jsx";
 import {IconPencil} from "@tabler/icons-react";
 
 /**

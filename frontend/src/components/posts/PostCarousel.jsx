@@ -4,7 +4,7 @@ import {useMediaQuery} from "@mantine/hooks";
 import {Center, useMantineTheme} from "@mantine/core";
 import {IconCaretRightFilled, IconCaretLeftFilled} from "@tabler/icons-react";
 import classes from './PostCarousel.module.css'
-import useFetch from "../hooks/useFetch.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
 
 /**
  * A Post Carousel component to display a carousel of posts.

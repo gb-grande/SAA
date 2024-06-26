@@ -1,5 +1,5 @@
 import {ActionIcon, Group, Stack, Text, Image} from "@mantine/core";
-import SocialMediaIcon from "../SocialMediaIcon.jsx";
+import SocialMediaIcon from "./SocialMediaIcon.jsx";
 import logo_icmc from "../../assets/logo_icmc.png";
 /**
  * Footer component renders the footer layout section.

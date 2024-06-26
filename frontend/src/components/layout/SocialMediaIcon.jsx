@@ -1,6 +1,6 @@
 import {IconBrandFacebook, IconBrandInstagram} from "@tabler/icons-react";
 import {ActionIcon} from "@mantine/core";
-import useFetch from "../hooks/useFetch.jsx";
+import useFetch from "../../hooks/useFetch.jsx";
 
 /**
  * A SocialMediaIcon component that renders an icon for a specific social media platform.
