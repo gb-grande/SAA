@@ -1,7 +1,6 @@
 import Donations from "../models/Donations.js";
 import mongoose from "mongoose";
 import generatePdf from "../services/donationReportGen.js";
-import {unlink} from "fs"
 
 /**
  * Registers a new donation.
@@ -63,14 +62,14 @@ export async function getDonation(req, res) {
  */
 export async function getReport(req, res) {
     try {
-        const {startDateStr, endDateStr} = req.query;
-        if (!startDateStr || !endDateStr){
+        let {startDate, endDate} = req.query;
+        if (!startDate || !endDate){
             return res.status(400).send({message: 'Datas inválidas.'});
         }
 
-        const startDate = new Date(startDateStr);
-        const endDate = new Date(endDateStr);
-        if (startDate.getTime() < endDate.getTime()){
+        startDate = new Date(startDate);
+        endDate = new Date(endDate);
+        if (startDate.getTime() > endDate.getTime()){
             return res.status(400).send({message: 'Datas inválidas.'});
         }
 
