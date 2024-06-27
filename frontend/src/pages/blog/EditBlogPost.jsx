@@ -148,7 +148,12 @@ function EditBlogPost() {
                     {...form.getInputProps('title')}
                 />
                 <div>
-                    <Button type="submit" className={classes.customButton} disabled={!form.values.content}>Salvar</Button>
+                    <Button type="submit"
+                            className={classes.customButton}
+                            disabled={!form.values.content || !form.values.title}
+                    >
+                        Salvar
+                    </Button>
 
                     <Button bg='red' className={classes.customButton} onClick={onCancel}>Cancelar</Button>
                 </div>
