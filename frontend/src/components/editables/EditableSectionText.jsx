@@ -17,7 +17,7 @@ import {Skeleton} from "@mantine/core";
  * @returns {JSX.Element} The EditableSectionText component.
  */
 function EditableSectionText({section, containerStyle, textContainerStyle, inputContainerStyle, inputStyle, textClassName, maxLen}){
-    const {result: {text}, setResult: setText, error, loading} = useFetch(`api/infoTexts/${section}`, {
+    const {result: {text}, error, loading, reFetch} = useFetch(`api/infoTexts/${section}`, {
         defaultValue: {text: ''}
     });
     if (error){
@@ -29,8 +29,8 @@ function EditableSectionText({section, containerStyle, textContainerStyle, input
 
         axios.put(`api/infoTexts/${section}`, {data: value})
             .then(_ => {
-                setText(value);
                 notifications.show({message: 'Seção de texto salva.'});
+                reFetch();
             })
             .catch(err => {
                 console.error(`Unhandled error when registering ${section} text.`, err);
