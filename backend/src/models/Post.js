@@ -36,20 +36,5 @@ const schema = new mongoose.Schema({
     }
 });
 
-schema.pre(['updateOne', 'findByIdAndUpdate', 'findOneAndUpdate'], {}, async function(next){
-    // If changes the image, delete the old image from minio.
-    try {
-        const post = await this.model.findById(this._conditions._id);
-        if (post.imageUrl && this.get('imageUrl') !== post.imageUrl){
-            await deleteImage(post.imageUrl);
-            console.log("Old image deleted.");
-        }
-    } catch (err) {
-        console.error("Error when deleting old image.", err);
-    } finally {
-        next();
-    }
-});
-
 const Post = new mongoose.model("Post", schema);
 export default Post;
