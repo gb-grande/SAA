@@ -29,7 +29,43 @@ Para executar o projeto, devem estar instalados:
 - [MinIO](https://min.io/)
 
 ### MinIO
-Primeiro deve ser executado o armazenamento de objetos MinIO. Siga o guia oficial para [Windows](https://min.io/docs/minio/windows/index.html), [Linux](https://min.io/docs/minio/linux/index.html) ou [MacOS](https://min.io/docs/minio/macos/index.html) para poder instalar/hospedar uma instância local do MinIO e gerar uma chave de acesso e uma chave secreta. A porta padrão de execução será 9000.
+Primeiro deve ser executado o armazenamento de objetos MinIO. Siga o guia oficial para [Windows](https://min.io/docs/minio/windows/index.html), [Linux](https://min.io/docs/minio/linux/index.html) ou [MacOS](https://min.io/docs/minio/macos/index.html) para poder instalar/hospedar uma instância local do MinIO e gerar uma chave de acesso e uma chave secreta. A porta padrão de execução será 9000. Crie um bucket blog-images e defina a política de acesso como:
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "*"
+                ]
+            },
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws:s3:::blog-images"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "*"
+                ]
+            },
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::blog-images/*"
+            ]
+        }
+    ]
+}
+```
 
 ### Backend
 Crie um arquivo **.env** no diretório */backend/* com os seguintes valores:
