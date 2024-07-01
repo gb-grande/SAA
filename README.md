@@ -20,6 +20,13 @@ Desenvolvedores:
 *	Lucas Oliveira Castro
 * Miguel Bragante Henriques
 
+
+### Vídeo de Demonstração
+
+Veja o vídeo de demonstração, abaixo, no YouTube!
+
+[![Vídeo de Demonstração](videothumbnail.png)](https://www.youtube.com/watch?v=XvRD3UeiEns)
+
 ---
 
 ## Execução do Projeto
